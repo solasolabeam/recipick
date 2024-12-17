@@ -9,7 +9,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
+        inputGray: "#F1F1F1",
+        materialGet: "#9A9A9A",
+        recipeFind: "#FFA2A2",
         foreground: "var(--foreground)",
       },
     },
