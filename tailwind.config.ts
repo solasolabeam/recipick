@@ -13,7 +13,12 @@ export default {
         materialGet: "#9A9A9A",
         recipeFind: "#FFA2A2",
         recipeSearch: "#B56D40",
-        freezerSearch: "#BFB2A9"
+        freezerSearch: "#BFB2A9",
+        rice: "#FDCD4F",
+        soup: "#FFA86A",
+        sideDish: "#C6BCA2",
+        dessert: "#DCBDBD",
+        best: "#818E6F",
       },
     },
   },
