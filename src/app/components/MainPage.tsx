@@ -11,6 +11,9 @@ import { useState } from "react";
 export default function MainPage() {
   const [] = useState();
   const banner = "/assets/images/banner.png";
+  const recipebook = "/assets/images/recipebook.png";
+  const freezer = "/assets/images/freezer.png";
+
   return (
     <div className="mx-5">
       {/* 로고, 로그인, 마이페이지 */}
@@ -35,14 +38,14 @@ export default function MainPage() {
           className="absolute left-3 top-3 h-5 w-5 cursor-pointer text-gray-400"
         />
         <input
-          className="h-full w-full rounded bg-inputGray pl-10 text-xs"
+          className="h-full w-full rounded-md bg-inputGray pl-10 text-xs"
           placeholder={`재료 또는 레시피 검색`}
         />
       </section>
       {/* 배너이미지 */}
-      <div className="w-90 relative mt-5 h-[230px] rounded border-none bg-gray-200">
+      <div className="w-90 relative mt-5 h-[230px] rounded-md border-none bg-gray-200">
         <Image
-          className="rounded"
+          className="rounded-xl"
           src={banner}
           alt="배너이미지"
           width={1024}
@@ -50,26 +53,37 @@ export default function MainPage() {
         ></Image>
         <section className="absolute bottom-5 left-[10px]">
           <p className="text-2xl font-bold text-white">맛있는 레시피 발견</p>
-          <p className="text-base  text-white">당신을 위한 레시피</p>
+          <p className="text-base text-white">당신을 위한 레시피</p>
         </section>
       </div>
-
-      <section className="mt-16">
-        <p className="text-xs">냉장고에 뭐가 있나요?</p>
+      {/* 메뉴선택 버튼 */}
+      <section className="mt-[73px] flex items-center justify-center gap-[32px]">
+        <div className="flex flex-col items-center">
+          <div className="bg-recipeSearch relative flex h-[126px] w-[126px] items-center justify-center rounded-xl">
+            <Image
+              className="h-[100px] w-[100px]"
+              src={recipebook}
+              alt="레시피북"
+              width={1024}
+              height={1024}
+            ></Image>
+          </div>
+          <p className="mt-4 text-base">모든 레시피</p>
+        </div>
+        <div className="flex flex-col items-center">
+          <div className="bg-freezerSearch relative flex h-[126px] w-[126px] items-center justify-center rounded-xl">
+            <Image
+              className="h-[100px] w-[100px]"
+              src={freezer}
+              alt="냉장고"
+              width={1024}
+              height={1024}
+            ></Image>
+          </div>
+          <p className="mt-4 text-base">냉장고 털기</p>
+        </div>
       </section>
-      <section className="mt-3 flex flex-col items-center gap-3">
-        <input
-          type="text"
-          placeholder="재료 입력"
-          className="h-10 w-[312px] rounded border-none bg-inputGray p-4 text-xs"
-        />
-        <button className="h-10 w-[312px] rounded border-none bg-materialGet text-xs text-white">
-          불러오기
-        </button>
-        <button className="h-10 w-[312px] rounded border-none bg-recipeFind text-xs text-white">
-          레시피 찾기
-        </button>
-      </section>
+      {/* 오늘의 추천레시피*/}
       <section className="mt-16">
         <div>
           <p className="text-2xl font-bold">추천 레시피</p>
