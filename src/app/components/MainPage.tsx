@@ -1,13 +1,33 @@
 "use client";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRightToBracket,
+  faMagnifyingGlass,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function MainPage() {
   const [] = useState();
+  const banner = "/assets/images/banner.png";
   return (
     <div className="mx-5">
-      <div className="mt-9 text-4xl font-bold">LOGO</div>
+      {/* 로고, 로그인, 마이페이지 */}
+      <section className="mt-9 flex items-center justify-between">
+        <div className="text-5xl font-bold">LOGO</div>
+        <section className="flex gap-5">
+          <div className="flex flex-col items-center">
+            <FontAwesomeIcon icon={faArrowRightToBracket} size="2x" />
+            <p className="text-xs">로그인</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <FontAwesomeIcon icon={faUser} size="2x" />
+            <p className="text-xs">My</p>
+          </div>
+        </section>
+      </section>
+      {/* 검색창 */}
       <section className="w-90 relative mt-3 h-10 rounded border-none">
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
@@ -19,7 +39,21 @@ export default function MainPage() {
           placeholder={`재료 또는 레시피 검색`}
         />
       </section>
-      <div className="w-90 mt-5 h-[230px] rounded border-none bg-gray-200"></div>
+      {/* 배너이미지 */}
+      <div className="w-90 relative mt-5 h-[230px] rounded border-none bg-gray-200">
+        <Image
+          className="rounded"
+          src={banner}
+          alt="배너이미지"
+          width={1024}
+          height={682}
+        ></Image>
+        <section className="absolute bottom-5 left-[10px]">
+          <p className="text-2xl font-bold text-white">맛있는 레시피 발견</p>
+          <p className="text-base  text-white">당신을 위한 레시피</p>
+        </section>
+      </div>
+
       <section className="mt-16">
         <p className="text-xs">냉장고에 뭐가 있나요?</p>
       </section>
