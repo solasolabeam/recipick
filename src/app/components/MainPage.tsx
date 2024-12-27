@@ -7,11 +7,17 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
-
+//메인 이미지
 const banner = "/assets/images/banner.png";
 const recipebook = "/assets/images/recipebook.png";
 const freezer = "/assets/images/freezer.png";
 const food = "/assets/images/food.jpg";
+//카테고리 이미지
+const rice = "/assets/images/rice.png";
+const soup = "/assets/images/soup.png";
+const sidedish = "/assets/images/sidedish.png";
+const dessert = "/assets/images/dessert.png";
+const best = "/assets/images/best.png";
 
 export default function MainPage() {
   const [] = useState();
@@ -47,7 +53,7 @@ export default function MainPage() {
       {/* 배너이미지 */}
       <div className="w-90 relative mt-5 h-[230px] rounded-md border-none bg-gray-200">
         <Image
-          className="w-full h-full rounded-xl object-cover"
+          className="h-full w-full rounded-xl object-cover"
           src={banner}
           alt="배너이미지"
           width={1024}
@@ -85,7 +91,7 @@ export default function MainPage() {
           <p className="mt-4 text-base font-semibold">냉장고 털기</p>
         </div>
       </section>
-      {/* 추천레시피*/}
+      {/* 추천 레시피 */}
       <section className="mt-16">
         <div>
           <p className="text-2xl font-bold">추천 레시피</p>
@@ -96,7 +102,7 @@ export default function MainPage() {
               <Image
                 className="h-full w-full object-cover"
                 src={food}
-                alt="food"
+                alt="음식"
                 width={450}
                 height={450}
               ></Image>
@@ -113,6 +119,7 @@ export default function MainPage() {
           </div>
         </div>
       </section>
+      {/* 인기 레시피 */}
       <section className="mt-20">
         <div>
           <p className="text-2xl font-bold">인기 레시피</p>
@@ -123,7 +130,7 @@ export default function MainPage() {
               <Image
                 className="h-full w-full object-cover"
                 src={food}
-                alt="food"
+                alt="음식"
                 width={450}
                 height={450}
               ></Image>
@@ -137,6 +144,72 @@ export default function MainPage() {
                 레시피 보기
               </button>
             </div>
+          </div>
+        </div>
+      </section>
+      {/* 카테고리별 레시피 */}
+      <section className="mt-[100px]">
+        <p className="text-2xl font-bold">카테고리별 레시피</p>
+        <div className="mt-4 flex flex-wrap gap-4">
+          <div className="flex flex-col items-center">
+            <div className="bg-rice h-[125px] w-[172px] rounded-xl">
+              <Image
+                className="h-full w-full"
+                src={rice}
+                alt="쌀"
+                width={1024}
+                height={768}
+              ></Image>
+            </div>
+            <p className="pt-5 text-base">밥</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="bg-soup h-[125px] w-[172px] rounded-xl">
+              <Image
+                className="h-full w-full"
+                src={soup}
+                alt="국&찌개"
+                width={1024}
+                height={768}
+              ></Image>
+            </div>
+            <p className="pt-5 text-base">국&찌개</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="bg-sideDish h-[125px] w-[172px] rounded-xl">
+              <Image
+                className="h-full w-full"
+                src={sidedish}
+                alt="반찬"
+                width={1024}
+                height={768}
+              ></Image>
+            </div>
+            <p className="pt-5 text-base">반찬</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="bg-dessert h-[125px] w-[172px] rounded-xl">
+              <Image
+                className="h-full w-full"
+                src={dessert}
+                alt="디저트"
+                width={1024}
+                height={768}
+              ></Image>
+            </div>
+            <p className="pt-5 text-base">디저트</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="bg-best h-[125px] w-[172px] rounded-xl">
+              <Image
+                className="h-full w-full"
+                src={best}
+                alt="일품"
+                width={1024}
+                height={768}
+              ></Image>
+            </div>
+            <p className="pt-5 text-base">일품</p>
           </div>
         </div>
       </section>
