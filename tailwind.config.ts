@@ -12,7 +12,8 @@ export default {
         inputGray: "#F1F1F1",
         materialGet: "#9A9A9A",
         recipeFind: "#FFA2A2",
-        foreground: "var(--foreground)",
+        recipeSearch: "#B56D40",
+        freezerSearch: "#BFB2A9"
       },
     },
   },
