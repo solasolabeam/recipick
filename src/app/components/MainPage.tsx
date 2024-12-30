@@ -1,5 +1,6 @@
 "use client";
 import {
+  faArrowRight,
   faArrowRightToBracket,
   faMagnifyingGlass,
   faUser,
@@ -9,8 +10,6 @@ import Image from "next/image";
 import { useState } from "react";
 //메인 이미지
 const banner = "/assets/images/banner.png";
-const recipebook = "/assets/images/recipebook.png";
-const freezer = "/assets/images/freezer.png";
 const food = "/assets/images/food.jpg";
 //카테고리 이미지
 const rice = "/assets/images/rice.png";
@@ -64,43 +63,16 @@ export default function MainPage() {
           <p className="text-base text-white">당신을 위한 레시피</p>
         </section>
       </div>
-      {/* 메뉴선택 버튼 */}
-      <section className="mt-[73px] flex items-center justify-center gap-[32px]">
-        <div className="flex flex-col items-center">
-          <div className="bg-recipeSearch relative flex h-[126px] w-[126px] items-center justify-center rounded-xl">
-            <Image
-              className="h-[100px] w-[100px]"
-              src={recipebook}
-              alt="레시피북"
-              width={1024}
-              height={1024}
-            ></Image>
-          </div>
-          <p className="mt-4 text-base font-semibold">모든 레시피</p>
-        </div>
-        <div className="flex flex-col items-center">
-          <div className="bg-freezerSearch relative flex h-[126px] w-[126px] items-center justify-center rounded-xl">
-            <Image
-              className="h-[100px] w-[100px]"
-              src={freezer}
-              alt="냉장고"
-              width={1024}
-              height={1024}
-            ></Image>
-          </div>
-          <p className="mt-4 text-base font-semibold">냉장고 털기</p>
-        </div>
-      </section>
       {/* 추천 레시피 */}
       <section className="mt-16">
         <div>
           <p className="text-2xl font-bold">추천 레시피</p>
         </div>
-        <div className="mt-4">
-          <div className="w-52 border border-black">
+        <div className="mt-4 flex gap-3">
+          <div className="w-52 border border-none">
             <div className="h-40 w-full">
               <Image
-                className="h-full w-full object-cover"
+                className="h-full w-full rounded-xl object-cover"
                 src={food}
                 alt="음식"
                 width={450}
@@ -109,26 +81,23 @@ export default function MainPage() {
             </div>
             <div className="h-[146px] w-full p-5">
               <p className="text-base font-semibold">떡볶이</p>
-              <p className="text-materialAdd pt-3 text-xs">
+              <p className="text-materialAdd pt-3 text-sm">
                 떡을 볶을 때는 약불로 볶아야 간장이 타지 않는다.
               </p>
-              <button className="m-3 border bg-inputGray px-8 py-2">
-                레시피 보기
-              </button>
             </div>
           </div>
         </div>
       </section>
       {/* 인기 레시피 */}
-      <section className="mt-20">
+      <section className="mt-16">
         <div>
           <p className="text-2xl font-bold">인기 레시피</p>
         </div>
-        <div className="mt-4">
-          <div className="w-52 border border-black">
+        <div className="mt-4 flex gap-3">
+          <div className="w-52 border border-none">
             <div className="h-40 w-full">
               <Image
-                className="h-full w-full object-cover"
+                className="h-full w-full rounded-xl object-cover"
                 src={food}
                 alt="음식"
                 width={450}
@@ -137,22 +106,76 @@ export default function MainPage() {
             </div>
             <div className="h-[146px] w-full p-5">
               <p className="text-base font-semibold">떡볶이</p>
-              <p className="text-materialAdd pt-3 text-xs">
+              <p className="text-materialAdd pt-3 text-sm">
                 떡을 볶을 때는 약불로 볶아야 간장이 타지 않는다.
               </p>
-              <button className="m-3 border bg-inputGray px-8 py-2">
-                레시피 보기
-              </button>
             </div>
           </div>
         </div>
       </section>
+      {/* 모든 레시피 한눈에 보기 */}
+      <section className="mt=[80px]">
+        <p className="text-2xl font-bold">모든 레시피 한눈에 보기</p>
+        <div className="mt-4 flex flex-wrap gap-4">
+          <div className="flex w-full gap-5">
+            <div className="h-[178px] w-[144px]">
+              <Image
+                className="h-full w-full rounded-lg object-cover"
+                src={food}
+                alt="음식"
+                width={450}
+                height={450}
+              ></Image>
+            </div>
+            <div className="h-[178px] w-auto">
+              <button className="text-soupText rounded bg-soup px-3 py-2 text-xs">
+                국&찌개
+              </button>
+              <p className="mt-2 text-base font-extrabold">새우 두부 계란찜</p>
+              <p className="mt-2 line-clamp-2 w-52 text-sm">
+                나트륨의 배출을 도와주는 것으로나트륨의 배출을 도와주는
+                것으로나트륨의 배출을 도와주는 것으로
+              </p>
+              <p className="mt-[30px] w-52 text-xs">칼로리 | 203 kal</p>
+            </div>
+          </div>
+          <div className="flex w-full gap-5">
+            <div className="h-[178px] w-[144px]">
+              <Image
+                className="h-full w-full rounded-lg object-cover"
+                src={food}
+                alt="음식"
+                width={450}
+                height={450}
+              ></Image>
+            </div>
+            <div className="h-[178px] w-auto">
+              <button className="text-soupText rounded bg-soup px-3 py-2 text-xs">
+                국&찌개
+              </button>
+              <p className="mt-2 text-base font-extrabold">새우 두부 계란찜</p>
+              <p className="mt-2 line-clamp-2 w-52 text-sm">
+                나트륨의 배출을 도와주는 것으로나트륨의 배출을 도와주는
+                것으로나트륨의 배출을 도와주는 것으로
+              </p>
+              <p className="mt-[30px] w-52 text-xs">칼로리 | 203 kal</p>
+            </div>
+          </div>
+        </div>
+        {/* More 버튼 */}
+        <div className="mt-10 flex justify-center">
+          <div className="border-Gray30 flex h-12 w-20 cursor-pointer items-center justify-center gap-2 rounded border">
+            <p className="text-Gray40 text-sm">More</p>
+            <FontAwesomeIcon icon={faArrowRight} color="#656565" />
+          </div>
+        </div>
+      </section>
       {/* 카테고리별 레시피 */}
-      <section className="mt-[100px]">
+      <section className="mt-[80px]">
         <p className="text-2xl font-bold">카테고리별 레시피</p>
         <div className="mt-4 flex flex-wrap gap-4">
           <div className="flex flex-col items-center">
-            <div className="bg-rice h-[125px] w-[172px] rounded-xl">
+            <div className="h-[125px] w-[172px] rounded-xl bg-rice">
               <Image
                 className="h-full w-full"
                 src={rice}
@@ -164,7 +187,7 @@ export default function MainPage() {
             <p className="pt-5 text-base">밥</p>
           </div>
           <div className="flex flex-col items-center">
-            <div className="bg-soup h-[125px] w-[172px] rounded-xl">
+            <div className="h-[125px] w-[172px] rounded-lg bg-soup">
               <Image
                 className="h-full w-full"
                 src={soup}
@@ -176,7 +199,7 @@ export default function MainPage() {
             <p className="pt-5 text-base">국&찌개</p>
           </div>
           <div className="flex flex-col items-center">
-            <div className="bg-sideDish h-[125px] w-[172px] rounded-xl">
+            <div className="h-[125px] w-[172px] rounded-lg bg-sideDish">
               <Image
                 className="h-full w-full"
                 src={sidedish}
@@ -188,7 +211,7 @@ export default function MainPage() {
             <p className="pt-5 text-base">반찬</p>
           </div>
           <div className="flex flex-col items-center">
-            <div className="bg-dessert h-[125px] w-[172px] rounded-xl">
+            <div className="h-[125px] w-[172px] rounded-xl bg-dessert">
               <Image
                 className="h-full w-full"
                 src={dessert}
@@ -200,7 +223,7 @@ export default function MainPage() {
             <p className="pt-5 text-base">디저트</p>
           </div>
           <div className="flex flex-col items-center">
-            <div className="bg-best h-[125px] w-[172px] rounded-xl">
+            <div className="h-[125px] w-[172px] rounded-xl bg-best">
               <Image
                 className="h-full w-full"
                 src={best}
