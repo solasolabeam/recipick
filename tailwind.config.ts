@@ -26,6 +26,12 @@ export default {
         sideDishText: "#513A00",
         dessertText: "#A06262",
         bestText: "white",
+        //color
+        Gray10: "#EBEDED",
+        Gray20: "#D1D1D1",
+        Gray30: "#A8A8A8",
+        Gray40: "#656565",
+        Gray50: "#1F1F1F",
       },
     },
   },
