@@ -109,6 +109,14 @@ export default function DetailPage() {
             <p className="text-sm">손질된 새우를 끓는 물에 데쳐 건진다.</p>
           </div>
         </section>
+        {/* 저염조리 TIP */}
+        <section className="mt-36 h-auto w-auto rounded-lg border border-black p-5">
+          <p className="text-base font-bold">TIP</p>
+          <p className="mt-2 text-sm">
+            나트륨의 배출을 도와주는 것으로 알려진 칼륨이 풍부한 시금치와 소금,
+            간장 등의 양념 대신 새우에 들어있는 간으로 맛을 내요
+          </p>
+        </section>
       </div>
       {/* 푸터 디자인 */}
       <section className="mt-40 flex h-20 w-full items-center bg-Gray20">
