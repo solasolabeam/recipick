@@ -8,6 +8,7 @@ import Image from "next/image";
 
 //메인 이미지
 const food = "/assets/images/food.jpg";
+const chapter = "/assets/images/chapter.png";
 
 export default function DetailPage() {
   return (
@@ -41,10 +42,10 @@ export default function DetailPage() {
       <div className="mx-5">
         {/* 카테고리1,2 태그  */}
         <section className="mt-5 gap-2">
-          <span className="border border-sideDish bg-sideDish px-4 py-2 text-white">
+          <span className="rounded border border-sideDish bg-sideDish px-4 py-2 text-white">
             반찬
           </span>
-          <span className="ml-4 border border-sideDish px-4 py-2 text-sideDish">
+          <span className="ml-4 rounded border border-sideDish px-4 py-2 text-sideDish">
             찌기
           </span>
         </section>
@@ -82,8 +83,37 @@ export default function DetailPage() {
           </section>
         </section>
         {/* 요리 절차 */}
-        <section className="mt-16"></section>
+        <section className="mt-16 flex flex-col gap-[120px]">
+          <div className="flex flex-col gap-7">
+            <div className="h-[200px] w-auto">
+              <Image
+                className="h-full w-full rounded-md object-cover"
+                src={chapter}
+                alt="챕터"
+                width={196}
+                height={130}
+              ></Image>
+            </div>
+            <p className="text-sm">손질된 새우를 끓는 물에 데쳐 건진다.</p>
+          </div>
+          <div className="flex flex-col gap-7">
+            <div className="h-[200px] w-auto">
+              <Image
+                className="h-full w-full rounded-md object-cover"
+                src={chapter}
+                alt="챕터"
+                width={196}
+                height={130}
+              ></Image>
+            </div>
+            <p className="text-sm">손질된 새우를 끓는 물에 데쳐 건진다.</p>
+          </div>
+        </section>
       </div>
+      {/* 푸터 디자인 */}
+      <section className="mt-40 flex h-20 w-full items-center bg-Gray20">
+        <p className="pl-5 text-sm">© 2024 Recipick. All rights reserved.</p>
+      </section>
     </>
   );
 }
