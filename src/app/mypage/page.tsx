@@ -25,7 +25,7 @@ export default function MyPage() {
         </section>
         {/* 사용자 정보 */}
         <section className="mt-12 flex gap-5">
-          <div className="h-[100px] w-[100px] bg-Gray20 flex-shrink-0 rounded-[100%]"></div>
+          <div className="h-[100px] w-[100px] flex-shrink-0 rounded-[100%] bg-Gray20"></div>
           <div className="w-auto">
             <section className="mt-5">
               <p className="text-xl font-bold">김민수</p>
@@ -37,7 +37,16 @@ export default function MyPage() {
             </section>
           </div>
         </section>
+        {/* 최근 본, 북마크 탭 */}
+        <section className="mt-20 flex justify-center gap-2">
+          <span className="border-b border-black px-5 py-3">최근 본</span>
+          <span className="px-5 py-3">북마크</span>
+        </section>
       </div>
+      {/* 푸터 디자인 */}
+      <section className="mt-40 flex h-20 w-full items-center bg-Gray20">
+        <p className="pl-5 text-sm">© 2024 Recipick. All rights reserved.</p>
+      </section>
     </>
   );
 }
