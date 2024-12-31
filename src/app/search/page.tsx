@@ -12,8 +12,8 @@ const food = "/assets/images/food.jpg";
 
 export default function SearchPage() {
   return (
-    <>
-      <div className="mx-5">
+    <div className="flex min-h-screen flex-col">
+      <main className="mx-5 flex-grow">
         {/* 로고, 로그인, 마이페이지 */}
         <section className="mt-9 flex items-center justify-between">
           <div className="text-5xl font-bold">LOGO</div>
@@ -118,11 +118,11 @@ export default function SearchPage() {
             </div>
           </div>
         </section>
-      </div>
+      </main>
       {/* 푸터 디자인 */}
-      <section className="bg-Gray20 mt-40 flex h-20 w-full items-center">
+      <footer className="mt-40 flex h-20 w-full items-center bg-Gray20">
         <p className="pl-5 text-sm">© 2024 Recipick. All rights reserved.</p>
-      </section>
-    </>
+      </footer>
+    </div>
   );
 }
