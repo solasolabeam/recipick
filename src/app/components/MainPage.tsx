@@ -47,7 +47,7 @@ export default function MainPage() {
           />
           <input
             className="h-full w-full rounded-md bg-inputGray pl-10 text-xs"
-            placeholder={`재료 또는 레시피 검색`}
+            placeholder="레시피 검색"
           />
         </section>
         {/* 배너이미지 */}
