@@ -1,8 +1,5 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { Metadata } from "next";
-
-// QueryClient 인스턴스를 생성합니다.
-const queryClient = new QueryClient();
+import QueryProvider from "./QueryProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,9 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
