@@ -6,6 +6,7 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 //메인 이미지
@@ -18,8 +19,20 @@ const sidedish = "/assets/images/sidedish.png";
 const dessert = "/assets/images/dessert.png";
 const best = "/assets/images/best.png";
 
+const getData = async (count: number) => {
+  const res = await fetch(
+    `http://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/${count}/6`,
+  );
+  return await res.json();
+};
+
 export default function MainPage() {
   const [] = useState();
+  const { data: get } = useQuery({
+    queryKey: ["allData"],
+    queryFn: () => getData(1),
+  });
+  console.log("get", get);
 
   return (
     <>
@@ -118,7 +131,7 @@ export default function MainPage() {
         <section className="mt=[80px]">
           <p className="text-2xl font-bold">모든 레시피 한눈에 보기</p>
           <div className="mt-4 flex flex-wrap gap-4">
-            <div className="flex w-full gap-5">
+            {/* <div className="flex w-full gap-5">
               <div className="h-[178px] w-[144px]">
                 <Image
                   className="h-full w-full rounded-lg object-cover"
@@ -129,7 +142,7 @@ export default function MainPage() {
                 ></Image>
               </div>
               <div className="h-[178px] w-auto">
-                <button className="text-soupText rounded bg-soup px-3 py-2 text-xs">
+                <button className="rounded bg-soup px-3 py-2 text-xs text-soupText">
                   국&찌개
                 </button>
                 <p className="mt-2 text-base font-extrabold">
@@ -141,7 +154,7 @@ export default function MainPage() {
                 </p>
                 <p className="mt-[30px] w-52 text-xs">칼로리 | 203 kal</p>
               </div>
-            </div>
+            </div> */}
             <div className="flex w-full gap-5">
               <div className="h-[178px] w-[144px]">
                 <Image
@@ -153,7 +166,7 @@ export default function MainPage() {
                 ></Image>
               </div>
               <div className="h-[178px] w-auto">
-                <button className="text-soupText rounded bg-soup px-3 py-2 text-xs">
+                <button className="rounded bg-soup px-3 py-2 text-xs text-soupText">
                   국&찌개
                 </button>
                 <p className="mt-2 text-base font-extrabold">
@@ -169,8 +182,8 @@ export default function MainPage() {
           </div>
           {/* More 버튼 */}
           <div className="mt-10 flex justify-center">
-            <div className="border-Gray30 flex h-12 w-20 cursor-pointer items-center justify-center gap-2 rounded border">
-              <p className="text-Gray40 text-sm">More</p>
+            <div className="flex h-12 w-20 cursor-pointer items-center justify-center gap-2 rounded border border-Gray30">
+              <p className="text-sm text-Gray40">More</p>
               <FontAwesomeIcon icon={faArrowRight} color="#656565" />
             </div>
           </div>
@@ -243,7 +256,7 @@ export default function MainPage() {
         </section>
       </div>
       {/* 푸터 디자인 */}
-      <section className="bg-Gray20 mt-40 flex h-20 w-full items-center">
+      <section className="mt-40 flex h-20 w-full items-center bg-Gray20">
         <p className="pl-5 text-sm">© 2024 Recipick. All rights reserved.</p>
       </section>
     </>

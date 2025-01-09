@@ -1,7 +1,6 @@
 "use client";
 import {
   faArrowRightToBracket,
-  faMagnifyingGlass,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +9,7 @@ import Image from "next/image";
 //메인 이미지
 const food = "/assets/images/food.jpg";
 
-export default function SearchPage() {
+export default function MyPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <main className="mx-5 flex-grow">
@@ -28,45 +27,27 @@ export default function SearchPage() {
             </div>
           </section>
         </section>
-        {/* 상단 description */}
-        <section className="mt-6 text-center">
-          <p className="text-2xl font-bold">맛있는 레시피 탐험</p>
-          <p className="mt-3 text-base">
-            다양한 요리법을 통해 새로운 맛을 경험해보세요.
-          </p>
+        {/* 사용자 정보 */}
+        <section className="mt-12 flex gap-5">
+          <div className="h-[100px] w-[100px] flex-shrink-0 rounded-[100%] bg-Gray20"></div>
+          <div className="w-auto">
+            <section className="mt-5">
+              <p className="text-xl font-bold">김민수</p>
+              <p className="mt-1 text-base text-Gray30">minsu@gmail.com</p>
+              <p className="mt-3 text-xs">
+                요리와 여행을 사랑하는 미식가입니다. 새로운 레시피를 공유하고
+                싶어요!
+              </p>
+            </section>
+          </div>
         </section>
-        {/* 검색창 */}
-        <section className="w-90 relative mt-6 h-10 rounded border-none">
-          <FontAwesomeIcon
-            icon={faMagnifyingGlass}
-            size="1x"
-            className="absolute left-3 top-3 h-5 w-5 cursor-pointer text-gray-400"
-          />
-          <input
-            className="h-full w-full rounded-md bg-inputGray pl-10 text-xs"
-            placeholder="레시피 검색"
-          />
-        </section>
-        {/* 카테고리 버튼 */}
-        <section className="mt-6 flex flex-wrap gap-4">
-          <button className="rounded-xl bg-rice px-8 py-4 text-white">
-            밥
-          </button>
-          <button className="rounded-xl bg-sideDish px-8 py-4 text-white">
-            반찬
-          </button>
-          <button className="rounded-xl bg-soup px-8 py-4 text-white">
-            국&찌개
-          </button>
-          <button className="rounded-xl bg-dessert px-8 py-4 text-white">
-            후식
-          </button>
-          <button className="rounded-xl bg-best px-8 py-4 text-white">
-            일품
-          </button>
+        {/* 최근 본, 북마크 탭 */}
+        <section className="mt-20 flex justify-center gap-2">
+          <span className="border-b border-black px-5 py-3">최근 본</span>
+          <span className="px-5 py-3">북마크</span>
         </section>
         {/* 레시피 검색 결과 */}
-        <section className="mt-16">
+        <section className="mt-4">
           <div className="mt-4 flex flex-wrap gap-4">
             <div className="flex w-full gap-5">
               <div className="h-[178px] w-[144px]">
