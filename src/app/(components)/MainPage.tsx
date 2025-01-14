@@ -9,6 +9,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 //메인 이미지
 const banner = "/assets/images/banner.png";
 const food = "/assets/images/food.jpg";
@@ -28,11 +31,14 @@ const getData = async (count: number) => {
 
 export default function MainPage() {
   const [] = useState();
-  const { data: get } = useQuery({
+  const { data: get, isLoading } = useQuery({
     queryKey: ["allData"],
     queryFn: () => getData(1),
+    staleTime: 10000,
   });
   console.log("get", get);
+  console.log("isLoading", isLoading);
+  console.log("get?.COOKRCP01.row", get?.COOKRCP01.row);
 
   return (
     <>
@@ -83,23 +89,37 @@ export default function MainPage() {
             <p className="text-2xl font-bold">추천 레시피</p>
           </div>
           <div className="mt-4 flex gap-3">
-            <div className="w-52 border border-none">
-              <div className="h-40 w-full">
-                <Image
-                  className="h-full w-full rounded-xl object-cover"
-                  src={food}
-                  alt="음식"
-                  width={450}
-                  height={450}
-                ></Image>
-              </div>
+            {/* {get?.COOKRCP01.row.map((item) => {
+              return (
+                <div className="w-52 border border-none" key={item.RCP_SEQ}>
+                  <div className="h-40 w-full">
+                    <Image
+                      className="h-full w-full rounded-xl object-cover"
+                      src={food}
+                      alt="음식"
+                      width={450}
+                      height={450}
+                    ></Image>
+                  </div>
+                  <div className="h-[146px] w-full p-5">
+                    <p className="text-base font-semibold">떡볶이</p>
+                    <p className="text-materialAdd pt-3 text-sm">
+                      떡을 볶을 때는 약불로 볶아야 간장이 타지 않는다.
+                    </p>
+                  </div>
+                </div>
+              );
+            })} */}
+
+            {/* 스켈레톤 로딩 */}
+            {/* <div className="w-52 border border-none">
+              <Skeleton height="160px" width="100%" />
               <div className="h-[146px] w-full p-5">
-                <p className="text-base font-semibold">떡볶이</p>
-                <p className="text-materialAdd pt-3 text-sm">
-                  떡을 볶을 때는 약불로 볶아야 간장이 타지 않는다.
-                </p>
+                <Skeleton width="50%" />
+                <Skeleton width="100%" />
+                <Skeleton width="100%" />
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
         {/* 인기 레시피 */}
@@ -131,30 +151,6 @@ export default function MainPage() {
         <section className="mt=[80px]">
           <p className="text-2xl font-bold">모든 레시피 한눈에 보기</p>
           <div className="mt-4 flex flex-wrap gap-4">
-            {/* <div className="flex w-full gap-5">
-              <div className="h-[178px] w-[144px]">
-                <Image
-                  className="h-full w-full rounded-lg object-cover"
-                  src={food}
-                  alt="음식"
-                  width={450}
-                  height={450}
-                ></Image>
-              </div>
-              <div className="h-[178px] w-auto">
-                <button className="rounded bg-soup px-3 py-2 text-xs text-soupText">
-                  국&찌개
-                </button>
-                <p className="mt-2 text-base font-extrabold">
-                  새우 두부 계란찜
-                </p>
-                <p className="mt-2 line-clamp-2 w-52 text-sm">
-                  나트륨의 배출을 도와주는 것으로나트륨의 배출을 도와주는
-                  것으로나트륨의 배출을 도와주는 것으로
-                </p>
-                <p className="mt-[30px] w-52 text-xs">칼로리 | 203 kal</p>
-              </div>
-            </div> */}
             <div className="flex w-full gap-5">
               <div className="h-[178px] w-[144px]">
                 <Image
@@ -179,6 +175,19 @@ export default function MainPage() {
                 <p className="mt-[30px] w-52 text-xs">칼로리 | 203 kal</p>
               </div>
             </div>
+            {/* 스켈레톤 로딩 */}
+            {/* <div className="flex w-full gap-5">
+              <div className="h-[178px] w-[144px]">
+                <Skeleton height="100%" width="100%" />
+              </div>
+              <div className="h-[178px] w-auto">
+                <Skeleton height={30} width={60} />
+                <Skeleton className="mt-2" height={25} width={130} />
+                <Skeleton className="mt-2" />
+                <Skeleton />
+                <Skeleton className="mt-[30px]" width="40%" />
+              </div>
+            </div> */}
           </div>
           {/* More 버튼 */}
           <div className="mt-10 flex justify-center">
