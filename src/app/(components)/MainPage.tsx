@@ -11,6 +11,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 //메인 이미지
 const banner = "/assets/images/banner.png";
