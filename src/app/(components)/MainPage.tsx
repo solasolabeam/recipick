@@ -6,12 +6,14 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
+import "swiper/css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 
 //메인 이미지
 const banner = "/assets/images/banner.png";
@@ -23,23 +25,24 @@ const sidedish = "/assets/images/sidedish.png";
 const dessert = "/assets/images/dessert.png";
 const best = "/assets/images/best.png";
 
-const getData = async (count: number) => {
-  const res = await fetch(
-    `http://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/${count}/6`,
-  );
-  return await res.json();
-};
+// const getData = async (count: number) => {
+//   const res = await fetch(
+//     `http://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/${count}/6`,
+//   );
+//   return await res.json();
+// };
 
 export default function MainPage() {
   const [] = useState();
-  const { data: get, isLoading } = useQuery({
-    queryKey: ["allData"],
-    queryFn: () => getData(1),
-    staleTime: 10000,
-  });
-  console.log("get", get);
-  console.log("isLoading", isLoading);
-  console.log("get?.COOKRCP01.row", get?.COOKRCP01.row);
+
+  // const { data: get, isLoading } = useQuery({
+  //   queryKey: ["allData"],
+  //   queryFn: () => getData(1),
+  //   staleTime: 10000,
+  // });
+  // console.log("get", get);
+  // console.log("isLoading", isLoading);
+  // console.log("get?.COOKRCP01.row", get?.COOKRCP01.row);
 
   return (
     <>
@@ -89,7 +92,17 @@ export default function MainPage() {
           <div>
             <p className="text-2xl font-bold">추천 레시피</p>
           </div>
-          <div className="mt-4 flex gap-3">
+          <div className="mt-4 flex flex-nowrap gap-3 overflow-x-auto">
+            {/* 스켈레톤 로딩 */}
+            <div className="w-52 flex-none border border-none">
+              <Skeleton height="160px" width="100%" />
+              <div className="h-[146px] w-full p-5">
+                <Skeleton width="50%" />
+                <Skeleton width="100%" />
+                <Skeleton width="100%" />
+              </div>
+            </div>
+
             {/* {get?.COOKRCP01.row.map((item) => {
               return (
                 <div className="w-52 border border-none" key={item.RCP_SEQ}>
@@ -112,16 +125,56 @@ export default function MainPage() {
               );
             })} */}
 
-            {/* 스켈레톤 로딩 */}
-            {/* <div className="w-52 border border-none">
-              <Skeleton height="160px" width="100%" />
-              <div className="h-[146px] w-full p-5">
-                <Skeleton width="50%" />
-                <Skeleton width="100%" />
-                <Skeleton width="100%" />
-              </div>
-            </div> */}
+            {/* {get?.COOKRCP01.row.map((item) => {
+              return (
+                <div className="w-52 border border-none" key={item.RCP_SEQ}>
+                  <div className="h-40 w-full">
+                    <Image
+                      className="h-full w-full rounded-xl object-cover"
+                      src={food}
+                      alt="음식"
+                      width={450}
+                      height={450}
+                    ></Image>
+                  </div>
+                  <div className="h-[146px] w-full p-5">
+                    <p className="text-base font-semibold">떡볶이</p>
+                    <p className="text-materialAdd pt-3 text-sm">
+                      떡을 볶을 때는 약불로 볶아야 간장이 타지 않는다.
+                    </p>
+                  </div>
+                </div>
+              );
+            })} */}
           </div>
+
+          <Swiper
+            slidesPerView={2}
+            spaceBetween={30}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination]}
+            className="mt-4 flex flex-nowrap gap-3 overflow-x-auto"
+          >
+            <SwiperSlide className="w-52 border border-none">
+              <div className="h-40 w-full">
+                <Image
+                  className="h-full w-full rounded-xl object-cover"
+                  src={food}
+                  alt="음식"
+                  width={450}
+                  height={450}
+                ></Image>
+              </div>
+              <div className="h-[146px] w-full p-5">
+                <p className="text-base font-semibold">떡볶이</p>
+                <p className="text-materialAdd pt-3 text-sm">
+                  떡을 볶을 때는 약불로 볶아야 간장이 타지 않는다.
+                </p>
+              </div>
+            </SwiperSlide>
+          </Swiper>
         </section>
         {/* 인기 레시피 */}
         <section className="mt-16">
