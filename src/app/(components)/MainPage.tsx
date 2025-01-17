@@ -8,12 +8,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { useState } from "react";
 import "swiper/css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import { useIsFetching, useQuery } from "@tanstack/react-query";
+import { recipeProps, searchProps } from "../type/recipe";
 
 //메인 이미지
 const banner = "/assets/images/banner.png";
@@ -25,24 +26,19 @@ const sidedish = "/assets/images/sidedish.png";
 const dessert = "/assets/images/dessert.png";
 const best = "/assets/images/best.png";
 
-// const getData = async (count: number) => {
-//   const res = await fetch(
-//     `http://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/${count}/6`,
-//   );
-//   return await res.json();
-// };
+const getData = async (startIndex: number, endIndex: number) => {
+  try {
+    const res = await fetch(
+      `http://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/${startIndex}/${endIndex}`,
+    );
+    return await res.json();
+  } catch (error) {
+    console.error("Fetch failed:", (error as Error).message);
+  }
+};
 
 export default function MainPage() {
-  const [] = useState();
-
-  // const { data: get, isLoading } = useQuery({
-  //   queryKey: ["allData"],
-  //   queryFn: () => getData(1),
-  //   staleTime: 10000,
-  // });
-  // console.log("get", get);
-  // console.log("isLoading", isLoading);
-  // console.log("get?.COOKRCP01.row", get?.COOKRCP01.row);
+  const isFetching = useIsFetching();
 
   return (
     <>
@@ -92,114 +88,24 @@ export default function MainPage() {
           <div>
             <p className="text-2xl font-bold">추천 레시피</p>
           </div>
-          <div className="mt-4 flex flex-nowrap gap-3 overflow-x-auto">
-            {/* 스켈레톤 로딩 */}
-            <div className="w-52 flex-none border border-none">
-              <Skeleton height="160px" width="100%" />
-              <div className="h-[146px] w-full p-5">
-                <Skeleton width="50%" />
-                <Skeleton width="100%" />
-                <Skeleton width="100%" />
-              </div>
-            </div>
-
-            {/* {get?.COOKRCP01.row.map((item) => {
-              return (
-                <div className="w-52 border border-none" key={item.RCP_SEQ}>
-                  <div className="h-40 w-full">
-                    <Image
-                      className="h-full w-full rounded-xl object-cover"
-                      src={food}
-                      alt="음식"
-                      width={450}
-                      height={450}
-                    ></Image>
-                  </div>
-                  <div className="h-[146px] w-full p-5">
-                    <p className="text-base font-semibold">떡볶이</p>
-                    <p className="text-materialAdd pt-3 text-sm">
-                      떡을 볶을 때는 약불로 볶아야 간장이 타지 않는다.
-                    </p>
-                  </div>
-                </div>
-              );
-            })} */}
-
-            {/* {get?.COOKRCP01.row.map((item) => {
-              return (
-                <div className="w-52 border border-none" key={item.RCP_SEQ}>
-                  <div className="h-40 w-full">
-                    <Image
-                      className="h-full w-full rounded-xl object-cover"
-                      src={food}
-                      alt="음식"
-                      width={450}
-                      height={450}
-                    ></Image>
-                  </div>
-                  <div className="h-[146px] w-full p-5">
-                    <p className="text-base font-semibold">떡볶이</p>
-                    <p className="text-materialAdd pt-3 text-sm">
-                      떡을 볶을 때는 약불로 볶아야 간장이 타지 않는다.
-                    </p>
-                  </div>
-                </div>
-              );
-            })} */}
-          </div>
-
-          <Swiper
-            slidesPerView={2}
-            spaceBetween={30}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Pagination]}
-            className="mt-4 flex flex-nowrap gap-3 overflow-x-auto"
-          >
-            <SwiperSlide className="w-52 border border-none">
-              <div className="h-40 w-full">
-                <Image
-                  className="h-full w-full rounded-xl object-cover"
-                  src={food}
-                  alt="음식"
-                  width={450}
-                  height={450}
-                ></Image>
-              </div>
-              <div className="h-[146px] w-full p-5">
-                <p className="text-base font-semibold">떡볶이</p>
-                <p className="text-materialAdd pt-3 text-sm">
-                  떡을 볶을 때는 약불로 볶아야 간장이 타지 않는다.
-                </p>
-              </div>
-            </SwiperSlide>
-          </Swiper>
+          {isFetching ? (
+            /* 스켈레톤 로딩 */
+            <RecommendListLoading />
+          ) : (
+            <RecommendList startIndex={1} endIndex={6} queryKey="recommend" />
+          )}
         </section>
         {/* 인기 레시피 */}
         <section className="mt-16">
           <div>
             <p className="text-2xl font-bold">인기 레시피</p>
           </div>
-          <div className="mt-4 flex gap-3">
-            <div className="w-52 border border-none">
-              <div className="h-40 w-full">
-                <Image
-                  className="h-full w-full rounded-xl object-cover"
-                  src={food}
-                  alt="음식"
-                  width={450}
-                  height={450}
-                ></Image>
-              </div>
-              <div className="h-[146px] w-full p-5">
-                <p className="text-base font-semibold">떡볶이</p>
-                <p className="text-materialAdd pt-3 text-sm">
-                  떡을 볶을 때는 약불로 볶아야 간장이 타지 않는다.
-                </p>
-              </div>
-            </div>
-          </div>
+          {isFetching ? (
+            /* 스켈레톤 로딩 */
+            <RecommendListLoading />
+          ) : (
+            <RecommendList startIndex={12} endIndex={17} queryKey="popular" />
+          )}
         </section>
         {/* 모든 레시피 한눈에 보기 */}
         <section className="mt=[80px]">
@@ -325,3 +231,75 @@ export default function MainPage() {
     </>
   );
 }
+
+const RecommendList = ({ startIndex, endIndex, queryKey }: searchProps) => {
+  const { data: data, isLoading } = useQuery({
+    queryKey: [queryKey],
+    queryFn: () => getData(startIndex, endIndex),
+    staleTime: 300000,
+  });
+  console.log("get", data);
+  console.log("isLoading", isLoading);
+  console.log("get?.COOKRCP01.row", data?.COOKRCP01.row);
+
+  return (
+    <Swiper
+      slidesPerView={2}
+      spaceBetween={150}
+      pagination={{
+        clickable: true,
+      }}
+      modules={[Pagination]}
+      className=""
+    >
+      {data?.COOKRCP01.row.map((recipe: recipeProps) => (
+        <SwiperSlide key={recipe.RCP_SEQ} className="mt-4">
+          <div className="w-52 border border-none">
+            <div className="h-40 w-full">
+              <Image
+                className="h-full w-full rounded-xl object-cover"
+                src={recipe.ATT_FILE_NO_MK}
+                alt={recipe.RCP_NM}
+                width={450}
+                height={450}
+              ></Image>
+            </div>
+            <div className="h-[146px] w-full p-5">
+              <p className="text-base font-semibold">{recipe.RCP_NM}</p>
+              <p className="text-materialAdd line-clamp-2 pt-3 text-sm">
+                {recipe.RCP_NA_TIP}
+              </p>
+            </div>
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};
+
+const RecommendListLoading = () => {
+  return (
+    <Swiper
+      slidesPerView={2}
+      spaceBetween={150}
+      pagination={{
+        clickable: true,
+      }}
+      modules={[Pagination]}
+      className=""
+    >
+      {Array.from({ length: 6 }).map((_, idx) => (
+        <SwiperSlide className="" key={idx}>
+          <div className="w-52 flex-none border border-none">
+            <Skeleton height="160px" width="100%" />
+            <div className="h-[146px] w-full p-5">
+              <Skeleton width="50%" />
+              <Skeleton width="100%" />
+              <Skeleton width="100%" />
+            </div>
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};
