@@ -16,6 +16,8 @@ import { Pagination } from "swiper/modules";
 import { useIsFetching, useQuery } from "@tanstack/react-query";
 import { recipeProps, searchProps } from "../type/recipe";
 import getData from "@/api/getData";
+import { useRouter } from "next/navigation";
+import useRecipeStore from "../store";
 
 //메인 이미지
 const banner = "/assets/images/banner.png";
@@ -271,6 +273,8 @@ const RankListLoading = () => {
 };
 
 const AllList = ({ startIndex, endIndex, queryKey }: searchProps) => {
+  const router = useRouter();
+  const setSelectedItem = useRecipeStore((state) => state.setSelectedItem);
   const {
     data: data,
     error,
@@ -287,8 +291,17 @@ const AllList = ({ startIndex, endIndex, queryKey }: searchProps) => {
     return <div>Error occurred!</div>;
   }
 
+  const handleItemClick = (recipe: recipeProps) => {
+    setSelectedItem(recipe);
+    router.push(`/detail/${recipe.RCP_SEQ}`);
+  };
+
   return data?.COOKRCP01.row.map((recipe: recipeProps) => (
-    <div className="flex w-full gap-5" key={recipe.RCP_SEQ}>
+    <div
+      className="flex w-full gap-5"
+      key={recipe.RCP_SEQ}
+      onClick={() => handleItemClick(recipe)}
+    >
       <div className="h-[178px] w-[144px]">
         <Image
           className="h-full w-full rounded-lg object-cover"
