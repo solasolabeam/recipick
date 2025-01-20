@@ -109,7 +109,7 @@ export default function MainPage() {
           )}
         </section>
         {/* 모든 레시피 한눈에 보기 */}
-        <section className="mt=[80px]">
+        <section className="mt-[80px]">
           <p className="text-2xl font-bold">모든 레시피 한눈에 보기</p>
           <div className="mt-4 flex flex-wrap gap-4">
             <div className="flex w-full gap-5">
@@ -253,7 +253,7 @@ const RecommendList = ({ startIndex, endIndex, queryKey }: searchProps) => {
   return (
     <Swiper
       slidesPerView={2}
-      spaceBetween={150}
+      spaceBetween={100}
       pagination={{
         clickable: true,
       }}
