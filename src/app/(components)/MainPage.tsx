@@ -91,9 +91,9 @@ export default function MainPage() {
           </div>
           {isFetching ? (
             /* 스켈레톤 로딩 */
-            <RecommendListLoading />
+            <RankListLoading />
           ) : (
-            <RecommendList startIndex={18} endIndex={23} queryKey="recommend" />
+            <RankList startIndex={18} endIndex={23} queryKey="recommend" />
           )}
         </section>
         {/* 인기 레시피 */}
@@ -103,13 +103,9 @@ export default function MainPage() {
           </div>
           {isFetching ? (
             /* 스켈레톤 로딩 */
-            <RecommendListLoading />
+            <RankListLoading />
           ) : (
-            <RecommendList
-              startIndex={12}
-              endIndex={17}
-              queryKey="recommendLoad"
-            />
+            <RankList startIndex={12} endIndex={17} queryKey="recommendLoad" />
           )}
         </section>
         {/* 모든 레시피 한눈에 보기 */}
@@ -118,9 +114,9 @@ export default function MainPage() {
           <div className="mt-4 flex flex-wrap gap-4">
             {isFetching ? (
               /* 스켈레톤 로딩 */
-              <PopularListLoading />
+              <AllListLoading />
             ) : (
-              <PoppularList startIndex={1} endIndex={4} queryKey="popular" />
+              <AllList startIndex={1} endIndex={4} queryKey="popular" />
             )}
           </div>
           {/* More 버튼 */}
@@ -206,7 +202,7 @@ export default function MainPage() {
   );
 }
 
-const RecommendList = ({ startIndex, endIndex, queryKey }: searchProps) => {
+const RankList = ({ startIndex, endIndex, queryKey }: searchProps) => {
   const {
     data: data,
     error,
@@ -258,7 +254,7 @@ const RecommendList = ({ startIndex, endIndex, queryKey }: searchProps) => {
   );
 };
 
-const RecommendListLoading = () => {
+const RankListLoading = () => {
   return (
     <Swiper
       slidesPerView={2}
@@ -285,7 +281,7 @@ const RecommendListLoading = () => {
   );
 };
 
-const PoppularList = ({ startIndex, endIndex, queryKey }: searchProps) => {
+const AllList = ({ startIndex, endIndex, queryKey }: searchProps) => {
   const {
     data: data,
     error,
@@ -325,7 +321,7 @@ const PoppularList = ({ startIndex, endIndex, queryKey }: searchProps) => {
   ));
 };
 
-const PopularListLoading = () => {
+const AllListLoading = () => {
   return Array.from({ length: 4 }).map((_, idx) => (
     <div className="flex w-full gap-5" key={idx}>
       <div className="h-[178px] w-[144px]">
