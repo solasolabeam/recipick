@@ -1,4 +1,5 @@
 "use client";
+import useRecipeStore from "@/app/store";
 import {
   faArrowRightToBracket,
   faUser,
@@ -11,6 +12,8 @@ const food = "/assets/images/food.jpg";
 const chapter = "/assets/images/chapter.png";
 
 export default function DetailPage() {
+  const selectedItem = useRecipeStore((state) => state.selectedItem); // 상태 가져오기
+  console.log("selectedItem", selectedItem);
   return (
     <>
       <div className="mx-5">
