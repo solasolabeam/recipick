@@ -15,6 +15,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { useIsFetching, useQuery } from "@tanstack/react-query";
 import { recipeProps, searchProps } from "../type/recipe";
+import getData from "@/api/getData";
 
 //메인 이미지
 const banner = "/assets/images/banner.png";
@@ -25,18 +26,6 @@ const soup = "/assets/images/soup.png";
 const sidedish = "/assets/images/sidedish.png";
 const dessert = "/assets/images/dessert.png";
 const best = "/assets/images/best.png";
-
-const getData = async (startIndex: number, endIndex: number) => {
-  const res = await fetch(
-    `http://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/${startIndex}/${endIndex}`,
-  );
-
-  // if (!res.ok) {
-  //   throw new Error("Network response was not ok");
-  // }
-
-  return res.json();
-};
 
 export default function MainPage() {
   const isFetching = useIsFetching();
