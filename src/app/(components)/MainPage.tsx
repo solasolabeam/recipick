@@ -27,14 +27,15 @@ const dessert = "/assets/images/dessert.png";
 const best = "/assets/images/best.png";
 
 const getData = async (startIndex: number, endIndex: number) => {
-  try {
-    const res = await fetch(
-      `http://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/${startIndex}/${endIndex}`,
-    );
-    return await res.json();
-  } catch (error) {
-    console.error("Fetch failed:", (error as Error).message);
+  const res = await fetch(
+    `http://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/${startIndex}/${endIndex}`,
+  );
+
+  if (!res.ok) {
+    throw new Error("Network response was not ok");
   }
+
+  return res.json();
 };
 
 export default function MainPage() {
@@ -233,14 +234,21 @@ export default function MainPage() {
 }
 
 const RecommendList = ({ startIndex, endIndex, queryKey }: searchProps) => {
-  const { data: data, isLoading } = useQuery({
+  const {
+    data: data,
+    error,
+    isError,
+  } = useQuery({
     queryKey: [queryKey],
     queryFn: () => getData(startIndex, endIndex),
     staleTime: 300000,
   });
-  console.log("get", data);
-  console.log("isLoading", isLoading);
-  console.log("get?.COOKRCP01.row", data?.COOKRCP01.row);
+
+  if (isError) {
+    // 에러 처리
+    console.error("Error!:", error);
+    return <div>Error occurred!</div>;
+  }
 
   return (
     <Swiper
