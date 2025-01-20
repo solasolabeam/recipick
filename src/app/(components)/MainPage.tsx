@@ -94,7 +94,7 @@ export default function MainPage() {
             /* 스켈레톤 로딩 */
             <RankListLoading />
           ) : (
-            <RankList startIndex={12} endIndex={17} queryKey="recommendLoad" />
+            <RankList startIndex={12} endIndex={17} queryKey="popular" />
           )}
         </section>
         {/* 모든 레시피 한눈에 보기 */}
@@ -105,7 +105,7 @@ export default function MainPage() {
               /* 스켈레톤 로딩 */
               <AllListLoading />
             ) : (
-              <AllList startIndex={1} endIndex={4} queryKey="popular" />
+              <AllList startIndex={44} endIndex={48} queryKey="allData" />
             )}
           </div>
           {/* More 버튼 */}
@@ -166,7 +166,7 @@ export default function MainPage() {
                   height={768}
                 ></Image>
               </div>
-              <p className="pt-5 text-base">디저트</p>
+              <p className="pt-5 text-base">후식</p>
             </div>
             <div className="flex flex-col items-center">
               <div className="h-[125px] w-[172px] rounded-xl bg-best">
@@ -299,12 +299,10 @@ const AllList = ({ startIndex, endIndex, queryKey }: searchProps) => {
         ></Image>
       </div>
       <div className="h-[178px] w-auto">
-        <button className="rounded bg-soup px-3 py-2 text-xs text-soupText">
-          {recipe.RCP_PAT2}
-        </button>
+        <ColorPicker value={recipe.RCP_PAT2} />
         <p className="mt-2 text-base font-extrabold">{recipe.RCP_NM}</p>
         <p className="mt-2 line-clamp-2 w-52 text-sm">{recipe.RCP_NA_TIP}</p>
-        <p className="mt-[30px] w-52 text-xs">{`칼로리 | ${recipe.INFO_CAR} kal`}</p>
+        <p className="mt-[30px] w-52 text-xs">{`칼로리 | ${recipe.INFO_ENG} kal`}</p>
       </div>
     </div>
   ));
@@ -325,4 +323,30 @@ const AllListLoading = () => {
       </div>
     </div>
   ));
+};
+
+const ColorPicker = ({ value }: { value: string }) => {
+  // let textColor = "";
+  let bgColor = "";
+  if (value == "밥") {
+    // textColor = "riceText";
+    bgColor = "rice";
+  } else if (value == "국&찌개") {
+    // textColor = "soupText";
+    bgColor = "soup";
+  } else if (value == "반찬") {
+    // textColor = "sideDishText";
+    bgColor = "sideDish";
+  } else if (value == "후식") {
+    // textColor = "dessertText";
+    bgColor = "dessert";
+  } else if (value == "일품") {
+    // textColor = "bestText";
+    bgColor = "best";
+  }
+  return (
+    <button className={`rounded bg-${bgColor} px-3 py-2 text-xs text-white`}>
+      {value}
+    </button>
+  );
 };
