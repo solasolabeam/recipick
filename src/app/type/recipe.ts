@@ -61,3 +61,8 @@ export interface searchProps {
   endIndex: number;
   queryKey: string;
 }
+
+export interface recipeStore {
+  selectedItem: recipeProps | null;
+  setSelectedItem: (item: recipeProps) => void;
+}
