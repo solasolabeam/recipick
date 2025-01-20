@@ -105,7 +105,7 @@ export default function MainPage() {
               /* 스켈레톤 로딩 */
               <AllListLoading />
             ) : (
-              <AllList startIndex={44} endIndex={48} queryKey="allData" />
+              <AllList startIndex={1} endIndex={6} queryKey="allData" />
             )}
           </div>
           {/* More 버튼 */}
