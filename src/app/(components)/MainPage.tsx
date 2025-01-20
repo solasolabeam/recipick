@@ -18,7 +18,7 @@ import { recipeProps, searchProps } from "../type/recipe";
 
 //메인 이미지
 const banner = "/assets/images/banner.png";
-const food = "/assets/images/food.jpg";
+// const food = "/assets/images/food.jpg";
 //카테고리 이미지
 const rice = "/assets/images/rice.png";
 const soup = "/assets/images/soup.png";
@@ -93,7 +93,7 @@ export default function MainPage() {
             /* 스켈레톤 로딩 */
             <RecommendListLoading />
           ) : (
-            <RecommendList startIndex={1} endIndex={6} queryKey="recommend" />
+            <RecommendList startIndex={18} endIndex={23} queryKey="recommend" />
           )}
         </section>
         {/* 인기 레시피 */}
@@ -105,50 +105,23 @@ export default function MainPage() {
             /* 스켈레톤 로딩 */
             <RecommendListLoading />
           ) : (
-            <RecommendList startIndex={12} endIndex={17} queryKey="popular" />
+            <RecommendList
+              startIndex={12}
+              endIndex={17}
+              queryKey="recommendLoad"
+            />
           )}
         </section>
         {/* 모든 레시피 한눈에 보기 */}
         <section className="mt-[80px]">
           <p className="text-2xl font-bold">모든 레시피 한눈에 보기</p>
           <div className="mt-4 flex flex-wrap gap-4">
-            <div className="flex w-full gap-5">
-              <div className="h-[178px] w-[144px]">
-                <Image
-                  className="h-full w-full rounded-lg object-cover"
-                  src={food}
-                  alt="음식"
-                  width={450}
-                  height={450}
-                ></Image>
-              </div>
-              <div className="h-[178px] w-auto">
-                <button className="rounded bg-soup px-3 py-2 text-xs text-soupText">
-                  국&찌개
-                </button>
-                <p className="mt-2 text-base font-extrabold">
-                  새우 두부 계란찜
-                </p>
-                <p className="mt-2 line-clamp-2 w-52 text-sm">
-                  나트륨의 배출을 도와주는 것으로나트륨의 배출을 도와주는
-                  것으로나트륨의 배출을 도와주는 것으로
-                </p>
-                <p className="mt-[30px] w-52 text-xs">칼로리 | 203 kal</p>
-              </div>
-            </div>
-            {/* 스켈레톤 로딩 */}
-            {/* <div className="flex w-full gap-5">
-              <div className="h-[178px] w-[144px]">
-                <Skeleton height="100%" width="100%" />
-              </div>
-              <div className="h-[178px] w-auto">
-                <Skeleton height={30} width={60} />
-                <Skeleton className="mt-2" height={25} width={130} />
-                <Skeleton className="mt-2" />
-                <Skeleton />
-                <Skeleton className="mt-[30px]" width="40%" />
-              </div>
-            </div> */}
+            {isFetching ? (
+              /* 스켈레톤 로딩 */
+              <PopularListLoading />
+            ) : (
+              <PoppularList startIndex={1} endIndex={4} queryKey="popular" />
+            )}
           </div>
           {/* More 버튼 */}
           <div className="mt-10 flex justify-center">
@@ -310,4 +283,61 @@ const RecommendListLoading = () => {
       ))}
     </Swiper>
   );
+};
+
+const PoppularList = ({ startIndex, endIndex, queryKey }: searchProps) => {
+  const {
+    data: data,
+    error,
+    isError,
+  } = useQuery({
+    queryKey: [queryKey],
+    queryFn: () => getData(startIndex, endIndex),
+    staleTime: 300000,
+  });
+
+  if (isError) {
+    // 에러 처리
+    console.error("Error!:", error);
+    return <div>Error occurred!</div>;
+  }
+
+  return data?.COOKRCP01.row.map((recipe: recipeProps) => (
+    <div className="flex w-full gap-5" key={recipe.RCP_SEQ}>
+      <div className="h-[178px] w-[144px]">
+        <Image
+          className="h-full w-full rounded-lg object-cover"
+          src={recipe.ATT_FILE_NO_MK}
+          alt="음식"
+          width={450}
+          height={450}
+        ></Image>
+      </div>
+      <div className="h-[178px] w-auto">
+        <button className="rounded bg-soup px-3 py-2 text-xs text-soupText">
+          {recipe.RCP_PAT2}
+        </button>
+        <p className="mt-2 text-base font-extrabold">{recipe.RCP_NM}</p>
+        <p className="mt-2 line-clamp-2 w-52 text-sm">{recipe.RCP_NA_TIP}</p>
+        <p className="mt-[30px] w-52 text-xs">{`칼로리 | ${recipe.INFO_CAR} kal`}</p>
+      </div>
+    </div>
+  ));
+};
+
+const PopularListLoading = () => {
+  return Array.from({ length: 4 }).map((_, idx) => (
+    <div className="flex w-full gap-5" key={idx}>
+      <div className="h-[178px] w-[144px]">
+        <Skeleton height="100%" width="100%" />
+      </div>
+      <div className="h-[178px] w-auto">
+        <Skeleton height={30} width={60} />
+        <Skeleton className="mt-2" height={25} width={130} />
+        <Skeleton className="mt-2" width="100%" />
+        <Skeleton />
+        <Skeleton className="mt-[30px]" width="40%" />
+      </div>
+    </div>
+  ));
 };
