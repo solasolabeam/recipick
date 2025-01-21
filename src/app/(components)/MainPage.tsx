@@ -18,6 +18,7 @@ import { recipeProps, searchProps } from "../type/recipe";
 import getData from "@/app/util/getData";
 import { useRouter } from "next/navigation";
 import useRecipeStore from "../store";
+import getColor from "../util/getColor";
 
 //메인 이미지
 const banner = "/assets/images/banner.png";
@@ -312,7 +313,11 @@ const AllList = ({ startIndex, endIndex, queryKey }: searchProps) => {
         ></Image>
       </div>
       <div className="h-[178px] w-auto">
-        <ColorPicker value={recipe.RCP_PAT2} />
+        <button
+          className={`rounded bg-${getColor(recipe.RCP_PAT2)} px-3 py-2 text-xs text-white`}
+        >
+          {recipe.RCP_PAT2}
+        </button>
         <p className="mt-2 text-base font-extrabold">{recipe.RCP_NM}</p>
         <p className="mt-2 line-clamp-2 w-52 text-sm">{recipe.RCP_NA_TIP}</p>
         <p className="mt-[30px] w-52 text-xs">{`칼로리 | ${recipe.INFO_ENG} kal`}</p>
@@ -336,30 +341,4 @@ const AllListLoading = () => {
       </div>
     </div>
   ));
-};
-
-const ColorPicker = ({ value }: { value: string }) => {
-  // let textColor = "";
-  let bgColor = "";
-  if (value == "밥") {
-    // textColor = "riceText";
-    bgColor = "rice";
-  } else if (value == "국&찌개") {
-    // textColor = "soupText";
-    bgColor = "soup";
-  } else if (value == "반찬") {
-    // textColor = "sideDishText";
-    bgColor = "sideDish";
-  } else if (value == "후식") {
-    // textColor = "dessertText";
-    bgColor = "dessert";
-  } else if (value == "일품") {
-    // textColor = "bestText";
-    bgColor = "best";
-  }
-  return (
-    <button className={`rounded bg-${bgColor} px-3 py-2 text-xs text-white`}>
-      {value}
-    </button>
-  );
 };

@@ -1,6 +1,7 @@
 "use client";
 import useRecipeStore from "@/app/store";
 import { recipeProps } from "@/app/type/recipe";
+import getColor from "@/app/util/getColor";
 import {
   faArrowRightToBracket,
   faUser,
@@ -46,10 +47,14 @@ export default function DetailPage() {
       <div className="mx-5">
         {/* 카테고리1,2 태그  */}
         <section className="mt-5 gap-2">
-          <span className="rounded border border-sideDish bg-sideDish px-4 py-2 text-white">
+          <span
+            className={`rounded border border-${getColor(selectedItem.RCP_PAT2)} bg-${getColor(selectedItem.RCP_PAT2)} px-4 py-2 text-white`}
+          >
             {selectedItem.RCP_PAT2}
           </span>
-          <span className="ml-4 rounded border border-sideDish px-4 py-2 text-sideDish">
+          <span
+            className={`ml-4 rounded border border-${getColor(selectedItem.RCP_PAT2)} px-4 py-2 text-${getColor(selectedItem.RCP_PAT2)}`}
+          >
             {selectedItem.RCP_WAY2}
           </span>
         </section>
