@@ -15,7 +15,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { useIsFetching, useQuery } from "@tanstack/react-query";
 import { recipeProps, searchProps } from "../type/recipe";
-import getData from "@/api/getData";
+import getData from "@/app/util/getData";
+import { useRouter } from "next/navigation";
+import useRecipeStore from "../store";
+import getColor from "../util/getColor";
 
 //메인 이미지
 const banner = "/assets/images/banner.png";
@@ -271,6 +274,8 @@ const RankListLoading = () => {
 };
 
 const AllList = ({ startIndex, endIndex, queryKey }: searchProps) => {
+  const router = useRouter();
+  const setSelectedItem = useRecipeStore((state) => state.setSelectedItem);
   const {
     data: data,
     error,
@@ -287,8 +292,17 @@ const AllList = ({ startIndex, endIndex, queryKey }: searchProps) => {
     return <div>Error occurred!</div>;
   }
 
+  const handleItemClick = (recipe: recipeProps) => {
+    setSelectedItem(recipe);
+    router.push(`/detail/${recipe.RCP_SEQ}`);
+  };
+
   return data?.COOKRCP01.row.map((recipe: recipeProps) => (
-    <div className="flex w-full gap-5" key={recipe.RCP_SEQ}>
+    <div
+      className="flex w-full gap-5"
+      key={recipe.RCP_SEQ}
+      onClick={() => handleItemClick(recipe)}
+    >
       <div className="h-[178px] w-[144px]">
         <Image
           className="h-full w-full rounded-lg object-cover"
@@ -299,7 +313,11 @@ const AllList = ({ startIndex, endIndex, queryKey }: searchProps) => {
         ></Image>
       </div>
       <div className="h-[178px] w-auto">
-        <ColorPicker value={recipe.RCP_PAT2} />
+        <button
+          className={`rounded bg-${getColor(recipe.RCP_PAT2)} px-3 py-2 text-xs text-white`}
+        >
+          {recipe.RCP_PAT2}
+        </button>
         <p className="mt-2 text-base font-extrabold">{recipe.RCP_NM}</p>
         <p className="mt-2 line-clamp-2 w-52 text-sm">{recipe.RCP_NA_TIP}</p>
         <p className="mt-[30px] w-52 text-xs">{`칼로리 | ${recipe.INFO_ENG} kal`}</p>
@@ -323,30 +341,4 @@ const AllListLoading = () => {
       </div>
     </div>
   ));
-};
-
-const ColorPicker = ({ value }: { value: string }) => {
-  // let textColor = "";
-  let bgColor = "";
-  if (value == "밥") {
-    // textColor = "riceText";
-    bgColor = "rice";
-  } else if (value == "국&찌개") {
-    // textColor = "soupText";
-    bgColor = "soup";
-  } else if (value == "반찬") {
-    // textColor = "sideDishText";
-    bgColor = "sideDish";
-  } else if (value == "후식") {
-    // textColor = "dessertText";
-    bgColor = "dessert";
-  } else if (value == "일품") {
-    // textColor = "bestText";
-    bgColor = "best";
-  }
-  return (
-    <button className={`rounded bg-${bgColor} px-3 py-2 text-xs text-white`}>
-      {value}
-    </button>
-  );
 };

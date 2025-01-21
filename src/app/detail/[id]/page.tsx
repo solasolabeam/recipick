@@ -1,4 +1,7 @@
 "use client";
+import useRecipeStore from "@/app/store";
+import { recipeProps } from "@/app/type/recipe";
+import getColor from "@/app/util/getColor";
 import {
   faArrowRightToBracket,
   faUser,
@@ -7,10 +10,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 
 //메인 이미지
-const food = "/assets/images/food.jpg";
-const chapter = "/assets/images/chapter.png";
+// const food = "/assets/images/food.jpg";
+// const chapter = "/assets/images/chapter.png";
 
 export default function DetailPage() {
+  const selectedItem = useRecipeStore((state) => state.selectedItem); // 상태 가져오기
+  console.log("selectedItem", selectedItem);
   return (
     <>
       <div className="mx-5">
@@ -33,7 +38,7 @@ export default function DetailPage() {
       <section className="mt-4 h-[250px] w-full">
         <Image
           className="h-full w-full object-cover"
-          src={food}
+          src={selectedItem.ATT_FILE_NO_MK}
           alt="음식"
           width={450}
           height={450}
@@ -42,72 +47,49 @@ export default function DetailPage() {
       <div className="mx-5">
         {/* 카테고리1,2 태그  */}
         <section className="mt-5 gap-2">
-          <span className="rounded border border-sideDish bg-sideDish px-4 py-2 text-white">
-            반찬
+          <span
+            className={`rounded border border-${getColor(selectedItem.RCP_PAT2)} bg-${getColor(selectedItem.RCP_PAT2)} px-4 py-2 text-white`}
+          >
+            {selectedItem.RCP_PAT2}
           </span>
-          <span className="ml-4 rounded border border-sideDish px-4 py-2 text-sideDish">
-            찌기
+          <span
+            className={`ml-4 rounded border border-${getColor(selectedItem.RCP_PAT2)} px-4 py-2 text-${getColor(selectedItem.RCP_PAT2)}`}
+          >
+            {selectedItem.RCP_WAY2}
           </span>
         </section>
         {/* 타이틀, 재료 */}
         <section className="mt-5 gap-2">
-          <p className="text-2xl font-bold">새우 두부 계란찜</p>
+          <p className="text-2xl font-bold">{selectedItem.RCP_NM}</p>
           <p className="mt-4 text-base font-bold">재료</p>
-          <p className="mt-2 text-sm">
-            새우두부계란찜 연두부 75g(3/4모), 칵테일새우 20g(5마리), 달걀
-            30g(1/2개), 생크림 13g(1큰술), 설탕 5g(1작은술), 무염버터
-            5g(1작은술) 고명 시금치 10g(3줄기)
-          </p>
+          <p className="mt-2 text-sm">{selectedItem.RCP_PARTS_DTLS}</p>
         </section>
         {/* 영양정보 */}
         <section className="mt-7 flex flex-col gap-3">
           <section className="flex">
             <p className="w-[100px] text-left text-sm">열량</p>
-            <p className="w-20 text-right text-sm">220kcal</p>
+            <p className="w-20 text-right text-sm">{`${selectedItem.INFO_ENG}kcal`}</p>
           </section>
           <section className="flex">
             <p className="w-[100px] text-left text-sm">탄수화물</p>
-            <p className="w-20 text-right text-sm">220kcal</p>
+            <p className="w-20 text-right text-sm">{`${selectedItem.INFO_CAR}g`}</p>
           </section>
           <section className="flex">
             <p className="w-[100px] text-left text-sm">단백질</p>
-            <p className="w-20 text-right text-sm">220kcal</p>
+            <p className="w-20 text-right text-sm">{`${selectedItem.INFO_PRO}g`}</p>
           </section>
           <section className="flex">
             <p className="w-[100px] text-left text-sm">지방</p>
-            <p className="w-20 text-right text-sm">220kcal</p>
+            <p className="w-20 text-right text-sm">{`${selectedItem.INFO_FAT}g`}</p>
           </section>
           <section className="flex">
             <p className="w-[100px] text-left text-sm">나트륨</p>
-            <p className="w-20 text-right text-sm">220kcal</p>
+            <p className="w-20 text-right text-sm">{`${selectedItem.INFO_NA}g`}</p>
           </section>
         </section>
         {/* 요리 절차 */}
         <section className="mt-16 flex flex-col gap-[120px]">
-          <div className="flex flex-col gap-7">
-            <div className="h-[200px] w-auto">
-              <Image
-                className="h-full w-full rounded-md object-cover"
-                src={chapter}
-                alt="챕터"
-                width={196}
-                height={130}
-              ></Image>
-            </div>
-            <p className="text-sm">손질된 새우를 끓는 물에 데쳐 건진다.</p>
-          </div>
-          <div className="flex flex-col gap-7">
-            <div className="h-[200px] w-auto">
-              <Image
-                className="h-full w-full rounded-md object-cover"
-                src={chapter}
-                alt="챕터"
-                width={196}
-                height={130}
-              ></Image>
-            </div>
-            <p className="text-sm">손질된 새우를 끓는 물에 데쳐 건진다.</p>
-          </div>
+          <ManualList list={selectedItem} />
         </section>
         {/* 저염조리 TIP */}
         <section className="mt-36 h-auto w-auto rounded-lg border border-black p-5">
@@ -125,3 +107,39 @@ export default function DetailPage() {
     </>
   );
 }
+
+const ManualList = ({ list }: { list: recipeProps }) => {
+  const manualArray = [];
+  for (let i = 1; i <= 20; i++) {
+    const cnt = i < 10 ? `0${i}` : i;
+    const discription = `MANUAL${cnt}` as keyof recipeProps;
+    const img = `MANUAL_IMG${cnt}` as keyof recipeProps;
+
+    manualArray.push({
+      img: list[img],
+      discription: list[discription],
+    });
+  }
+
+  const render = manualArray.map((recipe) => {
+    if (recipe.img != "" && recipe.discription != "") {
+      return (
+        <div className="flex flex-col gap-7" key={recipe.img}>
+          <div className="h-[200px] w-auto">
+            <Image
+              className="h-full w-full rounded-md object-cover"
+              src={recipe.img}
+              alt="챕터"
+              width={196}
+              height={130}
+            ></Image>
+          </div>
+          <p className="text-sm">{recipe.discription.slice(3)}</p>
+        </div>
+      );
+    }
+    return null;
+  });
+
+  return render;
+};
