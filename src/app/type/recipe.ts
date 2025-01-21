@@ -63,6 +63,6 @@ export interface searchProps {
 }
 
 export interface recipeStore {
-  selectedItem: recipeProps | null;
+  selectedItem: recipeProps;
   setSelectedItem: (item: recipeProps) => void;
 }
