@@ -6,6 +6,7 @@ import getData from "../util/getData";
 import Image from "next/image";
 import getColor from "../util/getColor";
 import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function AllList({
   startIndex,
