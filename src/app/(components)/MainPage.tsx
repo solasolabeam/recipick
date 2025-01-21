@@ -15,7 +15,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { useIsFetching, useQuery } from "@tanstack/react-query";
 import { recipeProps, searchProps } from "../type/recipe";
-import getData from "@/api/getData";
+import getData from "@/app/util/getData";
 import { useRouter } from "next/navigation";
 import useRecipeStore from "../store";
 
