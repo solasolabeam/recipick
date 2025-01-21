@@ -22,7 +22,7 @@ export default function AllList({
     error,
     isError,
   } = useQuery({
-    queryKey: [queryKey],
+    queryKey: [queryKey, itemName, category],
     queryFn: () => getData(startIndex, endIndex, itemName, category),
     staleTime: 300000,
   });
