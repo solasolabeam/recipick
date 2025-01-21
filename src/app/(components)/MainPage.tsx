@@ -273,7 +273,7 @@ const RankListLoading = () => {
   );
 };
 
-const AllList = ({ startIndex, endIndex, queryKey }: searchProps) => {
+export const AllList = ({ startIndex, endIndex, queryKey }: searchProps) => {
   const router = useRouter();
   const setSelectedItem = useRecipeStore((state) => state.setSelectedItem);
   const {
@@ -326,7 +326,7 @@ const AllList = ({ startIndex, endIndex, queryKey }: searchProps) => {
   ));
 };
 
-const AllListLoading = () => {
+export const AllListLoading = () => {
   return Array.from({ length: 4 }).map((_, idx) => (
     <div className="flex w-full gap-5" key={idx}>
       <div className="h-[178px] w-[144px]">
