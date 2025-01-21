@@ -12,6 +12,8 @@ export default function AllList({
   startIndex,
   endIndex,
   queryKey,
+  itemName,
+  category,
 }: searchProps) {
   const router = useRouter();
   const setSelectedItem = useRecipeStore((state) => state.setSelectedItem);
@@ -21,7 +23,7 @@ export default function AllList({
     isError,
   } = useQuery({
     queryKey: [queryKey],
-    queryFn: () => getData(startIndex, endIndex),
+    queryFn: () => getData(startIndex, endIndex, itemName, category),
     staleTime: 300000,
   });
 

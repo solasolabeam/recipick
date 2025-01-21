@@ -4,14 +4,19 @@ const getData = async (
   itemName = "",
   category = "",
 ) => {
-  const res = await fetch(
-    `http://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/${startIndex}/${endIndex}/RCP_NM=${itemName}&RCP_PAT2=${category}`,
-  );
+  const baseURL =
+    "http://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/";
 
-  // if (!res.ok) {
-  //   throw new Error("Network response was not ok");
-  // }
+  let query = "";
+  if (itemName !== "" && category !== "") {
+    query = `RCP_NM=${encodeURIComponent(itemName)}&RCP_PAT2=${encodeURIComponent(category)}`;
+  } else if (itemName !== "") {
+    query = `RCP_NM=${encodeURIComponent(itemName)}`;
+  } else if (category !== "") {
+    query = `RCP_PAT2=${encodeURIComponent(category)}`;
+  }
 
+  const res = await fetch(`${baseURL}${startIndex}/${endIndex}/${query}`);
   return res.json();
 };
 
