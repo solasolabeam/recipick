@@ -5,8 +5,8 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AllList, AllListLoading } from "../(components)/MainPage";
 import { useIsFetching } from "@tanstack/react-query";
+import AllList, { AllListLoading } from "../(components)/AllList";
 
 //메인 이미지
 // const food = "/assets/images/food.jpg";
