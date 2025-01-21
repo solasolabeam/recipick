@@ -38,7 +38,7 @@ export default function AllList({
 
   return data?.COOKRCP01.row.map((recipe: recipeProps) => (
     <div
-      className="flex w-full gap-5"
+      className="flex w-full cursor-pointer gap-5"
       key={recipe.RCP_SEQ}
       onClick={() => handleItemClick(recipe)}
     >
