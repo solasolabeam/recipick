@@ -60,6 +60,8 @@ export interface searchProps {
   startIndex: number;
   endIndex: number;
   queryKey: string;
+  itemName?: string;
+  category?: string;
 }
 
 export interface recipeStore {
