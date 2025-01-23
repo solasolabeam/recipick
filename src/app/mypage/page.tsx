@@ -8,18 +8,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Card } from "../(components)/AllList";
 import { useEffect, useState } from "react";
 import { recipeProps } from "../type/recipe";
+import getStoredRecipes from "../util/getStoredRecipes";
 
 //메인 이미지
 // const food = "/assets/images/food.jpg";
 
 export default function MyPage() {
   const [recent, setRecent] = useState<recipeProps[]>([]);
-
-  // localStorage에서 아이템 가져오기
-  const getStoredRecipes = (): recipeProps[] => {
-    const storedItem = localStorage.getItem("recipeItem");
-    return storedItem ? JSON.parse(storedItem) : [];
-  };
 
   useEffect(() => {
     setRecent(getStoredRecipes());

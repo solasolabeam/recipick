@@ -2,6 +2,7 @@
 import useRecipeStore from "@/app/store";
 import { recipeProps } from "@/app/type/recipe";
 import getColor from "@/app/util/getColor";
+import getStoredRecipes from "@/app/util/getStoredRecipes";
 import {
   faArrowRightToBracket,
   faUser,
@@ -18,8 +19,7 @@ export default function DetailPage() {
   const selectedItem = useRecipeStore((state) => state.selectedItem); // 상태 가져오기
 
   useEffect(() => {
-    const storedItem = localStorage.getItem("recipeItem");
-    const recentItem: recipeProps[] = storedItem ? JSON.parse(storedItem) : [];
+    const recentItem = getStoredRecipes();
 
     recentItem.push(selectedItem);
     // 중복된 id 값 제거
