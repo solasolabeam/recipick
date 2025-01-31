@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# recipick: 레시피 조회 사이트
 
-## Getting Started
 
-First, run the development server:
+## 프로젝트 소개
+_"카카오 로그인과 공공데이터 API로 개인화된 레시피 조회 웹앱"_
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+> 이 프로젝트는 레시피 조회를 중심으로 한 웹 애플리케이션으로 사용자가 쉽게 레시피를 탐색하고, 북마크 및 최근 본 레시피를 저장할 수 있는 기능을 제공합니다. 또한 공공데이터 API를 연동하여 실제 조리 데이터를 실시간으로 조회할 수 있습니다. 카카오 로그인을 통해 사용자 인증을 처리하고 React.js와 Next.js로 빠르고 안정적인 웹 환경을 제공합니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 기술 스택
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> `React.js`, `Typescript`, `Next.js`, `React-Query`, `Zustand`, `Firebase`, `TailwindCSS`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## 주요 기능
+- 레시피 조회: 다양한 레시피를 쉽게 탐색하고, 원하는 레시피를 찾아볼 수 있는 기능을 제공합니다.
 
-To learn more about Next.js, take a look at the following resources:
+- 북마크 및 최근 본 레시피 저장: 사용자가 좋아하는 레시피를 북마크하거나 최근에 본 레시피를 자동으로 저장하여 편리하게 다시 확인할 수 있습니다.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 공공데이터 API 연동: 실시간으로 공공데이터 API에서 제공하는 조리 데이터를 조회하여 다양한 레시피 정보를 제공합니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 카카오 로그인: 카카오 계정을 통한 간편한 로그인 시스템을 통해 사용자 인증 및 데이터 관리를 효율적으로 처리합니다.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 성과
+-
+-
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 배운 점
+-
+-
+
+
+## 프로젝트 구성
+###  기획 단계
+![](https://velog.velcdn.com/images/so2i/post/61a563bd-4f95-4e89-90e7-864eea64bae4/image.png)
+#### 1. 프로젝트 목표 정의
+
+   레시피 조회 및 추천 기능 제공 
+사용자가 간편하게 레시피를 찾아볼 수 있도록 돕기
+ 개인화된 경험 제공 (최근본 레시피, 북마크 기능 등)
+
+#### 2. 주요 기능 정의
+
+  인기 레시피 리스트
+ 추천 레시피 리스트
+ 모든 레시피 보기
+ 카테고리별 레시피 분류
+ 레시피 검색 기능 (이름, 카테고리로 검색)
+ 마이페이지 (최근본 레시피, 북마크 저장된 레시피)
+ 
+#### 3. 유저 흐름(Flow)
+
+> 메인 페이지 → 레시피 상세 페이지 → 레시피 조회
+사용자가 카테고리별로 레시피를 찾고, 상세 정보를 확인 후 저장하거나 즐겨찾기 추가 가능
+마이페이지에서 최근 본 레시피 및 저장된 레시피 확인
+
+#### 4. 정보 구조 설계 (정보 아키텍처)
+
+메뉴: 홈, 카테고리, 검색, 마이페이지
+각 페이지: 메인 페이지, 상세 페이지, 조회 페이지, 마이페이지
+UI/UX 방향 설정
+
+_사용자 친화적 인터페이스
+직관적인 네비게이션
+빠른 검색 기능_
+
+###  디자인 단계
+![](https://velog.velcdn.com/images/so2i/post/d3b05e39-6e47-47b7-81a5-c29106f498ee/image.png)
+#### 1. 와이어프레임 제작
+
+메인 페이지: 인기 레시피 리스트, 추천 레시피 리스트, 카테고리별 섹션
+상세 페이지: 레시피 명, 재료, 영양 정보, 절차
+조회 페이지: 검색바, 필터 기능
+마이페이지: 최근 본 레시피, 북마크 저장 레시피
+
+#### 2. UI 요소 디자인
+
+색상 팔레트 선정 (브랜드 색상, 배경색, 버튼 색상 등)
+폰트 스타일 선정 (가독성 좋은 서체 선택)
+아이콘, 버튼, 레이아웃 등의 시각적 요소 디자인
+
+
+#### 3. 인터랙션 디자인
+
+사용자 행동에 반응하는 인터랙티브한 요소 디자인
+버튼 클릭, hover 효과, 모달 창 등
+피드백 제공: 예를 들어, 레시피 저장 후 "저장되었습니다" 메시지
+
+
+###  메인페이지
+![](https://velog.velcdn.com/images/so2i/post/cefb4630-4608-4f61-9d41-ad10d712fcf2/image.png) |![](https://velog.velcdn.com/images/so2i/post/57e8f8cc-ff51-43d7-bae8-7566dc4f180a/image.png) | ![](https://velog.velcdn.com/images/so2i/post/72d3befb-3fc9-4c75-8e2c-0ce0b6c394f6/image.png)
+--- | --- | --- |
+
+ - 인기 레시피 리스트: 가장 많이 조회되거나 사용자들 사이에서 인기 있는 레시피들을 모은 리스트.
+- 추천 레시피 리스트: 사용자의 취향에 맞는 추천 레시피를 제공.
+- 모든 레시피 한눈에 보기: 모든 레시피를 한 번에 볼 수 있는 섹션.
+- 카테고리별 레시피: 레시피를 카테고리(예: 디저트, 저녁, 다이어트 등)로 나누어 제공.
+
+
+###  상세페이지
+![](https://velog.velcdn.com/images/so2i/post/8791655c-9a61-46f6-888d-08ac983b80b3/image.png) |![](https://velog.velcdn.com/images/so2i/post/a32ea8f0-e500-4bb8-97cb-7a19f54fc49d/image.png) | ![](https://velog.velcdn.com/images/so2i/post/fd0ae730-a530-45b1-ba25-7e076d68982f/image.png)
+--- | --- | --- |
+
+- 레시피명: 레시피의 제목.
+- 레시피 재료: 요리에 필요한 재료 목록.
+- 영양 정보: 해당 레시피의 영양 성분 정보(칼로리, 단백질, 지방 등).
+- 레시피 절차: 레시피를 만드는 단계별 과정.
+
+
+###  조회페이지
+![](https://velog.velcdn.com/images/so2i/post/64a4b3a8-9dc8-4381-ad11-85be0241631d/image.png) |![](https://velog.velcdn.com/images/so2i/post/90855d98-8a3e-4a98-b43f-61caee432d1e/image.png) 
+--- | --- |
+
+- 레시피명 검색: 레시피 이름으로 원하는 레시피를 검색.
+- 레시피 카테고리로 검색: 카테고리별로 레시피를 필터링하여 검색.
+
+
+###  마이페이지
+![](https://velog.velcdn.com/images/so2i/post/5a2c9b33-40dc-472f-b769-ad55ed801745/image.png) | ![](https://velog.velcdn.com/images/so2i/post/af6dc72b-f9ba-4222-a8d1-e9364b031b6f/image.png)
+--- | --- |
+
+- 최근 본 레시피: 사용자가 최근에 본 레시피 목록.
+- 북마크 저장된 레시피: 사용자가 저장한 즐겨찾기 레시피 목록.
