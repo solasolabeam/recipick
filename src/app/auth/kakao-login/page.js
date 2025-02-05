@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { auth, db, OAuthProvider } from "../../lib/firebase";
 import { signInWithCredential } from "firebase/auth";
-import { collection, doc, getDoc } from "firebase/firestore/lite";
+import { doc, getDoc } from "firebase/firestore/lite";
 
 export default function KakaoLoginPage() {
   useEffect(() => {
