@@ -15,8 +15,6 @@ export default function AllList({
   itemName,
   category,
 }: searchProps) {
-  const router = useRouter();
-  const setSelectedItem = useRecipeStore((state) => state.setSelectedItem);
   const {
     data: data,
     error,
@@ -33,12 +31,38 @@ export default function AllList({
     return <div>Error occurred!</div>;
   }
 
+  return data?.COOKRCP01.row.map((recipe: recipeProps) => {
+    return <Card recipe={recipe} key={recipe.RCP_SEQ} />;
+  });
+}
+
+export const AllListLoading = () => {
+  return Array.from({ length: 4 }).map((_, idx) => (
+    <div className="flex w-full gap-5" key={idx}>
+      <div className="h-[178px] w-[144px]">
+        <Skeleton height="100%" width="100%" />
+      </div>
+      <div className="h-[178px] w-auto">
+        <Skeleton height={30} width={60} />
+        <Skeleton className="mt-2" height={25} width={130} />
+        <Skeleton className="mt-2" width="100%" />
+        <Skeleton />
+        <Skeleton className="mt-[30px]" width="40%" />
+      </div>
+    </div>
+  ));
+};
+
+export const Card = ({ recipe }: { recipe: recipeProps }) => {
+  const router = useRouter();
+  const setSelectedItem = useRecipeStore((state) => state.setSelectedItem);
+
   const handleItemClick = (recipe: recipeProps) => {
     setSelectedItem(recipe);
     router.push(`/detail/${recipe.RCP_SEQ}`);
   };
 
-  return data?.COOKRCP01.row.map((recipe: recipeProps) => (
+  return (
     <div
       className="flex w-full cursor-pointer gap-5"
       key={recipe.RCP_SEQ}
@@ -64,22 +88,5 @@ export default function AllList({
         <p className="mt-[30px] w-52 text-xs">{`칼로리 | ${recipe.INFO_ENG} kal`}</p>
       </div>
     </div>
-  ));
-}
-
-export const AllListLoading = () => {
-  return Array.from({ length: 4 }).map((_, idx) => (
-    <div className="flex w-full gap-5" key={idx}>
-      <div className="h-[178px] w-[144px]">
-        <Skeleton height="100%" width="100%" />
-      </div>
-      <div className="h-[178px] w-auto">
-        <Skeleton height={30} width={60} />
-        <Skeleton className="mt-2" height={25} width={130} />
-        <Skeleton className="mt-2" width="100%" />
-        <Skeleton />
-        <Skeleton className="mt-[30px]" width="40%" />
-      </div>
-    </div>
-  ));
+  );
 };

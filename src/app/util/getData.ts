@@ -5,7 +5,7 @@ const getData = async (
   category = "",
 ) => {
   const baseURL =
-    "http://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/";
+    "https://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/";
 
   let query = "";
   if (itemName !== "" && category !== "") {

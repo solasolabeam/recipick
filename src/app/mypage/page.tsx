@@ -4,12 +4,21 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
+// import Image from "next/image";
+import { Card } from "../(components)/AllList";
+import { useEffect, useState } from "react";
+import { recipeProps } from "../type/recipe";
+import getStoredRecipes from "../util/getStoredRecipes";
 
 //메인 이미지
-const food = "/assets/images/food.jpg";
+// const food = "/assets/images/food.jpg";
 
 export default function MyPage() {
+  const [recent, setRecent] = useState<recipeProps[]>([]);
+
+  useEffect(() => {
+    setRecent(getStoredRecipes());
+  }, []);
   return (
     <div className="flex min-h-screen flex-col">
       <main className="mx-5 flex-grow">
@@ -49,54 +58,9 @@ export default function MyPage() {
         {/* 레시피 검색 결과 */}
         <section className="mt-4">
           <div className="mt-4 flex flex-wrap gap-4">
-            <div className="flex w-full gap-5">
-              <div className="h-[178px] w-[144px]">
-                <Image
-                  className="h-full w-full rounded-lg object-cover"
-                  src={food}
-                  alt="음식"
-                  width={450}
-                  height={450}
-                ></Image>
-              </div>
-              <div className="h-[178px] w-auto">
-                <button className="rounded bg-soup px-3 py-2 text-xs text-soupText">
-                  국&찌개
-                </button>
-                <p className="mt-2 text-base font-extrabold">
-                  새우 두부 계란찜
-                </p>
-                <p className="mt-2 line-clamp-2 w-52 text-sm">
-                  나트륨의 배출을 도와주는 것으로나트륨의 배출을 도와주는
-                  것으로나트륨의 배출을 도와주는 것으로
-                </p>
-                <p className="mt-[30px] w-52 text-xs">칼로리 | 203 kal</p>
-              </div>
-            </div>
-            <div className="flex w-full gap-5">
-              <div className="h-[178px] w-[144px]">
-                <Image
-                  className="h-full w-full rounded-lg object-cover"
-                  src={food}
-                  alt="음식"
-                  width={450}
-                  height={450}
-                ></Image>
-              </div>
-              <div className="h-[178px] w-auto">
-                <button className="rounded bg-soup px-3 py-2 text-xs text-soupText">
-                  국&찌개
-                </button>
-                <p className="mt-2 text-base font-extrabold">
-                  새우 두부 계란찜
-                </p>
-                <p className="mt-2 line-clamp-2 w-52 text-sm">
-                  나트륨의 배출을 도와주는 것으로나트륨의 배출을 도와주는
-                  것으로나트륨의 배출을 도와주는 것으로
-                </p>
-                <p className="mt-[30px] w-52 text-xs">칼로리 | 203 kal</p>
-              </div>
-            </div>
+            {recent.map((recipe, index) => (
+              <Card key={index} recipe={recipe} />
+            ))}
           </div>
         </section>
       </main>

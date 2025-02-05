@@ -2,12 +2,14 @@
 import useRecipeStore from "@/app/store";
 import { recipeProps } from "@/app/type/recipe";
 import getColor from "@/app/util/getColor";
+import getStoredRecipes from "@/app/util/getStoredRecipes";
 import {
   faArrowRightToBracket,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import { useEffect } from "react";
 
 //메인 이미지
 // const food = "/assets/images/food.jpg";
@@ -15,7 +17,19 @@ import Image from "next/image";
 
 export default function DetailPage() {
   const selectedItem = useRecipeStore((state) => state.selectedItem); // 상태 가져오기
-  console.log("selectedItem", selectedItem);
+
+  useEffect(() => {
+    const recentItem = getStoredRecipes();
+
+    recentItem.push(selectedItem);
+    // 중복된 id 값 제거
+    const uniqueData = recentItem.filter(
+      (value, index, self) =>
+        index === self.findIndex((t) => t.RCP_SEQ === value.RCP_SEQ),
+    );
+
+    localStorage.setItem("recipeItem", JSON.stringify(uniqueData));
+  }, [selectedItem]);
   return (
     <>
       <div className="mx-5">
