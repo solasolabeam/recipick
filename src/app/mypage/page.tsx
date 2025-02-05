@@ -1,14 +1,10 @@
 "use client";
-import {
-  faArrowRightToBracket,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import Image from "next/image";
 import { Card } from "../(components)/AllList";
 import { useEffect, useState } from "react";
 import { recipeProps } from "../type/recipe";
 import getStoredRecipes from "../util/getStoredRecipes";
+import Header from "../(components)/Header";
 
 //메인 이미지
 // const food = "/assets/images/food.jpg";
@@ -23,19 +19,7 @@ export default function MyPage() {
     <div className="flex min-h-screen flex-col">
       <main className="mx-5 flex-grow">
         {/* 로고, 로그인, 마이페이지 */}
-        <section className="mt-9 flex items-center justify-between">
-          <div className="text-5xl font-bold">LOGO</div>
-          <section className="flex gap-5">
-            <div className="flex flex-col items-center">
-              <FontAwesomeIcon icon={faArrowRightToBracket} size="2x" />
-              <p className="text-xs">로그인</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <FontAwesomeIcon icon={faUser} size="2x" />
-              <p className="text-xs">My</p>
-            </div>
-          </section>
-        </section>
+        <Header />
         {/* 사용자 정보 */}
         <section className="mt-12 flex gap-5">
           <div className="h-[100px] w-[100px] flex-shrink-0 rounded-[100%] bg-Gray20"></div>

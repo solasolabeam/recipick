@@ -1,13 +1,9 @@
 "use client";
+import Header from "@/app/(components)/Header";
 import useRecipeStore from "@/app/store";
 import { recipeProps } from "@/app/type/recipe";
 import getColor from "@/app/util/getColor";
 import getStoredRecipes from "@/app/util/getStoredRecipes";
-import {
-  faArrowRightToBracket,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useEffect } from "react";
 
@@ -34,19 +30,7 @@ export default function DetailPage() {
     <>
       <div className="mx-5">
         {/* 로고, 로그인, 마이페이지 */}
-        <section className="mt-9 flex items-center justify-between">
-          <div className="text-5xl font-bold">LOGO</div>
-          <section className="flex gap-5">
-            <div className="flex flex-col items-center">
-              <FontAwesomeIcon icon={faArrowRightToBracket} size="2x" />
-              <p className="text-xs">로그인</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <FontAwesomeIcon icon={faUser} size="2x" />
-              <p className="text-xs">My</p>
-            </div>
-          </section>
-        </section>
+        <Header />
       </div>
       {/* 음식 상세이미지 */}
       <section className="mt-4 h-[250px] w-full">

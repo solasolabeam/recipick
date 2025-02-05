@@ -1,9 +1,7 @@
 "use client";
 import {
   faArrowRight,
-  faArrowRightToBracket,
   faMagnifyingGlass,
-  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { useQuery } from "@tanstack/react-query";
@@ -13,6 +11,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useIsFetching } from "@tanstack/react-query";
 import AllList, { AllListLoading } from "./AllList";
 import RankList, { RankListLoading } from "./RankList";
+import { useRouter } from "next/navigation";
+import Header from "./Header";
 
 //메인 이미지
 const banner = "/assets/images/banner.png";
@@ -25,25 +25,14 @@ const dessert = "/assets/images/dessert.png";
 const best = "/assets/images/best.png";
 
 export default function MainPage() {
+  const router = useRouter();
   const isFetching = useIsFetching();
 
   return (
     <>
       <div className="mx-5">
         {/* 로고, 로그인, 마이페이지 */}
-        <section className="mt-9 flex items-center justify-between">
-          <div className="text-5xl font-bold">LOGO</div>
-          <section className="flex gap-5">
-            <div className="flex flex-col items-center">
-              <FontAwesomeIcon icon={faArrowRightToBracket} size="2x" />
-              <p className="text-xs">로그인</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <FontAwesomeIcon icon={faUser} size="2x" />
-              <p className="text-xs">My</p>
-            </div>
-          </section>
-        </section>
+        <Header />
         {/* 검색창 */}
         <section className="w-90 relative mt-3 h-10 rounded border-none">
           <FontAwesomeIcon
@@ -107,7 +96,10 @@ export default function MainPage() {
           </div>
           {/* More 버튼 */}
           <div className="mt-10 flex justify-center">
-            <div className="flex h-12 w-20 cursor-pointer items-center justify-center gap-2 rounded border border-Gray30">
+            <div
+              className="flex h-12 w-20 cursor-pointer items-center justify-center gap-2 rounded border border-Gray30"
+              onClick={() => router.push("/list")}
+            >
               <p className="text-sm text-Gray40">More</p>
               <FontAwesomeIcon icon={faArrowRight} color="#656565" />
             </div>
