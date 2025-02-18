@@ -1,13 +1,11 @@
 "use client";
-import {
-  faArrowRightToBracket,
-  faMagnifyingGlass,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useIsFetching } from "@tanstack/react-query";
 import AllList, { AllListLoading } from "../(components)/AllList";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Header from "../(components)/Header";
+import { useSearchParams } from "next/navigation";
 
 //메인 이미지
 // const food = "/assets/images/food.jpg";
@@ -17,29 +15,25 @@ export default function SearchPage() {
   const [input, setInput] = useState("");
   const [itemName, setItemName] = useState("");
   const [category, setCategory] = useState("");
+  const searchParams = useSearchParams();
 
   const handleSumbit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") {
       setItemName(input);
     }
   };
+
+  useEffect(() => {
+    console.log('searchParams.get("category")', searchParams.get("category"));
+    if (searchParams.get("category")) {
+      setCategory(searchParams.get("category") || "");
+    }
+  }, [searchParams]);
   return (
     <div className="flex min-h-screen flex-col">
       <main className="mx-5 flex-grow">
         {/* 로고, 로그인, 마이페이지 */}
-        <section className="mt-9 flex items-center justify-between">
-          <div className="text-5xl font-bold">LOGO</div>
-          <section className="flex gap-5">
-            <div className="flex flex-col items-center">
-              <FontAwesomeIcon icon={faArrowRightToBracket} size="2x" />
-              <p className="text-xs">로그인</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <FontAwesomeIcon icon={faUser} size="2x" />
-              <p className="text-xs">My</p>
-            </div>
-          </section>
-        </section>
+        <Header />
         {/* 상단 description */}
         <section className="mt-6 text-center">
           <p className="text-2xl font-bold">맛있는 레시피 탐험</p>
@@ -64,6 +58,12 @@ export default function SearchPage() {
         </section>
         {/* 카테고리 버튼 */}
         <section className="mt-6 flex flex-wrap gap-4">
+          <button
+            className="rounded-xl bg-gray-600 px-8 py-4 text-white"
+            onClick={() => setCategory("")}
+          >
+            전체
+          </button>
           <button
             className="rounded-xl bg-rice px-8 py-4 text-white"
             onClick={() => setCategory("밥")}
