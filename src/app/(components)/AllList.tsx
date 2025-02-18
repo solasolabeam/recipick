@@ -64,28 +64,30 @@ export const Card = ({ recipe }: { recipe: recipeProps }) => {
 
   return (
     <div
-      className="flex w-full cursor-pointer gap-5"
-      key={recipe.RCP_SEQ}
+      className="flex w-full cursor-pointer flex-wrap gap-5"
       onClick={() => handleItemClick(recipe)}
     >
-      <div className="h-[178px] w-[144px]">
+      {/* 이미지 컨테이너 */}
+      <div className="h-[178px] w-[140px] flex-1">
         <Image
           className="h-full w-full rounded-lg object-cover"
           src={recipe.ATT_FILE_NO_MK}
           alt="음식"
-          width={450}
-          height={450}
-        ></Image>
+          width={200}
+          height={178}
+        />
       </div>
-      <div className="h-[178px] w-auto">
+
+      {/* 텍스트 컨테이너 */}
+      <div className="h-[178px] w-full flex-1">
         <button
           className={`rounded bg-${getColor(recipe.RCP_PAT2)} px-3 py-2 text-xs text-white`}
         >
           {recipe.RCP_PAT2}
         </button>
         <p className="mt-2 text-base font-extrabold">{recipe.RCP_NM}</p>
-        <p className="mt-2 line-clamp-2 w-52 text-sm">{recipe.RCP_NA_TIP}</p>
-        <p className="mt-[30px] w-52 text-xs">{`칼로리 | ${recipe.INFO_ENG} kal`}</p>
+        <p className="mt-2 line-clamp-2 w-full text-sm">{recipe.RCP_NA_TIP}</p>
+        <p className="mt-[30px] w-full text-xs">{`칼로리 | ${recipe.INFO_ENG} kal`}</p>
       </div>
     </div>
   );
