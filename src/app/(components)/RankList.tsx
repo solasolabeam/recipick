@@ -5,12 +5,23 @@ import Skeleton from "react-loading-skeleton";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import getData from "@/app/util/getData";
+import useRecipeStore from "../store";
+import { useRouter } from "next/navigation";
 
 export default function RankList({
   startIndex,
   endIndex,
   queryKey,
 }: searchProps) {
+  const router = useRouter();
+
+  const setSelectedItem = useRecipeStore((state) => state.setSelectedItem);
+
+  const handleItemClick = (recipe: recipeProps) => {
+    setSelectedItem(recipe);
+    router.push(`/detail/${recipe.RCP_SEQ}`);
+  };
+
   const {
     data: data,
     error,
@@ -38,7 +49,11 @@ export default function RankList({
       className=""
     >
       {data?.COOKRCP01.row.map((recipe: recipeProps) => (
-        <SwiperSlide key={recipe.RCP_SEQ} className="mt-4">
+        <SwiperSlide
+          key={recipe.RCP_SEQ}
+          className="mt-4"
+          onClick={() => handleItemClick(recipe)}
+        >
           <div className="w-52 border border-none">
             <div className="h-40 w-full">
               <Image
