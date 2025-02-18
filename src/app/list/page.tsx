@@ -59,6 +59,12 @@ export default function SearchPage() {
         {/* 카테고리 버튼 */}
         <section className="mt-6 flex flex-wrap gap-4">
           <button
+            className="rounded-xl bg-gray-600 px-8 py-4 text-white"
+            onClick={() => setCategory("")}
+          >
+            전체
+          </button>
+          <button
             className="rounded-xl bg-rice px-8 py-4 text-white"
             onClick={() => setCategory("밥")}
           >
