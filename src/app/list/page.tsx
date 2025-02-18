@@ -3,8 +3,9 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useIsFetching } from "@tanstack/react-query";
 import AllList, { AllListLoading } from "../(components)/AllList";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../(components)/Header";
+import { useSearchParams } from "next/navigation";
 
 //메인 이미지
 // const food = "/assets/images/food.jpg";
@@ -14,12 +15,20 @@ export default function SearchPage() {
   const [input, setInput] = useState("");
   const [itemName, setItemName] = useState("");
   const [category, setCategory] = useState("");
+  const searchParams = useSearchParams();
 
   const handleSumbit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") {
       setItemName(input);
     }
   };
+
+  useEffect(() => {
+    console.log('searchParams.get("category")', searchParams.get("category"));
+    if (searchParams.get("category")) {
+      setCategory(searchParams.get("category") || "");
+    }
+  }, [searchParams]);
   return (
     <div className="flex min-h-screen flex-col">
       <main className="mx-5 flex-grow">
