@@ -40,36 +40,35 @@ export default function RankList({
 
   return (
     <Swiper
-      slidesPerView={2}
-      spaceBetween={100}
+      // loop={true}
+      slidesPerView={1.5}
+      spaceBetween={10}
       pagination={{
         clickable: true,
       }}
       modules={[Pagination]}
-      className=""
+      className="mt-4 w-full"
     >
       {data?.COOKRCP01.row.map((recipe: recipeProps) => (
         <SwiperSlide
           key={recipe.RCP_SEQ}
-          className="mt-4"
+          className="w-full"
           onClick={() => handleItemClick(recipe)}
         >
-          <div className="w-52 border border-none">
-            <div className="h-40 w-full">
-              <Image
-                className="h-full w-full rounded-xl object-cover"
-                src={recipe.ATT_FILE_NO_MK}
-                alt={recipe.RCP_NM}
-                width={450}
-                height={450}
-              ></Image>
-            </div>
-            <div className="h-[146px] w-full p-5">
-              <p className="text-base font-semibold">{recipe.RCP_NM}</p>
-              <p className="text-materialAdd line-clamp-2 pt-3 text-sm">
-                {recipe.RCP_NA_TIP}
-              </p>
-            </div>
+          <div className="h-40 flex-1">
+            <Image
+              className="h-full w-full rounded-xl object-cover"
+              src={recipe.ATT_FILE_NO_MK}
+              alt={recipe.RCP_NM}
+              width={450}
+              height={450}
+            ></Image>
+          </div>
+          <div className="h-[146px] flex-1 p-5">
+            <p className="text-base font-semibold">{recipe.RCP_NM}</p>
+            <p className="text-materialAdd line-clamp-2 pt-3 text-sm">
+              {recipe.RCP_NA_TIP}
+            </p>
           </div>
         </SwiperSlide>
       ))}
@@ -86,7 +85,7 @@ export const RankListLoading = () => {
         clickable: true,
       }}
       modules={[Pagination]}
-      className=""
+      className="mt-4 w-full"
     >
       {Array.from({ length: 6 }).map((_, idx) => (
         <SwiperSlide className="" key={idx}>
