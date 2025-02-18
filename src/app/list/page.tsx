@@ -3,7 +3,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useIsFetching } from "@tanstack/react-query";
 import AllList, { AllListLoading } from "../(components)/AllList";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Header from "../(components)/Header";
 import { useSearchParams } from "next/navigation";
 
@@ -11,6 +11,14 @@ import { useSearchParams } from "next/navigation";
 // const food = "/assets/images/food.jpg";
 
 export default function SearchPage() {
+  return (
+    <Suspense>
+      <SearchList />
+    </Suspense>
+  );
+}
+
+function SearchList() {
   const isFetching = useIsFetching();
   const [input, setInput] = useState("");
   const [itemName, setItemName] = useState("");

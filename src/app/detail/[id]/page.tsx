@@ -132,7 +132,11 @@ const ManualList = ({ list }: { list: recipeProps }) => {
               height={130}
             ></Image>
           </div>
-          <p className="text-sm">{recipe.discription.slice(3)}</p>
+          <p className="text-sm">
+            {recipe.discription
+              ? recipe.discription.slice(3)
+              : "설명이 없습니다."}
+          </p>
         </div>
       );
     }
