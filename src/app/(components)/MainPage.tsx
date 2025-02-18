@@ -13,6 +13,7 @@ import AllList, { AllListLoading } from "./AllList";
 import RankList, { RankListLoading } from "./RankList";
 import { useRouter } from "next/navigation";
 import Header from "./Header";
+import Footer from "./Footer";
 
 //메인 이미지
 const banner = "/assets/images/banner.png";
@@ -188,9 +189,7 @@ export default function MainPage() {
         </section>
       </div>
       {/* 푸터 디자인 */}
-      <section className="mt-40 flex h-20 w-full items-center bg-Gray20">
-        <p className="pl-5 text-sm">© 2024 Recipick. All rights reserved.</p>
-      </section>
+      <Footer />
     </>
   );
 }
