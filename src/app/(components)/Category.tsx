@@ -14,12 +14,12 @@ export default function Category() {
   const router = useRouter();
 
   return (
-    <div className="mt-4 grid grid-cols-[1fr_1fr] items-start justify-start gap-4">
+    <div className="mt-4 grid grid-cols-1 items-start justify-start gap-4">
       <div
         className="flex flex-col items-center justify-center"
         onClick={() => router.push("/list?category=밥")}
       >
-        <div className="h-[125px] w-[172px] rounded-xl bg-rice">
+        <div className="aspect-[4/3] w-full rounded-xl bg-rice">
           <Image
             className="h-full w-full"
             src={rice}
@@ -34,7 +34,7 @@ export default function Category() {
         className="flex flex-col items-center justify-center"
         onClick={() => router.push("/list?category=국")}
       >
-        <div className="h-[125px] w-[172px] rounded-lg bg-soup">
+        <div className="aspect-[4/3] w-full rounded-xl bg-soup">
           <Image
             className="h-full w-full"
             src={soup}
@@ -49,7 +49,7 @@ export default function Category() {
         className="flex flex-col items-center justify-center"
         onClick={() => router.push("/list?category=반찬")}
       >
-        <div className="h-[125px] w-[172px] rounded-lg bg-sideDish">
+        <div className="aspect-[4/3] w-full rounded-xl bg-sideDish">
           <Image
             className="h-full w-full"
             src={sidedish}
@@ -64,7 +64,7 @@ export default function Category() {
         className="flex flex-col items-center justify-center"
         onClick={() => router.push("/list?category=후식")}
       >
-        <div className="h-[125px] w-[172px] rounded-xl bg-dessert">
+        <div className="aspect-[4/3] w-full rounded-xl bg-dessert">
           <Image
             className="h-full w-full"
             src={dessert}
@@ -79,7 +79,7 @@ export default function Category() {
         className="flex flex-col items-center justify-center"
         onClick={() => router.push("/list?category=일품")}
       >
-        <div className="h-[125px] w-[172px] rounded-xl bg-best">
+        <div className="aspect-[4/3] w-full rounded-xl bg-best">
           <Image
             className="h-full w-full"
             src={best}
