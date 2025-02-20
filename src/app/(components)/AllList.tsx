@@ -45,10 +45,10 @@ export default function AllList({
 export const AllListLoading = () => {
   return Array.from({ length: 4 }).map((_, idx) => (
     <div className="flex w-full gap-5" key={idx}>
-      <div className="h-[178px] w-[144px]">
+      <div className="h-[178px] w-[140px] flex-1">
         <Skeleton height="100%" width="100%" />
       </div>
-      <div className="h-[178px] w-auto">
+      <div className="h-[178px] flex-1">
         <Skeleton height={30} width={60} />
         <Skeleton className="mt-2" height={25} width={130} />
         <Skeleton className="mt-2" width="100%" />

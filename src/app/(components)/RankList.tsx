@@ -33,7 +33,7 @@ export default function RankList({ data }: { data: recipeProps[] }) {
           className="w-full"
           onClick={() => handleItemClick(recipe)}
         >
-          <div className="h-40 flex-1">
+          <div className="h-40 w-full">
             <Image
               className="h-full w-full rounded-xl object-cover"
               src={recipe.ATT_FILE_NO_MK}
@@ -42,7 +42,7 @@ export default function RankList({ data }: { data: recipeProps[] }) {
               height={450}
             ></Image>
           </div>
-          <div className="h-[146px] flex-1 p-5">
+          <div className="h-[146px] w-full p-5">
             <p className="text-base font-semibold">{recipe.RCP_NM}</p>
             <p className="text-materialAdd line-clamp-2 pt-3 text-sm">
               {recipe.RCP_NA_TIP}
@@ -57,8 +57,8 @@ export default function RankList({ data }: { data: recipeProps[] }) {
 export const RankListLoading = () => {
   return (
     <Swiper
-      slidesPerView={2}
-      spaceBetween={150}
+      slidesPerView={1.5}
+      spaceBetween={10}
       pagination={{
         clickable: true,
       }}
@@ -66,8 +66,8 @@ export const RankListLoading = () => {
       className="mt-4 w-full"
     >
       {Array.from({ length: 6 }).map((_, idx) => (
-        <SwiperSlide className="" key={idx}>
-          <div className="w-52 flex-none border border-none">
+        <SwiperSlide className="w-full" key={idx}>
+          <div className="w-full border border-none">
             <Skeleton height="160px" width="100%" />
             <div className="h-[146px] w-full p-5">
               <Skeleton width="50%" />
