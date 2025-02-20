@@ -14,9 +14,9 @@ export default function Category() {
   const router = useRouter();
 
   return (
-    <div className="mt-4 flex flex-wrap items-start justify-start gap-4">
+    <div className="mt-4 grid grid-cols-[1fr_1fr] items-start justify-start gap-4">
       <div
-        className="flex flex-col items-center"
+        className="flex flex-col items-center justify-center"
         onClick={() => router.push("/list?category=밥")}
       >
         <div className="h-[125px] w-[172px] rounded-xl bg-rice">
@@ -31,7 +31,7 @@ export default function Category() {
         <p className="pt-5 text-base">밥</p>
       </div>
       <div
-        className="flex flex-col items-center"
+        className="flex flex-col items-center justify-center"
         onClick={() => router.push("/list?category=국")}
       >
         <div className="h-[125px] w-[172px] rounded-lg bg-soup">
@@ -46,7 +46,7 @@ export default function Category() {
         <p className="pt-5 text-base">국&찌개</p>
       </div>
       <div
-        className="flex flex-col items-center"
+        className="flex flex-col items-center justify-center"
         onClick={() => router.push("/list?category=반찬")}
       >
         <div className="h-[125px] w-[172px] rounded-lg bg-sideDish">
@@ -61,7 +61,7 @@ export default function Category() {
         <p className="pt-5 text-base">반찬</p>
       </div>
       <div
-        className="flex flex-col items-center"
+        className="flex flex-col items-center justify-center"
         onClick={() => router.push("/list?category=후식")}
       >
         <div className="h-[125px] w-[172px] rounded-xl bg-dessert">
@@ -76,7 +76,7 @@ export default function Category() {
         <p className="pt-5 text-base">후식</p>
       </div>
       <div
-        className="flex flex-col items-center"
+        className="flex flex-col items-center justify-center"
         onClick={() => router.push("/list?category=일품")}
       >
         <div className="h-[125px] w-[172px] rounded-xl bg-best">
