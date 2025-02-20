@@ -1,18 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import { recipeProps, searchProps } from "../type/recipe";
+import { recipeProps } from "../type/recipe";
 import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import getData from "@/app/util/getData";
 import useRecipeStore from "../store";
 import { useRouter } from "next/navigation";
 
-export default function RankList({
-  startIndex,
-  endIndex,
-  queryKey,
-}: searchProps) {
+export default function RankList({ data }: { data: recipeProps[] }) {
   const router = useRouter();
 
   const setSelectedItem = useRecipeStore((state) => state.setSelectedItem);
@@ -21,22 +15,6 @@ export default function RankList({
     setSelectedItem(recipe);
     router.push(`/detail/${recipe.RCP_SEQ}`);
   };
-
-  const {
-    data: data,
-    error,
-    isError,
-  } = useQuery({
-    queryKey: [queryKey],
-    queryFn: () => getData(startIndex, endIndex),
-    staleTime: 300000,
-  });
-
-  if (isError) {
-    // 에러 처리
-    console.error("Error!:", error);
-    return <div>Error occurred!</div>;
-  }
 
   return (
     <Swiper
@@ -49,7 +27,7 @@ export default function RankList({
       modules={[Pagination]}
       className="mt-4 w-full"
     >
-      {data?.COOKRCP01.row.map((recipe: recipeProps) => (
+      {data?.map((recipe: recipeProps) => (
         <SwiperSlide
           key={recipe.RCP_SEQ}
           className="w-full"

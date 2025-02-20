@@ -117,6 +117,7 @@ function SearchList() {
                 queryKey="allData"
                 itemName={itemName}
                 category={category}
+                isSearch={true}
               />
             )}
           </div>

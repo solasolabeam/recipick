@@ -9,29 +9,35 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 export default function AllList({
-  startIndex,
-  endIndex,
-  queryKey,
-  itemName,
-  category,
+  startIndex = 0,
+  endIndex = 6,
+  queryKey = "allList",
+  itemName = "",
+  category = "",
+  data = [],
+  isSearch,
 }: searchProps) {
   const {
-    data: data,
+    data: fetchData,
     error,
     isError,
   } = useQuery({
     queryKey: [queryKey, itemName, category],
     queryFn: () => getData(startIndex, endIndex, itemName, category),
     staleTime: 300000,
+    enabled: isSearch, // 빈 배열일 때만 활성화
   });
-
+  console.log("data[]", data);
   if (isError) {
     // 에러 처리
     console.error("Error!:", error);
     return <div>Error occurred!</div>;
   }
 
-  return data?.COOKRCP01.row.map((recipe: recipeProps) => {
+  // data가 존재하면 그대로 사용하고, 없으면 fetchData 사용
+  const recipes = data.length > 0 ? data : fetchData?.COOKRCP01.row || [];
+
+  return recipes.map((recipe: recipeProps) => {
     return <Card recipe={recipe} key={recipe.RCP_SEQ} />;
   });
 }

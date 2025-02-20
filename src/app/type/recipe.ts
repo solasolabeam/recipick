@@ -57,11 +57,13 @@ export interface recipeProps {
 }
 
 export interface searchProps {
-  startIndex: number;
-  endIndex: number;
-  queryKey: string;
+  startIndex?: number;
+  endIndex?: number;
+  queryKey?: string;
   itemName?: string;
   category?: string;
+  data?: recipeProps[];
+  isSearch: boolean;
 }
 
 export interface recipeStore {
