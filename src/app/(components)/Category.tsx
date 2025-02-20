@@ -14,7 +14,7 @@ export default function Category() {
   const router = useRouter();
 
   return (
-    <div className="mt-4 grid grid-cols-1 items-start justify-start gap-4">
+    <div className="xs:grid-cols-2 mt-4 grid grid-cols-1 items-start justify-start gap-4">
       <div
         className="flex flex-col items-center justify-center"
         onClick={() => router.push("/list?category=밥")}
