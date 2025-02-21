@@ -8,28 +8,19 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import { useState } from "react";
 
-export default function LoginModal() {
-  const [isOpen, setIsOpen] = useState(false);
+interface LoginModalProps {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+}
 
+export default function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
   function closeModal() {
     setIsOpen(false);
   }
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
   return (
     <>
-      <button
-        onClick={openModal}
-        className="rounded bg-blue-500 p-2 text-white"
-      >
-        Open Modal
-      </button>
-
       <Dialog open={isOpen} onClose={closeModal}>
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <DialogPanel className="mx-4 w-full max-w-sm rounded bg-white p-3 shadow-lg">
