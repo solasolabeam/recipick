@@ -8,21 +8,47 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import "swiper/css";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useIsFetching } from "@tanstack/react-query";
+import { useIsFetching, useQuery } from "@tanstack/react-query";
 import AllList, { AllListLoading } from "./AllList";
 import RankList, { RankListLoading } from "./RankList";
 import { useRouter } from "next/navigation";
 import Header from "./Header";
 import Footer from "./Footer";
 import Category from "./Category";
+import { useMemo } from "react";
 
 //메인 이미지
 const banner = "/assets/images/banner.png";
 // const food = "/assets/images/food.jpg";
 
+const fetchData = async () => {
+  const res = await fetch(
+    "https://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/1/18",
+  );
+
+  const data = await res.json();
+  return data;
+};
+
 export default function MainPage() {
   const router = useRouter();
   const isFetching = useIsFetching();
+
+  const { data } = useQuery({
+    queryKey: ["main"],
+    queryFn: fetchData,
+    staleTime: 2 * 60 * 1000,
+  });
+
+  // useMemo로 최적화
+  const [first, second, third] = useMemo(() => {
+    if (!data || data.length < 18) return [[], []];
+    return [
+      data.COOKRCP01.row.slice(0, 6),
+      data.COOKRCP01.row.slice(6, 12),
+      data.COOKRCP01.row.slice(12, 18),
+    ];
+  }, [data]);
 
   return (
     <>
@@ -64,7 +90,7 @@ export default function MainPage() {
             /* 스켈레톤 로딩 */
             <RankListLoading />
           ) : (
-            <RankList startIndex={18} endIndex={23} queryKey="recommend" />
+            <RankList data={third} />
           )}
         </section>
         {/* 인기 레시피 */}
@@ -76,7 +102,7 @@ export default function MainPage() {
             /* 스켈레톤 로딩 */
             <RankListLoading />
           ) : (
-            <RankList startIndex={12} endIndex={17} queryKey="popular" />
+            <RankList data={second} />
           )}
         </section>
         {/* 모든 레시피 한눈에 보기 */}
@@ -87,7 +113,7 @@ export default function MainPage() {
               /* 스켈레톤 로딩 */
               <AllListLoading />
             ) : (
-              <AllList startIndex={1} endIndex={6} queryKey="allData" />
+              <AllList data={first} isSearch={false} />
             )}
           </div>
           {/* More 버튼 */}

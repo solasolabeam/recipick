@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { recipeProps } from "../type/recipe";
 import getStoredRecipes from "../util/getStoredRecipes";
 import Header from "../(components)/Header";
+import Footer from "../(components)/Footer";
 
 //메인 이미지
 // const food = "/assets/images/food.jpg";
@@ -49,9 +50,7 @@ export default function MyPage() {
         </section>
       </main>
       {/* 푸터 디자인 */}
-      <footer className="mt-40 flex h-20 w-full items-center bg-Gray20">
-        <p className="pl-5 text-sm">© 2024 Recipick. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

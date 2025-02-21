@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import { recipeProps, searchProps } from "../type/recipe";
 import useRecipeStore from "../store";
@@ -7,23 +9,39 @@ import Image from "next/image";
 import getColor from "../util/getColor";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Pagination, Stack } from "@mui/material";
+import { useState } from "react";
 
 export default function AllList({
-  startIndex,
-  endIndex,
-  queryKey,
-  itemName,
-  category,
+  startIndex: propStartIndex,
+  endIndex: propEndIndex,
+  queryKey = "allList",
+  itemName = "",
+  category = "",
+  data = [],
+  isSearch,
 }: searchProps) {
+  const [page, setPage] = useState(1);
+  const rowPerPage = 6;
+
+  // props에 startIndex, endIndex가 있으면 그대로 사용, 없으면 page 기반으로 계산
+  const startIndex =
+    propStartIndex !== undefined ? propStartIndex : (page - 1) * rowPerPage;
+  const endIndex =
+    propEndIndex !== undefined ? propEndIndex : startIndex + rowPerPage;
+
   const {
-    data: data,
+    data: fetchData,
     error,
     isError,
   } = useQuery({
-    queryKey: [queryKey, itemName, category],
+    queryKey: [queryKey, itemName, category, startIndex, endIndex],
     queryFn: () => getData(startIndex, endIndex, itemName, category),
     staleTime: 300000,
+    enabled: isSearch, // 빈 배열일 때만 활성화
   });
+
+  console.log("data[]", data);
 
   if (isError) {
     // 에러 처리
@@ -31,18 +49,40 @@ export default function AllList({
     return <div>Error occurred!</div>;
   }
 
-  return data?.COOKRCP01.row.map((recipe: recipeProps) => {
-    return <Card recipe={recipe} key={recipe.RCP_SEQ} />;
-  });
+  const totalPage = fetchData?.COOKRCP01.total_count / rowPerPage; // 총 페이지
+
+  // data가 존재하면 그대로 사용하고, 없으면 fetchData 사용
+  const recipes = data.length > 0 ? data : fetchData?.COOKRCP01.row || [];
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  return (
+    <>
+      {recipes.map((recipe: recipeProps) => {
+        return <Card recipe={recipe} key={recipe.RCP_SEQ} />;
+      })}
+      <Stack spacing={2} sx={{ mt: 10 }}>
+        <Pagination
+          count={totalPage}
+          variant="outlined"
+          shape="rounded"
+          page={page}
+          onChange={handleChangePage}
+        />
+      </Stack>
+    </>
+  );
 }
 
 export const AllListLoading = () => {
   return Array.from({ length: 4 }).map((_, idx) => (
     <div className="flex w-full gap-5" key={idx}>
-      <div className="h-[178px] w-[144px]">
+      <div className="h-[178px] w-[140px] flex-1">
         <Skeleton height="100%" width="100%" />
       </div>
-      <div className="h-[178px] w-auto">
+      <div className="h-[178px] flex-1">
         <Skeleton height={30} width={60} />
         <Skeleton className="mt-2" height={25} width={130} />
         <Skeleton className="mt-2" width="100%" />

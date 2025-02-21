@@ -33,6 +33,9 @@ export default {
         Gray40: "#656565",
         Gray50: "#1F1F1F",
       },
+      screens: {
+        xs: "480px",
+      },
     },
   },
   plugins: [],

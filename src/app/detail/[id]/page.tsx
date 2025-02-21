@@ -1,4 +1,5 @@
 "use client";
+import Footer from "@/app/(components)/Footer";
 import Header from "@/app/(components)/Header";
 import useRecipeStore from "@/app/store";
 import { recipeProps } from "@/app/type/recipe";
@@ -99,9 +100,7 @@ export default function DetailPage() {
         </section>
       </div>
       {/* 푸터 디자인 */}
-      <section className="mt-40 flex h-20 w-full items-center bg-Gray20">
-        <p className="pl-5 text-sm">© 2024 Recipick. All rights reserved.</p>
-      </section>
+      <Footer />
     </>
   );
 }
