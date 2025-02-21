@@ -8,6 +8,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
+import { signIn } from "next-auth/react";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -44,7 +45,7 @@ export default function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
             </Description>
             <div className="mt-20 text-center">
               <button
-                onClick={closeModal}
+                onClick={() => signIn("kakao")}
                 className="w-full rounded bg-yellow-300 py-3 text-black"
               >
                 <FontAwesomeIcon icon={faComment} />
