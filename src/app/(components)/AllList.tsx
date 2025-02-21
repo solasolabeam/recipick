@@ -49,7 +49,7 @@ export default function AllList({
     return <div>Error occurred!</div>;
   }
 
-  const totalPage = fetchData.COOKRCP01.total_count / rowPerPage; // 총 페이지
+  const totalPage = fetchData?.COOKRCP01.total_count / rowPerPage; // 총 페이지
 
   // data가 존재하면 그대로 사용하고, 없으면 fetchData 사용
   const recipes = data.length > 0 ? data : fetchData?.COOKRCP01.row || [];
