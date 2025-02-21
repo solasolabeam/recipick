@@ -10,7 +10,7 @@ import {
 } from "@headlessui/react";
 import { useState } from "react";
 
-export default function MyModal() {
+export default function LoginModal() {
   const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
