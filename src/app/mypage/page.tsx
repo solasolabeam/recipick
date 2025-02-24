@@ -6,12 +6,15 @@ import { recipeProps } from "../type/recipe";
 import getStoredRecipes from "../util/getStoredRecipes";
 import Header from "../(components)/Header";
 import Footer from "../(components)/Footer";
+import { useSession } from "next-auth/react";
 
 //메인 이미지
 // const food = "/assets/images/food.jpg";
 
 export default function MyPage() {
   const [recent, setRecent] = useState<recipeProps[]>([]);
+  const { data: session } = useSession();
+  console.log("session", session);
 
   useEffect(() => {
     setRecent(getStoredRecipes());
@@ -26,8 +29,10 @@ export default function MyPage() {
           <div className="h-[100px] w-[100px] flex-shrink-0 rounded-[100%] bg-Gray20"></div>
           <div className="w-auto">
             <section className="mt-5">
-              <p className="text-xl font-bold">김민수</p>
-              <p className="mt-1 text-base text-Gray30">minsu@gmail.com</p>
+              <p className="text-xl font-bold">{session?.user?.name}</p>
+              <p className="mt-1 text-base text-Gray30">
+                {session?.user?.email}
+              </p>
               <p className="mt-3 text-xs">
                 요리와 여행을 사랑하는 미식가입니다. 새로운 레시피를 공유하고
                 싶어요!
