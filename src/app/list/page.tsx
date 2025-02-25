@@ -1,12 +1,11 @@
 "use client";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useIsFetching } from "@tanstack/react-query";
-import AllList, { AllListLoading } from "../(components)/AllList";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useState } from "react";
 import Header from "../(components)/Header";
 import { useSearchParams } from "next/navigation";
 import Footer from "../(components)/Footer";
+import AllList from "../(components)/AllList";
 
 //메인 이미지
 // const food = "/assets/images/food.jpg";
@@ -20,7 +19,6 @@ export default function SearchPage() {
 }
 
 function SearchList() {
-  const isFetching = useIsFetching();
   const [input, setInput] = useState("");
   const [itemName, setItemName] = useState("");
   const [category, setCategory] = useState("");
@@ -33,11 +31,22 @@ function SearchList() {
   };
 
   useEffect(() => {
-    console.log('searchParams.get("category")', searchParams.get("category"));
     if (searchParams.get("category")) {
       setCategory(searchParams.get("category") || "");
     }
   }, [searchParams]);
+
+  const allListComponent = useMemo(
+    () => (
+      <AllList
+        queryKey="allData"
+        itemName={itemName}
+        category={category}
+        isSearch={true}
+      />
+    ),
+    [itemName, category], // itemName, category 변경될 때만 새로 생성
+  );
   return (
     <div className="flex min-h-screen flex-col">
       <main className="mx-5 flex-grow">
@@ -106,21 +115,7 @@ function SearchList() {
         </section>
         {/* 레시피 검색 결과 */}
         <section className="mt-16">
-          <div className="mt-4 flex flex-wrap gap-4">
-            {isFetching ? (
-              /* 스켈레톤 로딩 */
-              <AllListLoading />
-            ) : (
-              <AllList
-                startIndex={1}
-                endIndex={6}
-                queryKey="allData"
-                itemName={itemName}
-                category={category}
-                isSearch={true}
-              />
-            )}
-          </div>
+          <div className="mt-4 flex flex-wrap gap-4">{allListComponent}</div>
         </section>
       </main>
       {/* 푸터 디자인 */}

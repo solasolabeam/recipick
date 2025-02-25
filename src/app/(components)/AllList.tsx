@@ -10,11 +10,9 @@ import getColor from "../util/getColor";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Pagination, Stack } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function AllList({
-  startIndex: propStartIndex,
-  endIndex: propEndIndex,
   queryKey = "allList",
   itemName = "",
   category = "",
@@ -25,45 +23,56 @@ export default function AllList({
   const rowPerPage = 6;
 
   // props에 startIndex, endIndex가 있으면 그대로 사용, 없으면 page 기반으로 계산
-  const startIndex =
-    propStartIndex !== undefined ? propStartIndex : (page - 1) * rowPerPage;
-  const endIndex =
-    propEndIndex !== undefined ? propEndIndex : startIndex + rowPerPage;
+  const [startIndex, setStartIndex] = useState(1);
+  const [endIndex, setEndIndex] = useState(6);
+
+  useEffect(() => {
+    setPage(1);
+  }, [itemName, category]);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setStartIndex((newPage - 1) * rowPerPage + 1); // startIndex 업데이트
+    setEndIndex((newPage - 1) * rowPerPage + 1 + (rowPerPage - 1)); // startIndex 업데이트
+    setPage(newPage); // page 업데이트
+  };
+
+  const memoizedQueryKey = useMemo(
+    () => [queryKey, itemName, category, page],
+    [queryKey, itemName, category, page],
+  );
 
   const {
     data: fetchData,
     error,
     isError,
+    isLoading,
   } = useQuery({
-    queryKey: [queryKey, itemName, category, startIndex, endIndex],
+    queryKey: memoizedQueryKey,
     queryFn: () => getData(startIndex, endIndex, itemName, category),
     staleTime: 300000,
-    enabled: isSearch, // 빈 배열일 때만 활성화
+    enabled: isSearch,
   });
-
-  console.log("data[]", data);
 
   if (isError) {
     // 에러 처리
     console.error("Error!:", error);
     return <div>Error occurred!</div>;
   }
+  if (isLoading) {
+    return <AllListLoading />;
+  }
 
-  const totalPage = fetchData?.COOKRCP01.total_count / rowPerPage; // 총 페이지
+  const totalPage = Math.floor(fetchData?.COOKRCP01.total_count / rowPerPage); // 총 페이지
 
   // data가 존재하면 그대로 사용하고, 없으면 fetchData 사용
   const recipes = data.length > 0 ? data : fetchData?.COOKRCP01.row || [];
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
 
   return (
     <>
       {recipes.map((recipe: recipeProps) => {
         return <Card recipe={recipe} key={recipe.RCP_SEQ} />;
       })}
-      <Stack spacing={2} sx={{ mt: 10 }}>
+      <Stack spacing={2} sx={{ mt: 5 }}>
         <Pagination
           count={totalPage}
           variant="outlined"
