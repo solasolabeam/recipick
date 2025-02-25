@@ -1,3 +1,7 @@
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
+
 import {
   faArrowRightToBracket,
   faUser,
@@ -29,14 +33,17 @@ export default function Header() {
         </div>
         <section className="flex gap-5">
           <div className="flex flex-col items-center" onClick={handleClick}>
-            <FontAwesomeIcon icon={faArrowRightToBracket} size="2x" />
+            <FontAwesomeIcon
+              icon={faArrowRightToBracket}
+              className="text-3xl"
+            />
             <p className="text-xs">{session ? "로그아웃" : "로그인"}</p>
           </div>
           <div
             className="flex flex-col items-center"
             onClick={() => router.push("/mypage")}
           >
-            <FontAwesomeIcon icon={faUser} size="2x" />
+            <FontAwesomeIcon icon={faUser} className="text-3xl" />
             <p className="text-xs">My</p>
           </div>
         </section>
