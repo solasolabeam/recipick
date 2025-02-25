@@ -111,6 +111,11 @@ export const Card = ({ recipe }: { recipe: recipeProps }) => {
     router.push(`/detail/${recipe.RCP_SEQ}`);
   };
 
+  // ATT_FILE_NO_MK가 유효한 이미지 URL인지 확인하는 함수
+  const getImageSrc = (src: string) => {
+    return src && src !== "" ? src : "/assets/images/default.jpg"; // 대체 이미지 경로
+  };
+
   return (
     <div
       className="flex w-full cursor-pointer flex-wrap gap-5"
@@ -120,7 +125,7 @@ export const Card = ({ recipe }: { recipe: recipeProps }) => {
       <div className="h-[178px] w-[140px] flex-1">
         <Image
           className="h-full w-full rounded-lg object-cover"
-          src={recipe.ATT_FILE_NO_MK}
+          src={getImageSrc(recipe.ATT_FILE_NO_MK)} // 이미지 경로 확인 후 사용
           alt="음식"
           width={200}
           height={178}
