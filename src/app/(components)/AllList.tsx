@@ -11,6 +11,8 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Pagination, Stack } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 export default function AllList({
   queryKey = "allList",
@@ -134,12 +136,17 @@ export const Card = ({ recipe }: { recipe: recipeProps }) => {
 
       {/* 텍스트 컨테이너 */}
       <div className="h-[178px] w-full flex-1">
-        <button
-          className={`rounded bg-${getColor(recipe.RCP_PAT2)} px-3 py-2 text-xs text-white`}
-        >
-          {recipe.RCP_PAT2}
-        </button>
-        <p className="mt-2 text-base font-extrabold">{recipe.RCP_NM}</p>
+        <div className="flex items-center justify-between">
+          <button
+            className={`rounded bg-${getColor(recipe.RCP_PAT2)} px-3 py-2 text-xs text-white`}
+          >
+            {recipe.RCP_PAT2}
+          </button>
+          <FontAwesomeIcon icon={faHeart} className="text-xl text-red-400" />
+        </div>
+        <p className="mt-2 line-clamp-1 text-base font-extrabold">
+          {recipe.RCP_NM}
+        </p>
         <p className="mt-2 line-clamp-2 w-full text-sm">{recipe.RCP_NA_TIP}</p>
         <p className="mt-[30px] w-full text-xs">{`칼로리 | ${recipe.INFO_ENG} kal`}</p>
       </div>

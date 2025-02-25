@@ -7,6 +7,8 @@ import getStoredRecipes from "../util/getStoredRecipes";
 import Header from "../(components)/Header";
 import Footer from "../(components)/Footer";
 import { useSession } from "next-auth/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 //메인 이미지
 // const food = "/assets/images/food.jpg";
@@ -25,7 +27,9 @@ export default function MyPage() {
         <Header />
         {/* 사용자 정보 */}
         <section className="mt-12 flex gap-5">
-          <div className="h-[100px] w-[100px] flex-shrink-0 rounded-[100%] bg-Gray20"></div>
+          <div className="flex h-[100px] w-[100px] flex-shrink-0 items-center justify-center rounded-[100%] bg-Gray20">
+            <FontAwesomeIcon icon={faUser} className="text-5xl text-white" />
+          </div>
           <div className="w-auto">
             <section className="mt-5">
               <p className="text-xl font-bold">
