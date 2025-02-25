@@ -12,7 +12,6 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
-  console.log("session", session);
 
   const handleClick = () => {
     if (session) {
