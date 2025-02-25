@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import LoginModal from "./LoginModal";
 import { signOut, useSession } from "next-auth/react";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +23,14 @@ export default function Header() {
       signOut();
     } else {
       setIsOpen(true);
+    }
+  };
+
+  const handleCheck = () => {
+    if (session) {
+      router.push("/mypage");
+    } else {
+      toast.error("로그인을 해주세요");
     }
   };
 
@@ -39,16 +48,14 @@ export default function Header() {
             />
             <p className="text-xs">{session ? "로그아웃" : "로그인"}</p>
           </div>
-          <div
-            className="flex flex-col items-center"
-            onClick={() => router.push("/mypage")}
-          >
+          <div className="flex flex-col items-center" onClick={handleCheck}>
             <FontAwesomeIcon icon={faUser} className="text-3xl" />
             <p className="text-xs">My</p>
           </div>
         </section>
       </section>
       <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <ToastContainer />
     </>
   );
 }
