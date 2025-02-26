@@ -69,4 +69,6 @@ export interface searchProps {
 export interface recipeStore {
   selectedItem: recipeProps;
   setSelectedItem: (item: recipeProps) => void;
+  selectedCategory: string;
+  setSelectedCategory: (itemName: string) => void;
 }
