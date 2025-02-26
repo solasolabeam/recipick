@@ -15,7 +15,8 @@ import { useRouter } from "next/navigation";
 import Header from "./Header";
 import Footer from "./Footer";
 import Category from "./Category";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import useRecipeStore from "../store";
 
 //메인 이미지
 const banner = "/assets/images/banner.png";
@@ -31,25 +32,40 @@ const fetchData = async () => {
 };
 
 export default function MainPage() {
+  const [input, setInput] = useState("");
+  const setSelectedItemName = useRecipeStore(
+    (state) => state.setSelectedItemName,
+  );
   const router = useRouter();
 
-  const { data, isLoading, isFetching } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ["main"],
     queryFn: fetchData,
     staleTime: 2 * 60 * 1000,
   });
 
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == "Enter") {
+      setSelectedItemName(input);
+      router.push("/list");
+    }
+  };
+
+  const handleClick = () => {
+    setSelectedItemName(input);
+    router.push("/list");
+  };
+
   // useMemo로 최적화
   const [first, second, third] = useMemo(() => {
-    if (!data || data.length < 18) return [[], []];
+    if (!data || data.length < 18) return [[], [], []];
     return [
       data.COOKRCP01.row.slice(0, 6),
       data.COOKRCP01.row.slice(6, 12),
       data.COOKRCP01.row.slice(12, 18),
     ];
   }, [data]);
-  console.log("isloading", isLoading);
-  console.log("isFetching", isFetching);
+
   return (
     <>
       <div className="mx-5">
@@ -60,10 +76,14 @@ export default function MainPage() {
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
             size="1x"
-            className="absolute left-3 top-3 h-5 w-5 cursor-pointer text-gray-400"
+            className="absolute left-3 top-3 h-5 w-5 cursor-pointer text-black"
+            onClick={handleClick}
           />
           <input
-            className="h-full w-full rounded-md bg-inputGray pl-10 text-xs"
+            className="h-full w-full rounded-md bg-inputGray pl-10 text-sm"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyUp={handleKeyUp}
             placeholder="레시피 검색"
           />
         </section>

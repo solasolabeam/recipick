@@ -24,6 +24,7 @@ export default function SearchPage() {
   const [itemName, setItemName] = useState("");
   const [category, setCategory] = useState("");
   const selectedCategory = useRecipeStore((state) => state.selectedCategory);
+  const selectedItemName = useRecipeStore((state) => state.selectedItemName);
 
   const handleSumbit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") {
@@ -31,9 +32,15 @@ export default function SearchPage() {
     }
   };
 
+  const handleClick = () => {
+    setItemName(input);
+  };
+
   useEffect(() => {
     setCategory(selectedCategory);
-  }, []);
+    setItemName(selectedItemName);
+    setInput(selectedItemName);
+  }, [selectedCategory, selectedItemName]);
 
   const allListComponent = useMemo(
     () => (
@@ -89,6 +96,7 @@ export default function SearchPage() {
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
               className="absolute left-3 top-5 h-5 w-5 cursor-pointer text-black"
+              onClick={handleClick}
             />
             <input
               className="h-full min-h-[50px] w-full rounded-md bg-inputGray pl-10 text-sm"
