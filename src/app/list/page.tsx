@@ -55,8 +55,8 @@ function SearchList() {
         {/* 상단 description */}
         <section className="mt-6 text-center">
           <p className="text-2xl font-bold">맛있는 레시피 탐험</p>
-          <p className="mt-3 text-base">
-            다양한 요리법을 통해 새로운 맛을 경험해보세요.
+          <p className="mt-3 text-sm">
+            다양한 요리법을 통해 새로운 맛을 경험해보세요
           </p>
         </section>
         {/* 검색창 */}
