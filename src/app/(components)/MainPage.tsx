@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import "swiper/css";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useIsFetching, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import AllList, { AllListLoading } from "./AllList";
 import RankList, { RankListLoading } from "./RankList";
 import { useRouter } from "next/navigation";
@@ -32,9 +32,8 @@ const fetchData = async () => {
 
 export default function MainPage() {
   const router = useRouter();
-  const isFetching = useIsFetching();
 
-  const { data } = useQuery({
+  const { data, isLoading, isFetching } = useQuery({
     queryKey: ["main"],
     queryFn: fetchData,
     staleTime: 2 * 60 * 1000,
@@ -49,7 +48,8 @@ export default function MainPage() {
       data.COOKRCP01.row.slice(12, 18),
     ];
   }, [data]);
-
+  console.log("isloading", isLoading);
+  console.log("isFetching", isFetching);
   return (
     <>
       <div className="mx-5">
@@ -98,7 +98,12 @@ export default function MainPage() {
           <div>
             <p className="text-2xl font-bold">인기 레시피</p>
           </div>
-          {<RankList data={second} />}
+          {isFetching ? (
+            /* 스켈레톤 로딩 */
+            <RankListLoading />
+          ) : (
+            <RankList data={second} />
+          )}
         </section>
         {/* 모든 레시피 한눈에 보기 */}
         <section className="mt-[80px]">
@@ -106,7 +111,6 @@ export default function MainPage() {
           <div className="mt-4 flex flex-wrap gap-4">
             {isFetching ? (
               /* 스켈레톤 로딩 */
-
               <AllListLoading />
             ) : (
               <AllList data={first} isSearch={false} />
