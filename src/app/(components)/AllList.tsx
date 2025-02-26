@@ -60,7 +60,7 @@ export default function AllList({
     console.error("Error!:", error);
     return <div>Error occurred!</div>;
   }
-  if (isLoading) {
+  if (isLoading && isSearch) {
     return <AllListLoading />;
   }
 
@@ -74,15 +74,17 @@ export default function AllList({
       {recipes.map((recipe: recipeProps) => {
         return <Card recipe={recipe} key={recipe.RCP_SEQ} />;
       })}
-      <Stack spacing={2} sx={{ mt: 5 }}>
-        <Pagination
-          count={totalPage}
-          variant="outlined"
-          shape="rounded"
-          page={page}
-          onChange={handleChangePage}
-        />
-      </Stack>
+      {isSearch && (
+        <Stack spacing={2} sx={{ mt: 5 }}>
+          <Pagination
+            count={totalPage}
+            variant="outlined"
+            shape="rounded"
+            page={page}
+            onChange={handleChangePage}
+          />
+        </Stack>
+      )}
     </>
   );
 }

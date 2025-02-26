@@ -23,8 +23,8 @@ export default function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
   return (
     <>
       <Dialog open={isOpen} onClose={closeModal}>
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <DialogPanel className="mx-4 w-full max-w-sm rounded bg-white p-3 shadow-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <DialogPanel className="z-100 mx-4 w-full max-w-sm rounded bg-white p-3 shadow-lg">
             <div className="text-right">
               <button
                 onClick={closeModal}
