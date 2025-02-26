@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import useRecipeStore from "../store";
 import { useRouter } from "next/navigation";
 
 //카테고리 이미지
@@ -12,12 +13,20 @@ const best = "/assets/images/best.png";
 
 export default function Category() {
   const router = useRouter();
+  const setSelectedCategory = useRecipeStore(
+    (state) => state.setSelectedCategory,
+  );
+
+  const handleClick = (name: string) => {
+    setSelectedCategory(name);
+    router.push("/list");
+  };
 
   return (
-    <div className="xs:grid-cols-2 mt-4 grid grid-cols-1 items-start justify-start gap-4">
+    <div className="mt-4 grid grid-cols-1 items-start justify-start gap-4 xs:grid-cols-2">
       <div
         className="flex flex-col items-center justify-center"
-        onClick={() => router.push("/list?category=밥")}
+        onClick={() => handleClick("밥")}
       >
         <div className="aspect-[4/3] w-full rounded-xl bg-rice">
           <Image
@@ -32,7 +41,7 @@ export default function Category() {
       </div>
       <div
         className="flex flex-col items-center justify-center"
-        onClick={() => router.push("/list?category=국")}
+        onClick={() => handleClick("국")}
       >
         <div className="aspect-[4/3] w-full rounded-xl bg-soup">
           <Image
@@ -47,7 +56,7 @@ export default function Category() {
       </div>
       <div
         className="flex flex-col items-center justify-center"
-        onClick={() => router.push("/list?category=반찬")}
+        onClick={() => handleClick("반찬")}
       >
         <div className="aspect-[4/3] w-full rounded-xl bg-sideDish">
           <Image
@@ -62,13 +71,13 @@ export default function Category() {
       </div>
       <div
         className="flex flex-col items-center justify-center"
-        onClick={() => router.push("/list?category=후식")}
+        onClick={() => handleClick("후식")}
       >
         <div className="aspect-[4/3] w-full rounded-xl bg-dessert">
           <Image
             className="h-full w-full"
             src={dessert}
-            alt="디저트"
+            alt="후식"
             width={1024}
             height={768}
           ></Image>
@@ -77,7 +86,7 @@ export default function Category() {
       </div>
       <div
         className="flex flex-col items-center justify-center"
-        onClick={() => router.push("/list?category=일품")}
+        onClick={() => handleClick("일품")}
       >
         <div className="aspect-[4/3] w-full rounded-xl bg-best">
           <Image

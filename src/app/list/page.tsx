@@ -1,9 +1,8 @@
 "use client";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { Suspense, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Header from "../(components)/Header";
-import { useSearchParams } from "next/navigation";
 import Footer from "../(components)/Footer";
 import AllList from "../(components)/AllList";
 import {
@@ -15,23 +14,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import useRecipeStore from "../store";
 
 //메인 이미지
 // const food = "/assets/images/food.jpg";
 
 export default function SearchPage() {
-  return (
-    <Suspense>
-      <SearchList />
-    </Suspense>
-  );
-}
-
-function SearchList() {
   const [input, setInput] = useState("");
   const [itemName, setItemName] = useState("");
   const [category, setCategory] = useState("");
-  const searchParams = useSearchParams();
+  const selectedCategory = useRecipeStore((state) => state.selectedCategory);
 
   const handleSumbit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") {
@@ -40,10 +32,8 @@ function SearchList() {
   };
 
   useEffect(() => {
-    if (searchParams.get("category")) {
-      setCategory(searchParams.get("category") || "");
-    }
-  }, [searchParams]);
+    setCategory(selectedCategory);
+  }, []);
 
   const allListComponent = useMemo(
     () => (
@@ -76,6 +66,7 @@ function SearchList() {
               onValueChange={(value) =>
                 value == "none" ? setCategory("") : setCategory(value)
               }
+              value={category}
             >
               <SelectTrigger className="min-h-[50px] w-full">
                 <SelectValue placeholder="전체" />
@@ -87,7 +78,7 @@ function SearchList() {
                   <SelectItem value="밥">밥</SelectItem>
                   <SelectItem value="반찬">반찬</SelectItem>
                   <SelectItem value="국">국&찌개</SelectItem>
-                  <SelectItem value="후식">디저트</SelectItem>
+                  <SelectItem value="후식">후식</SelectItem>
                   <SelectItem value="일품">일품</SelectItem>
                 </SelectGroup>
               </SelectContent>
