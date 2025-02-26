@@ -71,4 +71,6 @@ export interface recipeStore {
   setSelectedItem: (item: recipeProps) => void;
   selectedCategory: string;
   setSelectedCategory: (itemName: string) => void;
+  selectedItemName: string;
+  setSelectedItemName: (itemName: string) => void;
 }

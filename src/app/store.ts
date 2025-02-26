@@ -7,6 +7,9 @@ const useRecipeStore = create<recipeStore>((set) => ({
   selectedCategory: "",
   setSelectedCategory: (itemName: string) =>
     set({ selectedCategory: itemName }),
+  selectedItemName: "",
+  setSelectedItemName: (itemName: string) =>
+    set({ selectedItemName: itemName }),
 }));
 
 export default useRecipeStore;
