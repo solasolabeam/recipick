@@ -98,12 +98,7 @@ export default function MainPage() {
           <div>
             <p className="text-2xl font-bold">인기 레시피</p>
           </div>
-          {isFetching ? (
-            /* 스켈레톤 로딩 */
-            <RankListLoading />
-          ) : (
-            <RankList data={second} />
-          )}
+          {<RankList data={second} />}
         </section>
         {/* 모든 레시피 한눈에 보기 */}
         <section className="mt-[80px]">
@@ -111,6 +106,7 @@ export default function MainPage() {
           <div className="mt-4 flex flex-wrap gap-4">
             {isFetching ? (
               /* 스켈레톤 로딩 */
+
               <AllListLoading />
             ) : (
               <AllList data={first} isSearch={false} />
