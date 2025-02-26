@@ -1,3 +1,5 @@
+import { db } from "@/app/lib/firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import NextAuth, { Session, User } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import KakaoProvider from "next-auth/providers/kakao";
@@ -25,6 +27,26 @@ const authOptions = {
     session: async ({ session, token }: { session: Session; token: JWT }) => {
       session.user = token.user ?? undefined;
       return session;
+    },
+    signIn: async ({ user }: { user: User }) => {
+      if (!user) return false; // Return a boolean
+
+      const userRef = doc(db, "users", user.id);
+      const userSnapshot = await getDoc(userRef);
+
+      if (!userSnapshot.exists()) {
+        // Firestore에 유저 정보 저장
+        await setDoc(userRef, {
+          id: user.id,
+          name: user.name ?? "사용자",
+          email: user.email ?? null,
+          image: user.image ?? null,
+          provider: "kakao",
+          data: new Date(),
+          createdAt: new Date().getTime(),
+        });
+      }
+      return true; // Return a boolean
     },
   },
 };
