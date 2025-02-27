@@ -13,7 +13,6 @@ import { Pagination, Stack } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { useSession } from "next-auth/react";
 
 export default function AllList({
   queryKey = "allList",
@@ -109,7 +108,6 @@ export const AllListLoading = () => {
 
 export const Card = ({ recipe }: { recipe: recipeProps }) => {
   const router = useRouter();
-  const { data: session } = useSession();
   const setSelectedItem = useRecipeStore((state) => state.setSelectedItem);
 
   const handleItemClick = (recipe: recipeProps) => {
@@ -124,18 +122,13 @@ export const Card = ({ recipe }: { recipe: recipeProps }) => {
 
   const handleClick = async () => {
     try {
-      const res = await fetch("/api/bookmarks", {
+      await fetch("/api/bookmarks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          userId: session?.user?.email,
-          ...recipe,
-        }),
+        body: JSON.stringify(recipe),
       });
-      const data = await res.json();
-      console.log("data", data);
     } catch (error) {
       console.error("Error:", error);
     }
