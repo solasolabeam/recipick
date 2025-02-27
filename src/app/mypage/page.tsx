@@ -15,7 +15,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function MyPage() {
   const [recent, setRecent] = useState<recipeProps[]>([]);
-  const [bookmark, setBookMark] = useState<recipeProps[]>([]);
+  const [bookmark, setBookmark] = useState<recipeProps[]>([]);
   const [data, setData] = useState<recipeProps[]>([]);
   const [tab, setTab] = useState("recent");
   const { data: session } = useSession();
@@ -30,6 +30,14 @@ export default function MyPage() {
   };
 
   useEffect(() => {
+    const fetchBookmarks = async () => {
+      const bookmarks = await doBookMarksSearch();
+      setBookmark(bookmarks);
+    };
+    fetchBookmarks();
+  }, []);
+
+  useEffect(() => {
     if (tab == "recent") {
       setData(recent);
     } else {
@@ -39,9 +47,9 @@ export default function MyPage() {
 
   useEffect(() => {
     setRecent(getStoredRecipes());
-    doBookMarksSearch().then((bookmarks) => setBookMark(bookmarks));
     setData(getStoredRecipes());
   }, []);
+
   return (
     <div className="flex min-h-screen flex-col">
       <main className="mx-5 flex-grow">
@@ -83,7 +91,7 @@ export default function MyPage() {
         <section className="mt-4">
           <div className="mt-4 flex flex-wrap gap-4">
             {data.map((recipe, index) => (
-              <Card key={index} recipe={recipe} />
+              <Card key={index} recipe={recipe} bookmark={bookmark} />
             ))}
           </div>
         </section>
