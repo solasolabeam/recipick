@@ -15,10 +15,32 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function MyPage() {
   const [recent, setRecent] = useState<recipeProps[]>([]);
+  const [bookmark, setBookMark] = useState<recipeProps[]>([]);
+  const [data, setData] = useState<recipeProps[]>([]);
+  const [tab, setTab] = useState("recent");
   const { data: session } = useSession();
+
+  const doBookMarksSearch = async () => {
+    try {
+      const res = await fetch("/api/bookmarks");
+      return await res.json();
+    } catch (error) {
+      console.log("Error : ", error);
+    }
+  };
+
+  useEffect(() => {
+    if (tab == "recent") {
+      setData(recent);
+    } else {
+      setData(bookmark);
+    }
+  }, [tab, recent, bookmark]);
 
   useEffect(() => {
     setRecent(getStoredRecipes());
+    doBookMarksSearch().then((bookmarks) => setBookMark(bookmarks));
+    setData(getStoredRecipes());
   }, []);
   return (
     <div className="flex min-h-screen flex-col">
@@ -47,13 +69,20 @@ export default function MyPage() {
         </section>
         {/* 최근 본, 북마크 탭 */}
         <section className="mt-20 flex justify-center gap-2">
-          <span className="border-b border-black px-5 py-3">최근 본</span>
-          <span className="px-5 py-3">북마크</span>
+          <span
+            className="border-b border-black px-5 py-3"
+            onClick={() => setTab("recent")}
+          >
+            최근 본
+          </span>
+          <span className="px-5 py-3" onClick={() => setTab("bookmark")}>
+            북마크
+          </span>
         </section>
         {/* 레시피 검색 결과 */}
         <section className="mt-4">
           <div className="mt-4 flex flex-wrap gap-4">
-            {recent.map((recipe, index) => (
+            {data.map((recipe, index) => (
               <Card key={index} recipe={recipe} />
             ))}
           </div>
