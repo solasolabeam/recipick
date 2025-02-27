@@ -30,7 +30,7 @@ export default function RankList({ data }: { data: recipeProps[] }) {
       {data?.map((recipe: recipeProps) => (
         <SwiperSlide
           key={recipe.RCP_SEQ}
-          className="w-full"
+          className="w-full cursor-pointer"
           onClick={() => handleItemClick(recipe)}
         >
           <div className="h-40 w-full">

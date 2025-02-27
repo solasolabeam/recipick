@@ -37,18 +37,27 @@ export default function Header() {
   return (
     <>
       <section className="mt-9 flex items-center justify-between">
-        <div className="text-5xl font-bold" onClick={() => router.push("/")}>
+        <div
+          className="cursor-pointer text-5xl font-bold"
+          onClick={() => router.push("/")}
+        >
           LOGO
         </div>
         <section className="flex gap-5">
-          <div className="flex flex-col items-center" onClick={handleClick}>
+          <div
+            className="flex cursor-pointer flex-col items-center"
+            onClick={handleClick}
+          >
             <FontAwesomeIcon
               icon={faArrowRightToBracket}
               className="text-3xl"
             />
             <p className="text-xs">{session ? "로그아웃" : "로그인"}</p>
           </div>
-          <div className="flex flex-col items-center" onClick={handleCheck}>
+          <div
+            className="flex cursor-pointer flex-col items-center"
+            onClick={handleCheck}
+          >
             <FontAwesomeIcon icon={faUser} className="text-3xl" />
             <p className="text-xs">My</p>
           </div>
