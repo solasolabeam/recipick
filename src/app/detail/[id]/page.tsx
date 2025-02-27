@@ -125,11 +125,11 @@ const ManualList = ({ list }: { list: recipeProps }) => {
           <div className="h-[200px] w-auto">
             <Image
               className="h-full w-full rounded-md object-cover"
-              src={recipe.img}
+              src={recipe.img || "/default-image.jpg"} // 기본 이미지를 지정
               alt="챕터"
               width={196}
               height={130}
-            ></Image>
+            />
           </div>
           <p className="text-sm">
             {recipe.discription
