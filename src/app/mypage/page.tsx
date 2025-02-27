@@ -35,7 +35,7 @@ export default function MyPage() {
       setBookmark(bookmarks);
     };
     fetchBookmarks();
-  }, []);
+  }, [tab]);
 
   useEffect(() => {
     if (tab == "recent") {
