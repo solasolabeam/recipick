@@ -3,7 +3,7 @@
 import { Card } from "../(components)/AllList";
 import { useEffect, useState } from "react";
 import { recipeProps } from "../type/recipe";
-import getStoredRecipes from "../util/getStoredRecipes";
+import getStoredRecipes from "../../utills/getStoredRecipes";
 import Header from "../(components)/Header";
 import Footer from "../(components)/Footer";
 import { useSession } from "next-auth/react";

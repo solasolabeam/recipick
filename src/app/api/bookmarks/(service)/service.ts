@@ -20,7 +20,6 @@ export async function getBookMarks() {
   const bookmarks: Bookmark[] = [];
   querySnapshot.forEach((doc) => {
     bookmarks.push({ id: doc.id, ...doc.data() });
-    console.log("doc.data()", doc.data());
   });
   return bookmarks;
 }

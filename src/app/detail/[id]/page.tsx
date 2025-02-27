@@ -3,8 +3,8 @@ import Footer from "@/app/(components)/Footer";
 import Header from "@/app/(components)/Header";
 import useRecipeStore from "@/app/store";
 import { recipeProps } from "@/app/type/recipe";
-import getColor from "@/app/util/getColor";
-import getStoredRecipes from "@/app/util/getStoredRecipes";
+import getColor from "@/utills/getColor";
+import getStoredRecipes from "@/utills/getStoredRecipes";
 import Image from "next/image";
 import { useEffect } from "react";
 
