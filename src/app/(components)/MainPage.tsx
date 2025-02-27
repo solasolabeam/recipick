@@ -76,11 +76,11 @@ export default function MainPage() {
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
             size="1x"
-            className="absolute left-3 top-3 h-5 w-5 cursor-pointer text-black"
+            className="absolute left-3 top-[15px] h-5 w-5 cursor-pointer text-black"
             onClick={handleClick}
           />
           <input
-            className="h-full w-full rounded-md bg-inputGray pl-10 text-sm"
+            className="h-full w-full rounded-md bg-inputGray pl-10 text-base"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyUp={handleKeyUp}
