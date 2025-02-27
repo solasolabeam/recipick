@@ -14,6 +14,8 @@ import { useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as offHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as onHeart } from "@fortawesome/free-solid-svg-icons";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 export default function AllList({
   queryKey = "allList",
@@ -22,6 +24,7 @@ export default function AllList({
   data = [],
   isSearch,
 }: searchProps) {
+  const { data: session } = useSession();
   const [page, setPage] = useState(1);
   const rowPerPage = 6;
 
@@ -54,7 +57,9 @@ export default function AllList({
       const bookmarks = await doBookMarksSearch();
       setBookmark(bookmarks);
     };
-    fetchBookmarks();
+    if (session) {
+      fetchBookmarks();
+    }
   }, []);
 
   const memoizedQueryKey = useMemo(
@@ -134,6 +139,7 @@ export const Card = ({
   recipe: recipeProps;
   bookmark: recipeProps[];
 }) => {
+  const { data: session } = useSession();
   const router = useRouter();
   const [isPick, setIsPick] = useState(true);
   const setSelectedItem = useRecipeStore((state) => state.setSelectedItem);
@@ -154,6 +160,10 @@ export const Card = ({
 
   const handleClick = async (e: React.MouseEvent<SVGSVGElement>) => {
     e.stopPropagation();
+    if (!session) {
+      toast.error("로그인을 해주세요");
+      return;
+    }
     try {
       await fetch(`/api/bookmarks/${recipe.RCP_SEQ}`, {
         method: "PUT",
