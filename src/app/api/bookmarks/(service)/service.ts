@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "@/app/lib/firebase";
+import { authOptions } from "@/utills/authOptions";
 
 interface Bookmark {
   id: string;
