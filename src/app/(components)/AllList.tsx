@@ -60,6 +60,7 @@ export default function AllList({
     if (session) {
       fetchBookmarks();
     }
+    // eslint-disable-next-line
   }, []);
 
   const memoizedQueryKey = useMemo(
