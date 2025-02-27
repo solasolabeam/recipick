@@ -20,7 +20,7 @@ export default function Header() {
 
   const handleClick = () => {
     if (session) {
-      signOut();
+      signOut({ callbackUrl: "/" });
     } else {
       setIsOpen(true);
     }
