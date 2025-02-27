@@ -142,7 +142,7 @@ export const Card = ({
 }) => {
   const { data: session } = useSession();
   const router = useRouter();
-  const [isPick, setIsPick] = useState(true);
+  const [isPick, setIsPick] = useState(false);
   const setSelectedItem = useRecipeStore((state) => state.setSelectedItem);
 
   const handleItemClick = (recipe: recipeProps) => {
