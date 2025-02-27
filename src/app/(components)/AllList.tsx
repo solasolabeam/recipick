@@ -13,6 +13,7 @@ import { Pagination, Stack } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useSession } from "next-auth/react";
 
 export default function AllList({
   queryKey = "allList",
@@ -108,6 +109,7 @@ export const AllListLoading = () => {
 
 export const Card = ({ recipe }: { recipe: recipeProps }) => {
   const router = useRouter();
+  const { data: session } = useSession();
   const setSelectedItem = useRecipeStore((state) => state.setSelectedItem);
 
   const handleItemClick = (recipe: recipeProps) => {
@@ -118,6 +120,25 @@ export const Card = ({ recipe }: { recipe: recipeProps }) => {
   // ATT_FILE_NO_MK가 유효한 이미지 URL인지 확인하는 함수
   const getImageSrc = (src: string) => {
     return src && src !== "" ? src : "/assets/images/default.jpg"; // 대체 이미지 경로
+  };
+
+  const handleClick = async () => {
+    try {
+      const res = await fetch("/api/bookmarks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: session?.user?.email,
+          ...recipe,
+        }),
+      });
+      const data = await res.json();
+      console.log("data", data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -144,7 +165,11 @@ export const Card = ({ recipe }: { recipe: recipeProps }) => {
           >
             {recipe.RCP_PAT2}
           </button>
-          <FontAwesomeIcon icon={faHeart} className="text-xl text-red-400" />
+          <FontAwesomeIcon
+            icon={faHeart}
+            className="text-xl text-red-400"
+            onClick={handleClick}
+          />
         </div>
         <p className="mt-2 line-clamp-1 text-base font-extrabold">
           {recipe.RCP_NM}
