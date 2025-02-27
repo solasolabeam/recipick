@@ -16,6 +16,7 @@ export const authOptions = {
     jwt: async ({ token, user }: { token: JWT; user: User }) => {
       if (user) {
         token.user = {
+          id: user.id ?? undefined, // null 또는 undefined일 경우 undefined로 할당
           name: user.name ?? undefined, // null 또는 undefined일 경우 undefined로 할당
           email: user.email ?? undefined, // null 또는 undefined일 경우 undefined로 할당
           image: user.image ?? undefined, // null 또는 undefined일 경우 undefined로 할당
@@ -29,9 +30,10 @@ export const authOptions = {
       return session;
     },
     signIn: async ({ user }: { user: User }) => {
-      if (!user) return false; // Return a boolean
+      if (!user) return false;
+      if (!user.email) return false;
 
-      const userRef = doc(db, "users", user.id);
+      const userRef = doc(db, "users", user.email);
       const userSnapshot = await getDoc(userRef);
 
       if (!userSnapshot.exists()) {
@@ -46,7 +48,7 @@ export const authOptions = {
           createdAt: new Date().getTime(),
         });
       }
-      return true; // Return a boolean
+      return true;
     },
   },
   jwt: {
