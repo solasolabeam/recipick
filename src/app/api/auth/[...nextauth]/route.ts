@@ -4,7 +4,7 @@ import NextAuth, { Session, User } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import KakaoProvider from "next-auth/providers/kakao";
 
-const authOptions = {
+export const authOptions = {
   providers: [
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID || "", // 카카오 앱에서 발급 받은 클라이언트 ID
@@ -48,6 +48,9 @@ const authOptions = {
       }
       return true; // Return a boolean
     },
+  },
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
   },
 };
 
