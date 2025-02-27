@@ -78,12 +78,15 @@ export default function MyPage() {
         {/* 최근 본, 북마크 탭 */}
         <section className="mt-20 flex justify-center gap-2">
           <span
-            className="border-b border-black px-5 py-3"
+            className={`${tab == "recent" && "border-b border-black"} px-5 py-3`}
             onClick={() => setTab("recent")}
           >
             최근 본
           </span>
-          <span className="px-5 py-3" onClick={() => setTab("bookmark")}>
+          <span
+            className={`${tab == "bookmark" && "border-b border-black"} px-5 py-3`}
+            onClick={() => setTab("bookmark")}
+          >
             북마크
           </span>
         </section>
