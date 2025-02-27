@@ -3,7 +3,7 @@
 import { Card } from "../(components)/AllList";
 import { useEffect, useState } from "react";
 import { recipeProps } from "../type/recipe";
-import getStoredRecipes from "../util/getStoredRecipes";
+import getStoredRecipes from "../../utills/getStoredRecipes";
 import Header from "../(components)/Header";
 import Footer from "../(components)/Footer";
 import { useSession } from "next-auth/react";
@@ -15,11 +15,41 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function MyPage() {
   const [recent, setRecent] = useState<recipeProps[]>([]);
+  const [bookmark, setBookmark] = useState<recipeProps[]>([]);
+  const [data, setData] = useState<recipeProps[]>([]);
+  const [tab, setTab] = useState("recent");
   const { data: session } = useSession();
+
+  const doBookMarksSearch = async () => {
+    try {
+      const res = await fetch("/api/bookmarks");
+      return await res.json();
+    } catch (error) {
+      console.log("Error : ", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchBookmarks = async () => {
+      const bookmarks = await doBookMarksSearch();
+      setBookmark(bookmarks);
+    };
+    fetchBookmarks();
+  }, [tab]);
+
+  useEffect(() => {
+    if (tab == "recent") {
+      setData(recent);
+    } else {
+      setData(bookmark);
+    }
+  }, [tab, recent, bookmark]);
 
   useEffect(() => {
     setRecent(getStoredRecipes());
+    setData(getStoredRecipes());
   }, []);
+
   return (
     <div className="flex min-h-screen flex-col">
       <main className="mx-5 flex-grow">
@@ -47,14 +77,24 @@ export default function MyPage() {
         </section>
         {/* 최근 본, 북마크 탭 */}
         <section className="mt-20 flex justify-center gap-2">
-          <span className="border-b border-black px-5 py-3">최근 본</span>
-          <span className="px-5 py-3">북마크</span>
+          <span
+            className={`${tab == "recent" && "border-b border-black"} px-5 py-3`}
+            onClick={() => setTab("recent")}
+          >
+            최근 본
+          </span>
+          <span
+            className={`${tab == "bookmark" && "border-b border-black"} px-5 py-3`}
+            onClick={() => setTab("bookmark")}
+          >
+            북마크
+          </span>
         </section>
         {/* 레시피 검색 결과 */}
         <section className="mt-4">
           <div className="mt-4 flex flex-wrap gap-4">
-            {recent.map((recipe, index) => (
-              <Card key={index} recipe={recipe} />
+            {data.map((recipe, index) => (
+              <Card key={index} recipe={recipe} bookmark={bookmark} />
             ))}
           </div>
         </section>

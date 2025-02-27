@@ -4,15 +4,18 @@ import { useRouter } from "next/navigation";
 import { recipeProps, searchProps } from "../type/recipe";
 import useRecipeStore from "../store";
 import { useQuery } from "@tanstack/react-query";
-import getData from "../util/getData";
+import getData from "../../utills/getData";
 import Image from "next/image";
-import getColor from "../util/getColor";
+import getColor from "../../utills/getColor";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Pagination, Stack } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as offHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as onHeart } from "@fortawesome/free-solid-svg-icons";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 export default function AllList({
   queryKey = "allList",
@@ -21,12 +24,14 @@ export default function AllList({
   data = [],
   isSearch,
 }: searchProps) {
+  const { data: session } = useSession();
   const [page, setPage] = useState(1);
   const rowPerPage = 6;
 
   // props에 startIndex, endIndex가 있으면 그대로 사용, 없으면 page 기반으로 계산
   const [startIndex, setStartIndex] = useState(1);
   const [endIndex, setEndIndex] = useState(6);
+  const [bookmark, setBookmark] = useState<recipeProps[]>([]);
 
   useEffect(() => {
     setPage(1);
@@ -37,6 +42,26 @@ export default function AllList({
     setEndIndex((newPage - 1) * rowPerPage + 1 + (rowPerPage - 1)); // startIndex 업데이트
     setPage(newPage); // page 업데이트
   };
+
+  const doBookMarksSearch = async () => {
+    try {
+      const res = await fetch("/api/bookmarks");
+      return await res.json();
+    } catch (error) {
+      console.log("Error : ", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchBookmarks = async () => {
+      const bookmarks = await doBookMarksSearch();
+      setBookmark(bookmarks);
+    };
+    if (session) {
+      fetchBookmarks();
+    }
+    // eslint-disable-next-line
+  }, []);
 
   const memoizedQueryKey = useMemo(
     () => [queryKey, itemName, category, page],
@@ -72,7 +97,9 @@ export default function AllList({
   return (
     <>
       {recipes.map((recipe: recipeProps) => {
-        return <Card recipe={recipe} key={recipe.RCP_SEQ} />;
+        return (
+          <Card recipe={recipe} key={recipe.RCP_SEQ} bookmark={bookmark} />
+        );
       })}
       {isSearch && (
         <Stack spacing={2} sx={{ mt: 5 }}>
@@ -106,8 +133,16 @@ export const AllListLoading = () => {
   ));
 };
 
-export const Card = ({ recipe }: { recipe: recipeProps }) => {
+export const Card = ({
+  recipe,
+  bookmark,
+}: {
+  recipe: recipeProps;
+  bookmark: recipeProps[];
+}) => {
+  const { data: session } = useSession();
   const router = useRouter();
+  const [isPick, setIsPick] = useState(true);
   const setSelectedItem = useRecipeStore((state) => state.setSelectedItem);
 
   const handleItemClick = (recipe: recipeProps) => {
@@ -115,9 +150,34 @@ export const Card = ({ recipe }: { recipe: recipeProps }) => {
     router.push(`/detail/${recipe.RCP_SEQ}`);
   };
 
+  useEffect(() => {
+    setIsPick(bookmark.some((data) => data.RCP_SEQ == recipe.RCP_SEQ));
+  }, [bookmark, recipe.RCP_SEQ]);
+
   // ATT_FILE_NO_MK가 유효한 이미지 URL인지 확인하는 함수
   const getImageSrc = (src: string) => {
     return src && src !== "" ? src : "/assets/images/default.jpg"; // 대체 이미지 경로
+  };
+
+  const handleClick = async (e: React.MouseEvent<SVGSVGElement>) => {
+    e.stopPropagation();
+    if (!session) {
+      toast.error("로그인을 해주세요");
+      return;
+    }
+    try {
+      await fetch(`/api/bookmarks/${recipe.RCP_SEQ}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(recipe),
+      });
+
+      setIsPick(!isPick);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -144,7 +204,12 @@ export const Card = ({ recipe }: { recipe: recipeProps }) => {
           >
             {recipe.RCP_PAT2}
           </button>
-          <FontAwesomeIcon icon={faHeart} className="text-xl text-red-400" />
+
+          <FontAwesomeIcon
+            icon={isPick ? onHeart : offHeart}
+            className="text-xl text-red-400"
+            onClick={handleClick}
+          />
         </div>
         <p className="mt-2 line-clamp-1 text-base font-extrabold">
           {recipe.RCP_NM}
