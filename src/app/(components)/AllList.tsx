@@ -152,15 +152,18 @@ export const Card = ({
     return src && src !== "" ? src : "/assets/images/default.jpg"; // 대체 이미지 경로
   };
 
-  const handleClick = async () => {
+  const handleClick = async (e: React.MouseEvent<SVGSVGElement>) => {
+    e.stopPropagation();
     try {
-      await fetch("/api/bookmarks", {
-        method: "POST",
+      await fetch(`/api/bookmarks/${recipe.RCP_SEQ}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(recipe),
       });
+
+      setIsPick(!isPick);
     } catch (error) {
       console.error("Error:", error);
     }
