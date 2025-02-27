@@ -1,5 +1,12 @@
 import { getServerSession } from "next-auth";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "@/app/lib/firebase";
 import { authOptions } from "@/utills/authOptions";
 
@@ -24,18 +31,20 @@ export async function getBookMarks() {
   return bookmarks;
 }
 
-export async function addBookMark(data: Bookmark) {
+export async function toggleBookMark(data: Bookmark, id: string) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.email) {
     throw new Error("User email is not available");
   }
 
-  const bookmarksRef = doc(
-    db,
-    "users",
-    session.user.email,
-    "bookmarks",
-    data.RCP_SEQ.toString(),
-  );
-  await setDoc(bookmarksRef, data);
+  const bookmarksRef = doc(db, "users", session.user.email, "bookmarks", id);
+  const bookmarkSnap = await getDoc(bookmarksRef);
+
+  if (bookmarkSnap.exists()) {
+    await deleteDoc(bookmarksRef);
+  } else {
+    await setDoc(bookmarksRef, data);
+  }
+
+  return bookmarkSnap.data();
 }
