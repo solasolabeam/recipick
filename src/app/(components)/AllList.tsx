@@ -38,6 +38,10 @@ export default function AllList({
   }, [itemName, category]);
 
   const handleChangePage = (event: unknown, newPage: number) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // 부드럽게 스크롤
+    });
     setStartIndex((newPage - 1) * rowPerPage + 1); // startIndex 업데이트
     setEndIndex((newPage - 1) * rowPerPage + 1 + (rowPerPage - 1)); // startIndex 업데이트
     setPage(newPage); // page 업데이트
