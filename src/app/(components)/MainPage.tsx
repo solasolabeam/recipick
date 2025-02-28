@@ -75,7 +75,7 @@ export default function MainPage() {
         </div>
         {/* 검색창 */}
         <section className="w-90 mt-3 flex h-10 justify-center rounded border-none">
-          <div className="relative w-full">
+          <div className="relative w-full max-w-3xl">
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
               size="1x"
@@ -93,7 +93,7 @@ export default function MainPage() {
         </section>
         {/* 배너이미지 */}
         <section className="mt-5 flex w-full items-center justify-center rounded-md border-none bg-yellow-900">
-          <div className="relative w-full">
+          <div className="relative w-full max-w-3xl">
             <Image
               className="aspect-[4/2] h-full w-full rounded-xl object-cover"
               src={banner}
