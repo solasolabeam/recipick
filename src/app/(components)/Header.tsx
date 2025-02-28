@@ -12,6 +12,9 @@ import { useState } from "react";
 import LoginModal from "./LoginModal";
 import { signOut, useSession } from "next-auth/react";
 import { ToastContainer, toast } from "react-toastify";
+import Image from "next/image";
+
+const logo = "/assets/images/recipe-book.png";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,10 +41,11 @@ export default function Header() {
     <>
       <section className="mt-9 flex items-center justify-between">
         <div
-          className="cursor-pointer text-5xl font-bold"
+          className="flex cursor-pointer gap-2 text-3xl font-bold"
           onClick={() => router.push("/")}
         >
-          LOGO
+          <Image src={logo} alt="logo" width={30} height={30} />
+          RECIPICK
         </div>
         <section className="flex gap-5">
           <div
