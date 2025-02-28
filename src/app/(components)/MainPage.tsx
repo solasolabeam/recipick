@@ -95,17 +95,19 @@ export default function MainPage() {
         <section className="mt-5 flex w-full items-center justify-center rounded-md border-none bg-yellow-900">
           <div className="relative w-full max-w-3xl">
             <Image
-              className="aspect-[4/2] h-full w-full rounded-xl object-cover"
+              className="aspect-[3/2] h-full w-full rounded-xl object-cover"
               src={banner}
               alt="배너이미지"
               width={1024}
               height={682}
             ></Image>
-            <div className="absolute bottom-5 left-[10px]">
-              <p className="text-2xl font-bold text-white">
+            <div className="absolute bottom-5 left-[10px] sm:bottom-10 sm:left-[20px]">
+              <p className="text-2xl font-bold text-white sm:text-4xl md:text-5xl">
                 맛있는 레시피 발견
               </p>
-              <p className="text-base text-white">당신을 위한 레시피</p>
+              <p className="text-base text-white sm:text-2xl md:text-3xl">
+                당신을 위한 레시피
+              </p>
             </div>
           </div>
         </section>
