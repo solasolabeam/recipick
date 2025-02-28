@@ -39,7 +39,7 @@ export default function Header() {
 
   return (
     <>
-      <section className="mt-9 flex items-center justify-between">
+      <section className="mt-9 flex w-full max-w-6xl items-center justify-between">
         <div
           className="flex cursor-pointer gap-2 text-3xl font-bold"
           onClick={() => router.push("/")}

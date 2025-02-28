@@ -68,39 +68,47 @@ export default function MainPage() {
 
   return (
     <>
-      <div className="mx-5">
+      <div className="mx-auto max-w-6xl">
         {/* 로고, 로그인, 마이페이지 */}
-        <Header />
+        <div className="flex items-center justify-center">
+          <Header />
+        </div>
         {/* 검색창 */}
-        <section className="w-90 relative mt-3 h-10 rounded border-none">
-          <FontAwesomeIcon
-            icon={faMagnifyingGlass}
-            size="1x"
-            className="absolute left-3 top-[15px] h-5 w-5 cursor-pointer text-black"
-            onClick={handleClick}
-          />
-          <input
-            className="h-full w-full rounded-md bg-inputGray pl-10 text-base"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyUp={handleKeyUp}
-            placeholder="레시피 검색"
-          />
+        <section className="w-90 mt-3 flex h-10 justify-center rounded border-none">
+          <div className="relative w-full">
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              size="1x"
+              className="absolute left-3 top-[15px] h-5 w-5 cursor-pointer text-black"
+              onClick={handleClick}
+            />
+            <input
+              className="h-full w-full rounded-md bg-inputGray pl-10 text-base"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyUp={handleKeyUp}
+              placeholder="레시피 검색"
+            />
+          </div>
         </section>
         {/* 배너이미지 */}
-        <div className="w-90 relative mt-5 h-[230px] rounded-md border-none bg-gray-200">
-          <Image
-            className="h-full w-full rounded-xl object-cover"
-            src={banner}
-            alt="배너이미지"
-            width={1024}
-            height={682}
-          ></Image>
-          <section className="absolute bottom-5 left-[10px]">
-            <p className="text-2xl font-bold text-white">맛있는 레시피 발견</p>
-            <p className="text-base text-white">당신을 위한 레시피</p>
-          </section>
-        </div>
+        <section className="mt-5 flex w-full items-center justify-center rounded-md border-none bg-yellow-900">
+          <div className="relative w-full">
+            <Image
+              className="aspect-[4/2] h-full w-full rounded-xl object-cover"
+              src={banner}
+              alt="배너이미지"
+              width={1024}
+              height={682}
+            ></Image>
+            <div className="absolute bottom-5 left-[10px]">
+              <p className="text-2xl font-bold text-white">
+                맛있는 레시피 발견
+              </p>
+              <p className="text-base text-white">당신을 위한 레시피</p>
+            </div>
+          </div>
+        </section>
         {/* 추천 레시피 */}
         <section className="mt-16">
           <div>
