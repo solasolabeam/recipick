@@ -26,11 +26,25 @@ export default function RankList({ data }: { data: recipeProps[] }) {
       }}
       modules={[Pagination]}
       className="mt-4 w-full"
+      breakpoints={{
+        480: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        640: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 20,
+        },
+      }}
     >
       {data?.map((recipe: recipeProps) => (
         <SwiperSlide
           key={recipe.RCP_SEQ}
-          className="w-full"
+          className="w-full cursor-pointer"
           onClick={() => handleItemClick(recipe)}
         >
           <div className="h-40 w-full">
@@ -64,6 +78,20 @@ export const RankListLoading = () => {
       }}
       modules={[Pagination]}
       className="mt-4 w-full"
+      breakpoints={{
+        480: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        640: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 20,
+        },
+      }}
     >
       {Array.from({ length: 6 }).map((_, idx) => (
         <SwiperSlide className="w-full" key={idx}>
