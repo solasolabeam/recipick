@@ -57,25 +57,30 @@ export default function MyPage() {
           {/* 로고, 로그인, 마이페이지 */}
           <Header />
           {/* 사용자 정보 */}
-          <section className="mt-12 flex gap-5">
-            <div className="flex h-[100px] w-[100px] flex-shrink-0 items-center justify-center rounded-[100%] bg-Gray20">
-              <FontAwesomeIcon icon={faUser} className="text-5xl text-white" />
-            </div>
-            <div className="w-auto">
-              <section className="mt-5">
-                <p className="text-xl font-bold">
-                  {session?.user?.name || "이름 없음"}
-                </p>
-                <p className="mt-1 text-base text-Gray30">
-                  {session?.user?.email || "이메일 없음"}
-                </p>
-                <p className="mt-3 text-xs">
-                  요리와 여행을 사랑하는 미식가입니다. 새로운 레시피를 공유하고
-                  싶어요!
-                </p>
-              </section>
-            </div>
-          </section>
+          <div className="flex items-center justify-center">
+            <section className="mt-12 flex w-full max-w-3xl gap-5">
+              <div className="flex h-[100px] w-[100px] flex-shrink-0 items-center justify-center rounded-[100%] bg-Gray20">
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="text-5xl text-white"
+                />
+              </div>
+              <div className="w-auto">
+                <section className="mt-5">
+                  <p className="text-xl font-bold">
+                    {session?.user?.name || "이름 없음"}
+                  </p>
+                  <p className="mt-1 text-base text-Gray30">
+                    {session?.user?.email || "이메일 없음"}
+                  </p>
+                  <p className="mt-3 text-xs">
+                    요리와 여행을 사랑하는 미식가입니다. 새로운 레시피를
+                    공유하고 싶어요!
+                  </p>
+                </section>
+              </div>
+            </section>
+          </div>
           {/* 최근 본, 북마크 탭 */}
           <section className="mt-20 flex justify-center gap-2">
             <span
@@ -93,7 +98,7 @@ export default function MyPage() {
           </section>
           {/* 레시피 검색 결과 */}
           <section className="mt-4">
-            <div className="mt-4 flex flex-wrap gap-4">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {data.map((recipe, index) => (
                 <Card key={index} recipe={recipe} bookmark={bookmark} />
               ))}
