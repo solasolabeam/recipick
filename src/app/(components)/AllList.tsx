@@ -133,7 +133,7 @@ export const AllListLoading = () => {
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {Array.from({ length: 8 }).map((_, idx) => (
         <div className="flex w-full gap-5 sm:flex-col" key={idx}>
-          <div className="aspect-[2/2] w-full flex-1">
+          <div className="aspect-[2/2] h-full w-full flex-1">
             <Skeleton className="h-full w-full rounded-lg object-cover" />
           </div>
           <div className="h-[178px] flex-1">
