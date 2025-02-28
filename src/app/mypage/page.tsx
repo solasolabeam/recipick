@@ -52,8 +52,8 @@ export default function MyPage() {
 
   return (
     <>
-      <div className="mx-auto flex min-h-screen max-w-6xl flex-col">
-        <main className="mx-5 flex-grow">
+      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-5">
+        <main className="flex-grow">
           {/* 로고, 로그인, 마이페이지 */}
           <Header />
           {/* 사용자 정보 */}

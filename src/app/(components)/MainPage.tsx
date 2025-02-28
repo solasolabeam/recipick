@@ -68,7 +68,7 @@ export default function MainPage() {
 
   return (
     <>
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-6xl px-5">
         {/* 로고, 로그인, 마이페이지 */}
         <div className="flex items-center justify-center">
           <Header />
