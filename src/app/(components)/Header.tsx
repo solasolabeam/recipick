@@ -58,13 +58,15 @@ export default function Header() {
             />
             <p className="text-xs">{session ? "로그아웃" : "로그인"}</p>
           </div>
-          <div
-            className="flex cursor-pointer flex-col items-center"
-            onClick={handleCheck}
-          >
-            <FontAwesomeIcon icon={faUser} className="text-3xl" />
-            <p className="text-xs">My</p>
-          </div>
+          {session && (
+            <div
+              className="flex cursor-pointer flex-col items-center"
+              onClick={handleCheck}
+            >
+              <FontAwesomeIcon icon={faUser} className="text-3xl" />
+              <p className="text-xs">My</p>
+            </div>
+          )}
         </section>
       </section>
       <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
