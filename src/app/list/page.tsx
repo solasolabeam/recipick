@@ -99,7 +99,7 @@ export default function SearchPage() {
               onClick={handleClick}
             />
             <input
-              className="h-full min-h-[50px] w-full rounded-md bg-inputGray pl-10 text-sm"
+              className="h-full min-h-[50px] w-full rounded-md bg-inputGray pl-10 text-base"
               placeholder="레시피 검색"
               value={input}
               onChange={(e) => setInput(e.target.value)}

@@ -12,6 +12,9 @@ import { useState } from "react";
 import LoginModal from "./LoginModal";
 import { signOut, useSession } from "next-auth/react";
 import { ToastContainer, toast } from "react-toastify";
+import Image from "next/image";
+
+const logo = "/assets/images/recipe-book.png";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +23,7 @@ export default function Header() {
 
   const handleClick = () => {
     if (session) {
-      signOut();
+      signOut({ callbackUrl: "/" });
     } else {
       setIsOpen(true);
     }
@@ -37,21 +40,33 @@ export default function Header() {
   return (
     <>
       <section className="mt-9 flex items-center justify-between">
-        <div className="text-5xl font-bold" onClick={() => router.push("/")}>
-          LOGO
+        <div
+          className="flex cursor-pointer gap-2 text-3xl font-bold"
+          onClick={() => router.push("/")}
+        >
+          <Image src={logo} alt="logo" width={30} height={30} />
+          RECIPICK
         </div>
         <section className="flex gap-5">
-          <div className="flex flex-col items-center" onClick={handleClick}>
+          <div
+            className="flex cursor-pointer flex-col items-center"
+            onClick={handleClick}
+          >
             <FontAwesomeIcon
               icon={faArrowRightToBracket}
               className="text-3xl"
             />
             <p className="text-xs">{session ? "로그아웃" : "로그인"}</p>
           </div>
-          <div className="flex flex-col items-center" onClick={handleCheck}>
-            <FontAwesomeIcon icon={faUser} className="text-3xl" />
-            <p className="text-xs">My</p>
-          </div>
+          {session && (
+            <div
+              className="flex cursor-pointer flex-col items-center"
+              onClick={handleCheck}
+            >
+              <FontAwesomeIcon icon={faUser} className="text-3xl" />
+              <p className="text-xs">My</p>
+            </div>
+          )}
         </section>
       </section>
       <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />

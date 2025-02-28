@@ -25,7 +25,7 @@ export default function Category() {
   return (
     <div className="mt-4 grid grid-cols-1 items-start justify-start gap-4 xs:grid-cols-2">
       <div
-        className="flex flex-col items-center justify-center"
+        className="flex cursor-pointer flex-col items-center justify-center"
         onClick={() => handleClick("밥")}
       >
         <div className="aspect-[4/3] w-full rounded-xl bg-rice">
@@ -40,7 +40,7 @@ export default function Category() {
         <p className="pt-5 text-base">밥</p>
       </div>
       <div
-        className="flex flex-col items-center justify-center"
+        className="flex cursor-pointer flex-col items-center justify-center"
         onClick={() => handleClick("국")}
       >
         <div className="aspect-[4/3] w-full rounded-xl bg-soup">
@@ -55,7 +55,7 @@ export default function Category() {
         <p className="pt-5 text-base">국&찌개</p>
       </div>
       <div
-        className="flex flex-col items-center justify-center"
+        className="flex cursor-pointer flex-col items-center justify-center"
         onClick={() => handleClick("반찬")}
       >
         <div className="aspect-[4/3] w-full rounded-xl bg-sideDish">
@@ -70,7 +70,7 @@ export default function Category() {
         <p className="pt-5 text-base">반찬</p>
       </div>
       <div
-        className="flex flex-col items-center justify-center"
+        className="flex cursor-pointer flex-col items-center justify-center"
         onClick={() => handleClick("후식")}
       >
         <div className="aspect-[4/3] w-full rounded-xl bg-dessert">
@@ -85,7 +85,7 @@ export default function Category() {
         <p className="pt-5 text-base">후식</p>
       </div>
       <div
-        className="flex flex-col items-center justify-center"
+        className="flex cursor-pointer flex-col items-center justify-center"
         onClick={() => handleClick("일품")}
       >
         <div className="aspect-[4/3] w-full rounded-xl bg-best">
