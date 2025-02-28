@@ -6,14 +6,37 @@ import { recipeProps } from "@/app/type/recipe";
 import getColor from "@/utills/getColor";
 import getStoredRecipes from "@/utills/getStoredRecipes";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { faHeart as offHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as onHeart } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 //메인 이미지
 // const food = "/assets/images/food.jpg";
 // const chapter = "/assets/images/chapter.png";
 
 export default function DetailPage() {
+  const { data: session } = useSession();
+  const [isPick, setIsPick] = useState(false);
   const selectedItem = useRecipeStore((state) => state.selectedItem); // 상태 가져오기
+
+  useEffect(() => {
+    const fetchBookmarks = async () => {
+      const bookmarks = await doBookMarksSearch();
+
+      setIsPick(
+        bookmarks.some(
+          (data: recipeProps) => data.RCP_SEQ == selectedItem.RCP_SEQ,
+        ),
+      );
+    };
+    if (session) {
+      fetchBookmarks();
+    }
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     const recentItem = getStoredRecipes();
@@ -27,6 +50,36 @@ export default function DetailPage() {
 
     localStorage.setItem("recipeItem", JSON.stringify(uniqueData));
   }, [selectedItem]);
+
+  const doBookMarksSearch = async () => {
+    try {
+      const res = await fetch("/api/bookmarks");
+      return await res.json();
+    } catch (error) {
+      console.log("Error : ", error);
+    }
+  };
+
+  const handleClick = async () => {
+    if (!session) {
+      toast.error("로그인을 해주세요");
+      return;
+    }
+    try {
+      await fetch(`/api/bookmarks/${selectedItem.RCP_SEQ}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(selectedItem),
+      });
+
+      setIsPick(!isPick);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div className="mx-auto max-w-6xl sm:px-5">
       <div className="mx-5 mb-4 sm:mb-20">
@@ -61,7 +114,14 @@ export default function DetailPage() {
             </section>
             {/* 타이틀, 재료 */}
             <section className="mt-5 gap-2">
-              <p className="text-2xl font-bold">{selectedItem.RCP_NM}</p>
+              <div className="flex items-center justify-center gap-10">
+                <p className="text-2xl font-bold">{selectedItem.RCP_NM}</p>
+                <FontAwesomeIcon
+                  icon={isPick ? onHeart : offHeart}
+                  className="cursor-pointer text-xl text-red-400"
+                  onClick={handleClick}
+                />
+              </div>
               <p className="mt-4 text-base font-bold">재료</p>
               <p className="mt-2 text-sm">{selectedItem.RCP_PARTS_DTLS}</p>
             </section>
