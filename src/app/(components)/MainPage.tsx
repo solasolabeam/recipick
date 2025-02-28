@@ -70,9 +70,7 @@ export default function MainPage() {
     <>
       <div className="mx-auto max-w-6xl px-5">
         {/* 로고, 로그인, 마이페이지 */}
-        <div className="flex items-center justify-center">
-          <Header />
-        </div>
+        <Header />
         {/* 검색창 */}
         <section className="w-90 mt-3 flex h-10 justify-center rounded border-none">
           <div className="relative w-full max-w-3xl">

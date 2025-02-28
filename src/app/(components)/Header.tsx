@@ -38,7 +38,7 @@ export default function Header() {
   };
 
   return (
-    <>
+    <div className="flex items-center justify-center">
       <section className="mt-9 flex w-full max-w-3xl items-center justify-between">
         <div
           className="flex cursor-pointer gap-2 text-3xl font-bold"
@@ -71,6 +71,6 @@ export default function Header() {
       </section>
       <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
       <ToastContainer />
-    </>
+    </div>
   );
 }
