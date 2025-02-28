@@ -26,11 +26,11 @@ export default function AllList({
 }: searchProps) {
   const { data: session } = useSession();
   const [page, setPage] = useState(1);
-  const rowPerPage = 6;
+  const rowPerPage = 8;
 
   // props에 startIndex, endIndex가 있으면 그대로 사용, 없으면 page 기반으로 계산
   const [startIndex, setStartIndex] = useState(1);
-  const [endIndex, setEndIndex] = useState(6);
+  const [endIndex, setEndIndex] = useState(8);
   const [bookmark, setBookmark] = useState<recipeProps[]>([]);
 
   useEffect(() => {
@@ -100,11 +100,11 @@ export default function AllList({
 
   return (
     <>
-      {recipes.map((recipe: recipeProps) => {
-        return (
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {recipes.map((recipe: recipeProps) => (
           <Card recipe={recipe} key={recipe.RCP_SEQ} bookmark={bookmark} />
-        );
-      })}
+        ))}
+      </div>
       {isSearch && (
         <Stack
           spacing={2}
@@ -129,20 +129,24 @@ export default function AllList({
 }
 
 export const AllListLoading = () => {
-  return Array.from({ length: 4 }).map((_, idx) => (
-    <div className="flex w-full gap-5" key={idx}>
-      <div className="h-[178px] w-[140px] flex-1">
-        <Skeleton height="100%" width="100%" />
-      </div>
-      <div className="h-[178px] flex-1">
-        <Skeleton height={30} width={60} />
-        <Skeleton className="mt-2" height={25} width={130} />
-        <Skeleton className="mt-2" width="100%" />
-        <Skeleton />
-        <Skeleton className="mt-[30px]" width="40%" />
-      </div>
+  return (
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {Array.from({ length: 8 }).map((_, idx) => (
+        <div className="flex w-full gap-5 sm:flex-col" key={idx}>
+          <div className="aspect-[2/2] w-full flex-1">
+            <Skeleton className="h-full w-full rounded-lg object-cover" />
+          </div>
+          <div className="h-[178px] flex-1">
+            <Skeleton height={30} width={60} />
+            <Skeleton className="mt-2" height={25} width={130} />
+            <Skeleton className="mt-2" width="100%" />
+            <Skeleton />
+            <Skeleton className="mt-[30px]" width="40%" />
+          </div>
+        </div>
+      ))}
     </div>
-  ));
+  );
 };
 
 export const Card = ({
@@ -194,11 +198,11 @@ export const Card = ({
 
   return (
     <div
-      className="flex w-full cursor-pointer flex-wrap gap-5"
+      className="flex w-full cursor-pointer gap-5 sm:flex-col"
       onClick={() => handleItemClick(recipe)}
     >
       {/* 이미지 컨테이너 */}
-      <div className="h-[178px] w-[140px] flex-1">
+      <div className="aspect-[2/2] w-full flex-1">
         <Image
           className="h-full w-full rounded-lg object-cover"
           src={getImageSrc(recipe.ATT_FILE_NO_MK)} // 이미지 경로 확인 후 사용

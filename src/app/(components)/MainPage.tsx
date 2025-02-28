@@ -24,7 +24,7 @@ const banner = "/assets/images/banner.png";
 
 const fetchData = async () => {
   const res = await fetch(
-    "https://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/1/18",
+    "https://openapi.foodsafetykorea.go.kr/api/de77957df6d04d03a521/COOKRCP01/json/1/24",
   );
 
   const data = await res.json();
@@ -58,11 +58,11 @@ export default function MainPage() {
 
   // useMemo로 최적화
   const [first, second, third] = useMemo(() => {
-    if (!data || data.length < 18) return [[], [], []];
+    if (!data || data.length < 24) return [[], [], []];
     return [
-      data.COOKRCP01.row.slice(0, 6),
-      data.COOKRCP01.row.slice(6, 12),
-      data.COOKRCP01.row.slice(12, 18),
+      data.COOKRCP01.row.slice(0, 8),
+      data.COOKRCP01.row.slice(8, 16),
+      data.COOKRCP01.row.slice(16, 24),
     ];
   }, [data]);
 
