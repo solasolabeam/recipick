@@ -106,7 +106,15 @@ export default function AllList({
         );
       })}
       {isSearch && (
-        <Stack spacing={2} sx={{ mt: 5 }}>
+        <Stack
+          spacing={2}
+          sx={{
+            mt: 5,
+            flexDirection: "row",
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
           <Pagination
             count={totalPage}
             variant="outlined"
