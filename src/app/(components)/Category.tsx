@@ -23,7 +23,7 @@ export default function Category() {
   };
 
   return (
-    <div className="mt-4 grid grid-cols-1 items-start justify-start gap-4 xs:grid-cols-2">
+    <div className="mt-4 grid grid-cols-2 items-start justify-start gap-4 sm:grid-cols-3">
       <div
         className="flex cursor-pointer flex-col items-center justify-center"
         onClick={() => handleClick("밥")}
