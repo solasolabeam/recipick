@@ -1,5 +1,9 @@
 # recipick: 레시피 조회 사이트
+🔗 Deployment URL
+https://recipick-delta.vercel.app/
 
+🎨 Design URL
+https://www.figma.com/design/2LF7Wi15Lnr0TMHfOHcViw/recipick?node-id=94-994
 
 ## 프로젝트 소개
 _"카카오 로그인과 공공데이터 API로 개인화된 레시피 조회 웹앱"_
@@ -7,27 +11,30 @@ _"카카오 로그인과 공공데이터 API로 개인화된 레시피 조회 �
 > 이 프로젝트는 레시피 조회를 중심으로 한 웹 애플리케이션으로 사용자가 쉽게 레시피를 탐색하고, 북마크 및 최근 본 레시피를 저장할 수 있는 기능을 제공합니다. 또한 공공데이터 API를 연동하여 실제 조리 데이터를 실시간으로 조회할 수 있습니다. 카카오 로그인을 통해 사용자 인증을 처리하고 React.js와 Next.js로 빠르고 안정적인 웹 환경을 제공합니다.
 
 ## 기술 스택
-
-> `React.js`, `Typescript`, `Next.js`, `React-Query`, `Zustand`, `Firebase`, `TailwindCSS`
+- **프론트엔드**: React.js, Next.js, TypeScript, React-Query, Zustand, TailwindCSS
+- **백엔드**: Firebase (Database)
+- **API 연동**: 공공데이터 API (조리 데이터)
+- **기타 도구**: Git, Vercel (배포)
 
 
 ## 주요 기능
-- 레시피 조회: 다양한 레시피를 쉽게 탐색하고, 원하는 레시피를 찾아볼 수 있는 기능을 제공합니다.
-
-- 북마크 및 최근 본 레시피 저장: 사용자가 좋아하는 레시피를 북마크하거나 최근에 본 레시피를 자동으로 저장하여 편리하게 다시 확인할 수 있습니다.
-
-- 공공데이터 API 연동: 실시간으로 공공데이터 API에서 제공하는 조리 데이터를 조회하여 다양한 레시피 정보를 제공합니다.
-
-- 카카오 로그인: 카카오 계정을 통한 간편한 로그인 시스템을 통해 사용자 인증 및 데이터 관리를 효율적으로 처리합니다.
+- 레시피 조회: 다양한 레시피를 쉽게 탐색하고, 원하는 레시피를 찾아볼 수 있는 기능을 제공.
+- 북마크 및 최근 본 레시피 저장: 사용자가 좋아하는 레시피를 북마크하거나 최근에 본 레시피를 자동으로 저장하여 편리하게 다시 확인가능.
+- 공공데이터 API 연동: 실시간으로 공공데이터 API에서 제공하는 조리 데이터를 조회하여 다양한 레시피 정보를 제공.
+- 카카오 로그인: 카카오 계정을 통한 간편한 로그인 시스템을 통해 사용자 인증 및 데이터 관리를 효율적으로 처리.
 
 
 ## 성과
--
--
+- 사용자가 레시피를 쉽게 조회하고 개인화된 경험을 제공할 수 있는 웹 애플리케이션을 성공적으로 구현.
+- 공공데이터 API 연동을 통해 실제 데이터를 활용하여 보다 풍부한 정보를 제공.
+- Firebase와 카카오 로그인을 통해 사용자의 편리한 인증과 데이터 저장을 구현.
+- TailwindCSS를 활용한 UI 구성으로 반응형 웹 환경을 효율적으로 구현.
 
 ## 배운 점
--
--
+- **상태 관리**: Zustand를 활용하여 애플리케이션 상태 관리에 대해 더 깊이 이해할 수 있었다.
+- **React-Query 사용**: 서버 사이드 데이터를 클라이언트에서 효과적으로 관리하는 방법과 최적화 기법을 학습했다.
+- **Firebase**: Firebase를 통한 사용자 인증 및 데이터 저장 방법을 경험할 수 있었다.
+- **UI/UX 디자인**: TailwindCSS를 사용하여 빠르게 반응형 웹을 디자인하며, 사용자 경험을 고려한 UI 설계가 중요함을 배웠다.
 
 
 ## 프로젝트 구성
@@ -84,22 +91,22 @@ _사용자 친화적 인터페이스
 
 사용자 행동에 반응하는 인터랙티브한 요소 디자인
 버튼 클릭, hover 효과, 모달 창 등
-피드백 제공: 예를 들어, 레시피 저장 후 "저장되었습니다" 메시지
+피드백 제공: 예를 들어, 비로그인 상태에서 북마크 클릭 시 "로그인을 해주세요" 메시지 표시
 
 
 ###  메인페이지
-![](https://velog.velcdn.com/images/so2i/post/cefb4630-4608-4f61-9d41-ad10d712fcf2/image.png) |![](https://velog.velcdn.com/images/so2i/post/57e8f8cc-ff51-43d7-bae8-7566dc4f180a/image.png) | ![](https://velog.velcdn.com/images/so2i/post/72d3befb-3fc9-4c75-8e2c-0ce0b6c394f6/image.png)
+![](https://velog.velcdn.com/images/so2i/post/c34b168f-528b-46bc-8a26-fb59f3fc8168/image.png) |![](https://velog.velcdn.com/images/so2i/post/57e8f8cc-ff51-43d7-bae8-7566dc4f180a/image.png) | ![](https://velog.velcdn.com/images/so2i/post/72d3befb-3fc9-4c75-8e2c-0ce0b6c394f6/image.png)
 --- | --- | --- |
 
  - 인기 레시피 리스트: 가장 많이 조회되거나 사용자들 사이에서 인기 있는 레시피들을 모은 리스트.
 - 추천 레시피 리스트: 사용자의 취향에 맞는 추천 레시피를 제공.
 - 모든 레시피 한눈에 보기: 모든 레시피를 한 번에 볼 수 있는 섹션.
-- 카테고리별 레시피: 레시피를 카테고리(예: 디저트, 저녁, 다이어트 등)로 나누어 제공.
+- 카테고리별 레시피: 레시피를 카테고리(예: 밥, 국, 디저트 등)로 나누어 제공.
 
 
 ###  상세페이지
-![](https://velog.velcdn.com/images/so2i/post/8791655c-9a61-46f6-888d-08ac983b80b3/image.png) |![](https://velog.velcdn.com/images/so2i/post/a32ea8f0-e500-4bb8-97cb-7a19f54fc49d/image.png) | ![](https://velog.velcdn.com/images/so2i/post/fd0ae730-a530-45b1-ba25-7e076d68982f/image.png)
---- | --- | --- |
+![](https://velog.velcdn.com/images/so2i/post/d6da3bbe-6f98-4784-8997-1aaf8f2f51a4/image.png) |![](https://velog.velcdn.com/images/so2i/post/82ea8cfe-be91-438a-a2c4-a2fbea6da4ee/image.png)
+--- | --- |
 
 - 레시피명: 레시피의 제목.
 - 레시피 재료: 요리에 필요한 재료 목록.
@@ -108,7 +115,7 @@ _사용자 친화적 인터페이스
 
 
 ###  조회페이지
-![](https://velog.velcdn.com/images/so2i/post/64a4b3a8-9dc8-4381-ad11-85be0241631d/image.png) |![](https://velog.velcdn.com/images/so2i/post/90855d98-8a3e-4a98-b43f-61caee432d1e/image.png) 
+![](https://velog.velcdn.com/images/so2i/post/1e7da11f-dbc7-4f8d-8731-6e4162a48831/image.png) |![](https://velog.velcdn.com/images/so2i/post/7f1fced6-7d96-4240-8429-9aeb8249a71e/image.png) 
 --- | --- |
 
 - 레시피명 검색: 레시피 이름으로 원하는 레시피를 검색.
@@ -116,7 +123,7 @@ _사용자 친화적 인터페이스
 
 
 ###  마이페이지
-![](https://velog.velcdn.com/images/so2i/post/5a2c9b33-40dc-472f-b769-ad55ed801745/image.png) | ![](https://velog.velcdn.com/images/so2i/post/af6dc72b-f9ba-4222-a8d1-e9364b031b6f/image.png)
+![](https://velog.velcdn.com/images/so2i/post/f73aba36-7e31-4a87-a572-04233de841cd/image.png) | ![](https://velog.velcdn.com/images/so2i/post/2fbe65a4-9e66-4fc5-9542-68b39f5aacc1/image.png)
 --- | --- |
 
 - 최근 본 레시피: 사용자가 최근에 본 레시피 목록.
